@@ -5,9 +5,13 @@ permalink: /projects/
 author_profile: true
 ---
 
-**Lace & Place: autonomous shoe sorting** \| [Website](https://ziwon-z1.github.io/106A_website/) \| [Repo](https://github.com/shimamooo/106a-final-project)
-- UR7e arm that sorts a pile of shoes onto a rack with ROS 2 and MoveIt 2
-- GroundingDINO + SAM to detect and segment shoes, class-specific grasps from RealSense point clouds
+**Ideal flow machines** \| [Website](../posts/flow-matching-creativity) \| [Code](https://thinfi.com/0lbj3)
+- Built attention UNet from scratch and trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with classifier-free guidance on MNIST
+- Reimplemented IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and compared their outputs against the trained UNet from identical starting noise
+
+**Llama 3 from scratch** \| [Code](https://thinfi.com/0lbj3)
+- Implemented BPE tokenizer trained on TinyStories and a transformer from scratch in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, plus FLOPs and memory accounting
+- Wrote training utilities (stable cross entropy, gradient clipping, warmup + LR schedule), pretrained on TinyStories, then finetuned a classification head for QA and compared against few-shot prompting
 
 **Offline RL with flow policies** \| [Website](../posts/offline-rl) \| [Code](https://thinfi.com/0lbj3)
 - Implemented SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation tasks
@@ -22,9 +26,9 @@ author_profile: true
 - 3 stage pipeline: dense retrieval over FAISS, `bge-reranker-base` reranking, full-document context to Llama-3.1-8B, under CPU-only, 4GB RAM constraints
 - Best config reached 0.58 F1 and 0.46 EM on final test set
 
-**Ideal flow machines** \| [Website](../posts/flow-matching-creativity) \| [Code](https://thinfi.com/0lbj3)
-- Built attention UNet from scratch and trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with classifier-free guidance on MNIST
-- Reimplemented IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and compared their outputs against the trained UNet from identical starting noise
+**Lace & Place: autonomous shoe sorting** \| [Website](https://ziwon-z1.github.io/106A_website/) \| [Repo](https://github.com/shimamooo/106a-final-project)
+- UR7e arm that sorts a pile of shoes onto a rack with ROS 2 and MoveIt 2
+- GroundingDINO + SAM to detect and segment shoes, class-specific grasps from RealSense point clouds
 
 **DQN and soft actor-critic** \| [Website](../posts/dqn-sac) \| [Code](https://thinfi.com/0lbj3)
 - Implemented double DQN on CartPole, LunarLander, and MsPacman from pixels
@@ -33,10 +37,6 @@ author_profile: true
 **Policy gradients** \| [Website](../posts/policy-gradients) \| [Code](https://thinfi.com/0lbj3)
 - Implemented REINFORCE with reward-to-go, value baseline, and GAE on CartPole, HalfCheetah, and LunarLander
 - Tuned InvertedPendulum to reach max return within 100K env steps
-
-**Llama 3 from scratch** \| [Code](https://thinfi.com/0lbj3)
-- Implemented BPE tokenizer trained on TinyStories and a transformer from scratch in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, plus FLOPs and memory accounting
-- Wrote training utilities (stable cross entropy, gradient clipping, warmup + LR schedule), pretrained on TinyStories, then finetuned a classification head for QA and compared against few-shot prompting
 
 **Facial keypoint detection** \| [Website](../posts/facial-keypoint-detection) \| [Code](https://thinfi.com/0lbj3)
 - Detected 68 facial landmarks with three approaches: CNN direct coordinate regression, pretrained ResNet backbone with frozen-then-full finetuning, and U-Net heatmap prediction
