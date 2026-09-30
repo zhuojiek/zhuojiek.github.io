@@ -5,11 +5,45 @@ permalink: /projects/
 author_profile: true
 ---
 
-All code can be found in this [link](https://thinfi.com/0lbj3).
+**Lace & Place: autonomous shoe sorting** \| [Website](https://ziwon-z1.github.io/106A_website/) \| [Repo](https://github.com/shimamooo/106a-final-project)
+- UR7e arm that sorts a pile of shoes onto a rack with ROS 2 and MoveIt 2
+- GroundingDINO + SAM to detect and segment shoes, class-specific grasps from RealSense point clouds
 
-## Machine Learning
+**Offline RL with flow policies** \| [Website](../posts/offline-rl) \| [Code](https://thinfi.com/0lbj3)
+- Implemented SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation tasks
+- Tuned BC coefficients, found SAC+BC much more sensitive to them than IQL
 
----
+**LLM RL with GRPO** \| [Code](https://thinfi.com/0lbj3)
+- Implemented GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards
+- Ablated PPO epochs, KL coefficient, and clipping
+
+**Berkeley EECS RAG** \| [Website](../posts/berkeley-eecs-rag) \| [Code](https://thinfi.com/0lbj3)
+- Crawled ~15K eecs.berkeley.edu pages into a retrieval corpus with ResiliParse, sourced and annotated a 138-question QA validation set with 91% IAA
+- 3 stage pipeline: dense retrieval over FAISS, `bge-reranker-base` reranking, full-document context to Llama-3.1-8B, under CPU-only, 4GB RAM constraints
+- Best config reached 0.58 F1 and 0.46 EM on final test set
+
+**Ideal flow machines** \| [Website](../posts/flow-matching-creativity) \| [Code](https://thinfi.com/0lbj3)
+- Built attention UNet from scratch and trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with classifier-free guidance on MNIST
+- Reimplemented IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and compared their outputs against the trained UNet from identical starting noise
+
+**DQN and soft actor-critic** \| [Website](../posts/dqn-sac) \| [Code](https://thinfi.com/0lbj3)
+- Implemented double DQN on CartPole, LunarLander, and MsPacman from pixels
+- Implemented SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
+
+**Policy gradients** \| [Website](../posts/policy-gradients) \| [Code](https://thinfi.com/0lbj3)
+- Implemented REINFORCE with reward-to-go, value baseline, and GAE on CartPole, HalfCheetah, and LunarLander
+- Tuned InvertedPendulum to reach max return within 100K env steps
+
+**Llama 3 from scratch** \| [Code](https://thinfi.com/0lbj3)
+- Implemented BPE tokenizer trained on TinyStories and a transformer from scratch in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, plus FLOPs and memory accounting
+- Wrote training utilities (stable cross entropy, gradient clipping, warmup + LR schedule), pretrained on TinyStories, then finetuned a classification head for QA and compared against few-shot prompting
+
+**Facial keypoint detection** \| [Website](../posts/facial-keypoint-detection) \| [Code](https://thinfi.com/0lbj3)
+- Detected 68 facial landmarks with three approaches: CNN direct coordinate regression, pretrained ResNet backbone with frozen-then-full finetuning, and U-Net heatmap prediction
+- Generated Gaussian heatmaps per keypoint
+
+**Push-T imitation learning** \| [Website](../posts/push-t-imitation) \| [Code](https://thinfi.com/0lbj3)
+- Trained MSE and flow matching action chunking policies on Push-T expert demos
 
 **Diffusion and flow matching** \| [Website](../posts/diffusion-flow-matching) \| [Code](https://thinfi.com/0lbj3)
 - Implemented sampling loops, classifier-free guidance, SDEdit algorithm, visual anagrams, hybrid images for the Stability AI DeepFloyd IF model
@@ -22,7 +56,7 @@ All code can be found in this [link](https://thinfi.com/0lbj3).
 <img src="/images/projects/chatbot-arena.png" alt="desc" style="width:450px; display:block; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: -10px;">
 
 **NeRF** \| [Website](../posts/nerf) \| [Code](https://thinfi.com/0lbj3)
-- Using 40 images from my camera, trained a NeRF model to render a 3D scene of an object with novel views
+- Using 40 images from a camera, trained a NeRF model to render a 3D scene of an object with novel views
 - NeRF pipeline from scratch, e.g. volume rendering, sinusoidal positional encoding, ray sampling, PSNR, visualizations with `viser`
 <video src="/images/projects/nerf.mp4" style="width:300px; display:block; margin-left: auto; margin-right: auto; margin-top; 30px; margin-bottom: 30px;" autoplay loop muted playsinline></video>
 
@@ -79,24 +113,17 @@ All code can be found in this [link](https://thinfi.com/0lbj3).
 **RISC-V MNIST classifier** \| [Code](https://thinfi.com/0lbj3)
 - Fully connected neural network with RISC-V Assembly
 
-## Software Engineering
-
----
-
 **Viso** \| [Website](https://viso.study) \| [Repo](https://github.com/orgs/viso-study/repositories)
 - Learning platform that transforms math questions into rich animated explanations
 - Multi-agent pipeline with `smolagents` RAG research agent, tool calling, Manim rendering agent, and planning agents
 - Won most technical project in AdventureX, Top 20 in amber.ac Hackathon
+- Published `manim-voiceover-plus`, a custom PyPi package for multilingual, parallelizable voiceover generation
 
 **RISV-C CPU** \| [Code](https://thinfi.com/0lbj3)
 - 2-stage pipelined CPU in Logisim implementing a subset of the RISC-V ISA
 
 **AI Entrepreneurs at Berkeley** \| [Website](https://aientrepreneurs.org) \| [Repo](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)
 - Founding member of $100M student-run AI incubator, built and maintain the website
-
-## Fun
-
----
 
 **Amateur keyboard player** \| [Recordings](https://www.youtube.com/watch?v=hnmUMC_tGN8)
 - Demoted from concert grand pianist to digital keyboardist
