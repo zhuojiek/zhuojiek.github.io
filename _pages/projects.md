@@ -8,6 +8,7 @@ author_profile: true
 **Ideal flow machines** \| [Code](https://thinfi.com/0lbj3)
 - Built attention UNet from scratch and trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with classifier-free guidance on MNIST
 - Reimplemented IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and compared their outputs against the trained UNet from identical starting noise
+<img src="/images/ideal_flow_machine.png" alt="desc" style="width:550px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
 
 **Llama 3 from scratch** \| [Code](https://thinfi.com/0lbj3)
 - Implemented BPE tokenizer trained on TinyStories and a transformer from scratch in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, plus FLOPs and memory accounting
