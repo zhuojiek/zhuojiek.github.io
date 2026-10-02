@@ -1,4 +1,5 @@
 ---
+section: notes
 title: "Minimizing KL Divergence is Minimizing Cross Entropy is Maximizing Likelihood"
 date: 2024-06-19
 permalink: /posts/kl-divergence
@@ -7,7 +8,7 @@ tags:
   - Statistics
 ---
 
-In the derivation of statistical models, we often encounter 3 statistical quantities: the **Kullback-Leibler (KL) Divergence**, **Cross-Entropy**, and **Maximum Likelihood Estimation (MLE)**. While they might seem different at first glance, they are deeply intertwined. This post will walk through the proof that demonstrates their equivalence.
+In the derivation of statistical models, we often encounter 3 statistical quantities: the **Kullback-Leibler (KL) Divergence**, **Cross-Entropy**, and **Maximum Likelihood Estimation (MLE)**. While they might seem different at first glance, they are in fact deeply intertwined. This post will walk through the proof that demonstrates their equivalence.
 
 ### From KL Divergence to Cross-Entropy
 

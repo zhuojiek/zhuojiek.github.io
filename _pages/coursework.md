@@ -1,32 +1,42 @@
 ---
-layout: archive
-title: "Coursework"
+title: "Courses"
 permalink: /coursework/
-author_profile: true
+description: "Course reviews, notes, and cheat sheets for a subset of classes I particularly liked. Includes classes I've audited from Berkeley and other schools, which generally means following along with the lectures, discussions, and homeworks from that semester's iteration."
 ---
 
-A subset of classes I've taken and given reviews on. Includes classes I've audited from Berkeley and other schools, which generally means following along with the lectures, discussions, and homeworks from that semester's iteration.
+<table class="courses">
+  <thead><tr><th>Course</th><th class="num">Difficulty</th><th class="num">Fun</th></tr></thead>
+  <tbody>
+    <tr><td colspan="3" class="group">Graduate &amp; seminars</td></tr>
+    <tr><td><a href="{% post_url 2026-01-10-cs285 %}">CS 185/285 · Deep Reinforcement Learning</a></td><td class="num"><span class="meter diff" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td><td class="num"><span class="meter fun" title="5/5" aria-label="5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-08-cs280 %}">CS 280 · Graduate Computer Vision</a></td><td class="num"><span class="meter diff" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td><td class="num"><span class="meter fun" title="5/5" aria-label="5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-09-cs288 %}">CS 288 · Advanced NLP</a></td><td class="num"><span class="meter diff" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td><td class="num"><span class="meter fun" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-24-cs294-318 %}">CS 294-318 · VLA Seminar</a> *</td><td class="num"><span class="meter diff" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td><td class="num"><span class="meter fun" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-16-cs294-288 %}">CS 294-288 · Data-Centric LLMs Seminar</a> *</td><td class="num"><span class="meter diff" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td class="num"><span class="meter fun" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-15-ee226a %}">EE 226A · Measure Theory &amp; Stochastic Processes</a> *</td><td class="num"><span class="meter diff" title="5/5" aria-label="5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td class="num"><span class="meter fun" title="2.5/5" aria-label="2.5 out of 5"><i class="on"></i><i class="on"></i><i class="half"></i><i></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-20-cs336 %}">Stanford CS 336 · Language Modeling from Scratch</a> *</td><td class="num"><span class="meter diff" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td><td class="num"><span class="meter fun" title="5/5" aria-label="5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-21-6s184 %}">MIT 6.S184 · Diffusion &amp; Flow Matching</a></td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
 
-- [CS 288 Advanced NLP]({{ site.baseurl }}{% post_url 2026-01-09-cs288 %})
-- [CS 280 Graduate Computer Vision]({{ site.baseurl }}{% post_url 2026-01-08-cs280 %})
-- [CS 185/285 Reinforcement Learning]({{ site.baseurl }}{% post_url 2026-01-10-cs285 %})
-- [EE 226A Measure Theory and Stochastic Processes]({{ site.baseurl }}{% post_url 2026-01-15-ee226a %})*
-- [CS 294-288 Data Centric LLMs Seminar]({{ site.baseurl }}{% post_url 2026-01-16-cs294-288 %})*
-- [CS 294-318 VLA Seminar]({{ site.baseurl }}{% post_url 2026-01-24-cs294-318 %})*
-- [EECS 106A Robotics]({{ site.baseurl }}{% post_url 2026-01-11-eecs106a %})
-- [EECS 116 Robot Navigation]({{ site.baseurl }}{% post_url 2026-01-17-eecs116 %})*
-- [EE C128 Linear Control]({{ site.baseurl }}{% post_url 2026-01-18-eec128 %})*
-- [EECS 183 Natural Language Processing]({{ site.baseurl }}{% post_url 2026-01-07-eecs183 %})
-- [CS 180 Computer Vision]({{ site.baseurl }}{% post_url 2026-01-06-cs180 %})
-- [CS 182 Deep Learning]({{ site.baseurl }}{% post_url 2026-01-19-cs182 %})
-- [CS 188 Artificial Intelligence]({{ site.baseurl }}{% post_url 2026-01-12-cs188 %})
-- [CS 189 Machine Learning]({{ site.baseurl }}{% post_url 2026-01-25-cs189 %})
-- [Stanford CS 336 LLMs from scratch]({{ site.baseurl }}{% post_url 2026-01-20-cs336 %})*
-- [MIT 6.S184 Diffusion and Flow Matching]({{ site.baseurl }}{% post_url 2026-01-21-6s184 %})
-- [EECS 126 Probability and Random Processes]({{ site.baseurl }}{% post_url 2026-01-14-eecs126 %})
-- [EECS 127 Convex Optimization]({{ site.baseurl }}{% post_url 2026-01-13-eecs127 %})
-- [CS 194-196 Agentic AI]({{ site.baseurl }}{% post_url 2026-01-22-cs194-196 %})
-- [CDSS 94 Post-training Seminar]({{ site.baseurl }}{% post_url 2026-01-23-cdss94 %})
-- CS 70 Discrete Math and Probability Theory
+    <tr><td colspan="3" class="group">Robotics &amp; control</td></tr>
+    <tr><td><a href="{% post_url 2026-01-11-eecs106a %}">EECS 106A · Robotics</a></td><td class="num"><span class="meter diff" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td><td class="num"><span class="meter fun" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-17-eecs116 %}">EECS 116 · Robot Navigation</a> *</td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-18-eec128 %}">EE C128 · Linear Control</a> *</td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
 
-\* in progress
+    <tr><td colspan="3" class="group">ML, vision &amp; language</td></tr>
+    <tr><td><a href="{% post_url 2026-01-06-cs180 %}">CS 180 · Computer Vision</a></td><td class="num"><span class="meter diff" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td><td class="num"><span class="meter fun" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-07-eecs183 %}">EECS 183 · Natural Language Processing</a></td><td class="num"><span class="meter diff" title="3/5" aria-label="3 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></td><td class="num"><span class="meter fun" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-19-cs182 %}">CS 182 · Deep Learning</a></td><td class="num"><span class="meter diff" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td><td class="num"><span class="meter fun" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-25-cs189 %}">CS 189 · Machine Learning</a></td><td class="num"><span class="meter diff" title="2.5/5" aria-label="2.5 out of 5"><i class="on"></i><i class="on"></i><i class="half"></i><i></i><i></i></span></td><td class="num"><span class="meter fun" title="2.5/5" aria-label="2.5 out of 5"><i class="on"></i><i class="on"></i><i class="half"></i><i></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-12-cs188 %}">CS 188 · Artificial Intelligence</a></td><td class="num"><span class="meter diff" title="2/5" aria-label="2 out of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></td><td class="num"><span class="meter fun" title="2/5" aria-label="2 out of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-26-ee194-16 %}">EE 194-16 · Scalable AI</a> *</td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-22-cs194-196 %}">CS 194-196 · Agentic AI</a></td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-23-cdss94 %}">CDSS 94 · Post-training Seminar</a></td><td class="num"><span class="meter diff" title="1/5" aria-label="1 out of 5"><i class="on"></i><i></i><i></i><i></i><i></i></span></td><td class="num"><span class="meter fun" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+
+    <tr><td colspan="3" class="group">Math</td></tr>
+    <tr><td><a href="{% post_url 2026-01-14-eecs126 %}">EECS 126 · Probability &amp; Random Processes</a></td><td class="num"><span class="meter diff" title="4.5/5" aria-label="4.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i></span></td><td class="num"><span class="meter fun" title="2/5" aria-label="2 out of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></td></tr>
+    <tr><td><a href="{% post_url 2026-01-13-eecs127 %}">EECS 127 · Convex Optimization</a></td><td class="num"><span class="meter diff" title="3.5/5" aria-label="3.5 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="half"></i><i></i></span></td><td class="num"><span class="meter fun" title="4/5" aria-label="4 out of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td></tr>
+    <tr><td>CS 70 · Discrete Math &amp; Probability</td><td class="num"><span class="rating">—</span></td><td class="num"><span class="rating">—</span></td></tr>
+  </tbody>
+</table>
+
+<p class="group-note" style="margin-top:12px">* in progress. Ratings are out of 5.</p>

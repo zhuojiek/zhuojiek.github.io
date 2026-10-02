@@ -1,4 +1,5 @@
 ---
+section: notes
 title: "LaTeX preamble"
 date: 2024-06-22
 permalink: /posts/06/22/latex-preamble

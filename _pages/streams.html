@@ -1,0 +1,15 @@
+---
+title: Study streams
+permalink: /streams/
+description: In summer 2024 I livestreamed long study sessions while working through ML material. The recordings are archived here.
+---
+
+{% assign items = site.posts | where: "section", "stream" %}
+<ul class="post-list">
+{% for p in items %}
+  <li>
+    <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%b %-d, %Y" }}</time>
+    <div><a class="title" href="{{ p.url | relative_url }}">{{ p.title }}</a></div>
+  </li>
+{% endfor %}
+</ul>

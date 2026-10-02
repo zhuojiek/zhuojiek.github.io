@@ -1,136 +1,134 @@
 ---
-layout: archive
 title: "Projects"
 permalink: /projects/
-author_profile: true
+description: "A list of some things I've built. Code for course projects is private for academic integrity purposes, but can be provided upon request."
 ---
 
-**Ideal flow machines** \| [Code](https://thinfi.com/0lbj3)
-- Built attention UNet from scratch and trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with classifier-free guidance on MNIST
-- Reimplemented IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and compared their outputs against the trained UNet from identical starting noise
-<img src="/images/ideal_flow_machine.png" alt="desc" style="width:550px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<div class="projects" markdown="1">
 
-**Llama 3 from scratch** \| [Code](https://thinfi.com/0lbj3)
-- Implemented BPE tokenizer trained on TinyStories and a transformer from scratch in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, plus FLOPs and memory accounting
-- Wrote training utilities (stable cross entropy, gradient clipping, warmup + LR schedule), pretrained on TinyStories, then finetuned a classification head for QA and compared against few-shot prompting
+## Robot learning & RL
 
-**Offline RL with flow policies** \| [Report](../posts/offline-rl) \| [Code](https://thinfi.com/0lbj3)
-- Implemented SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation tasks
-- Tuned BC coefficients, found SAC+BC much more sensitive to them than IQL
-<img src="/images/featured.gif" alt="desc" style="width:250px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<div class="project" id="lace-and-place" markdown="1">
+### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
+- A UR7e arm that takes a pile of shoes and puts them on a rack, built with ROS 2 and MoveIt
+- GroundingDINO + SAM to detect and segment the shoes, overlap depth information using camera geometry, then class-specific grasps computed from RealSense point clouds
+- Pulled 4 all-nighters in a row during dead week
+</div>
 
-**LLM RL with GRPO** \| [Code](https://thinfi.com/0lbj3)
-- Implemented GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards
-- Ablated PPO epochs, KL coefficient, and clipping
+<div class="project" markdown="1">
+### Push-T imitation learning <span class="plinks">[write-up](/posts/push-t-imitation)</span>
+- MSE and flow-matching action-chunking policies trained on expert demos. Flow reaches 0.82 reward vs. 0.67 for MSE, because MSE averages the modes
+<img src="/images/featured4.gif" alt="Flow matching policy pushing the T block" width="240" loading="lazy">
+</div>
 
-**Berkeley EECS RAG** \| [Report](../posts/berkeley-eecs-rag) \| [Code](https://thinfi.com/0lbj3)
-- Crawled ~15K eecs.berkeley.edu pages into a retrieval corpus with ResiliParse, sourced and annotated a 138-question QA validation set with 91% IAA
-- 3 stage pipeline: dense retrieval over FAISS, `bge-reranker-base` reranking, full-document context to Llama-3.1-8B, under CPU-only, 4GB RAM constraints
-- Best config reached 0.58 F1 and 0.46 EM on final test set
+<div class="project" markdown="1">
+### Offline RL with flow policies <span class="plinks">[write-up](/posts/offline-rl)</span>
+- SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation. SAC+BC is far more sensitive to its BC coefficient than IQL is; FQL is the only method near 0.5 on antsoccer
+<img src="/images/featured.gif" alt="OGBench cube task" width="200" loading="lazy">
+</div>
 
-**Lace & Place: autonomous shoe sorting** \| [Website](https://ziwon-z1.github.io/106A_website/) \| [Repo](https://github.com/shimamooo/106a-final-project)
-- UR7e arm that sorts a pile of shoes onto a rack with ROS 2 and MoveIt 2
-- GroundingDINO + SAM to detect and segment shoes, class-specific grasps from RealSense point clouds
+<div class="project" markdown="1">
+### DQN and soft actor-critic <span class="plinks">[write-up](/posts/dqn-sac)</span>
+- Double DQN on CartPole, LunarLander, and MsPacman from pixels. SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
+<img src="/images/featured2.gif" alt="DQN playing MsPacman" width="200" loading="lazy">
+</div>
 
-**DQN and soft actor-critic** \| [Report](../posts/dqn-sac) \| [Code](https://thinfi.com/0lbj3)
-- Implemented double DQN on CartPole, LunarLander, and MsPacman from pixels
-- Implemented SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
-<img src="/images/featured2.gif" alt="desc" style="width:250px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<div class="project" markdown="1">
+### Policy gradients <span class="plinks">[write-up](/posts/policy-gradients)</span>
+- REINFORCE with reward-to-go, a learned baseline, and GAE on CartPole, HalfCheetah, and LunarLander. InvertedPendulum hits its max return within 100K env steps
+<img src="/images/featured3.gif" alt="HalfCheetah policy" width="340" loading="lazy">
+</div>
 
-**Policy gradients** \| [Report](../posts/policy-gradients) \| [Code](https://thinfi.com/0lbj3)
-- Implemented REINFORCE with reward-to-go, value baseline, and GAE on CartPole, HalfCheetah, and LunarLander
-- Tuned InvertedPendulum to reach max return within 100K env steps
-<img src="/images/featured3.gif" alt="desc" style="width:400px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<div class="project" markdown="1">
+### LLM RL with GRPO
+- GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping. Continued in my [RLHF project](/publication/2026-06-05-hybridrlhf)
+</div>
 
-**Facial keypoint detection** \| [Report](../posts/facial-keypoint-detection) \| [Code](https://thinfi.com/0lbj3)
-- Detected 68 facial landmarks with three approaches: CNN direct coordinate regression, pretrained ResNet backbone with frozen-then-full finetuning, and U-Net heatmap prediction
-- Generated Gaussian heatmaps per keypoint
-<img src="/images/facialkeypoint.png" alt="desc" style="width:550px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+## Generative models & vision
 
-**Push-T imitation learning** \| [Report](../posts/push-t-imitation) \| [Code](https://thinfi.com/0lbj3)
-- Trained MSE and flow matching action chunking policies on Push-T expert demos
-<img src="/images/featured4.gif" alt="desc" style="width:300px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<div class="project" markdown="1">
+### Ideal flow machines <span class="plinks">[write-up](/posts/flow-matching-creativity)</span>
+- Built an attention UNet from scratch, then trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with CFG on MNIST
+- Reimplemented the IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and ran them against the trained UNet from identical noise
+<img src="/images/ideal_flow_machine.png" alt="Analytic machine outputs vs UNet" width="520" loading="lazy">
+</div>
 
-**Diffusion and flow matching** \| [Report](../posts/diffusion-flow-matching) \| [Code](https://thinfi.com/0lbj3)
-- Implemented sampling loops, classifier-free guidance, SDEdit algorithm, visual anagrams, hybrid images for the Stability AI DeepFloyd IF model
-- Trained flow matching model to do class-conditioned MNIST digit generation with UNet architecture, iterative denoising
-<img src="/images/projects/diffusion-flow-matching.png" alt="desc" style="width:550px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px;">
+<div class="project" markdown="1">
+### Diffusion and flow matching <span class="plinks">[write-up](/posts/diffusion-flow-matching)</span>
+- Sampling loops, classifier-free guidance, SDEdit, visual anagrams, and hybrid images with DeepFloyd IF. Trained a class-conditional flow-matching UNet on MNIST
+<img src="/images/projects/diffusion-flow-matching.png" alt="Diffusion results" width="520" loading="lazy">
+</div>
 
-**Chatbot arena** \| [Code](https://thinfi.com/0lbj3)
-- Using the LMArena dataset, visualized battle distributions with `plotly` and `gradio`, explored confounding stylistic variables
-- Built model ELO leaderboard like LMArena following Bradley-Terry model
-<img src="/images/projects/chatbot-arena.png" alt="desc" style="width:450px; display:block; margin-left: auto; margin-right: auto; margin-top: 10px; margin-bottom: -10px;">
+<div class="project" markdown="1">
+### NeRF from scratch <span class="plinks">[write-up](/posts/nerf)</span>
+- Calibrated my camera with ArUco markers, solved for poses, and trained a NeRF on 40 photos of an object: ray sampling, positional encoding, volume rendering, and novel views visualized in `viser`
+<video src="/images/projects/nerf.mp4" width="280" autoplay loop muted playsinline></video>
+</div>
 
-**NeRF** \| [Report](../posts/nerf) \| [Code](https://thinfi.com/0lbj3)
-- Using 40 images from a camera, trained a NeRF model to render a 3D scene of an object with novel views
-- NeRF pipeline from scratch, e.g. volume rendering, sinusoidal positional encoding, ray sampling, PSNR, visualizations with `viser`
-<video src="/images/projects/nerf.mp4" style="width:300px; display:block; margin-left: auto; margin-right: auto; margin-top; 30px; margin-bottom: 30px;" autoplay loop muted playsinline></video>
+<div class="project" markdown="1">
+### Facial keypoint detection <span class="plinks">[write-up](/posts/facial-keypoint-detection)</span>
+- 68 landmarks predicted three ways: CNN coordinate regression, ResNet-18 / DINOv2 transfer, and U-Net Gaussian heatmaps
+<img src="/images/facialkeypoint.png" alt="Facial keypoint predictions" width="520" loading="lazy">
+</div>
 
-**DNABERT** \| [Code](https://thinfi.com/0lbj3)
-- Trained a classification head on top of pretrained DNABERT-6 representations to perform species identification across human, dog, and chimpanzee genomes
-- Implemented preprocessing pipeline using k-mer tokenization (k=6) to convert raw nucleotide sequences into compatible input tokens
-<img src="/images/projects/dnabert.jpeg" alt="desc" style="width:600px; display:block; margin-left: auto; margin-right: auto; margin-top: 30px; margin-bottom: 30px;">
+<div class="project" markdown="1">
+### Classical vision: mosaics, filters, Prokudin-Gorskii <span class="plinks">[mosaics](/posts/autostitching-photo-mosaics) · [filters](/posts/filters-and-frequencies) · [colorizing](/posts/prokudin-gorskii)</span>
+- Automatic panorama stitching (Harris corners, ANMS, RANSAC homographies, Laplacian blending), hybrid images and multiresolution blending, and pyramid alignment of glass-plate color exposures
+<img src="/images/projects/oraple.jpg" alt="Apple-orange blend" width="260" loading="lazy">
+</div>
 
-**CLIP retrieval and captioning** \| [Code](https://thinfi.com/0lbj3)
-- Performed retrieval and caption generation on Concadia dataset with CLIP embeddings
-- Implemented Rational Speech Acts (RSA) e.g. literal listener, pragmatic speaker, pragmatic listener to select the most unambiguous utterance given a set of possible referents
+## Language models
 
-**ConvNeXt sound classification** \| [Code](https://thinfi.com/0lbj3)
-- Used Torchaudio to transform .wav files from UrbanSound8K dataset to 2D spectrograms, then finetuned a ConvNeXt model for sound classification, achieving 90% accuracy
-- Compared different 3 training paradigms: no pretraining, pretraining with frozen backbone, and pretraining with full finetuning
-<img src="/images/projects/urbansound8k.png" alt="desc" style="width:350px; display:block; margin-left: auto; margin-right: auto; margin-top: 30px; margin-bottom: 20px;">
+<div class="project" markdown="1">
+### Llama 3 from scratch
+- BPE tokenizer trained on TinyStories and a transformer in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, with FLOPs and memory accounting
+- Training utilities (stable cross-entropy, gradient clipping, warmup + LR schedule), pretraining on TinyStories, then a classification head for QA compared against few-shot prompting
+</div>
 
-**Text2SQL finetuning** \| [Code](https://thinfi.com/0lbj3)
-- Finetuned GPT-2 to generate SQL queries executed against a database and compared performance with few-shot prompting using Hugging Face `transformers` library
+<div class="project" markdown="1">
+### Berkeley EECS RAG <span class="plinks">[write-up](/posts/berkeley-eecs-rag)</span>
+- Crawled ~15K eecs.berkeley.edu pages and wrote a 138-question QA set (91% IAA). Dense retrieval → cross-encoder rerank → full-document context to Llama-3.1-8B on CPU with 4 GB of RAM. 0.58 F1 / 0.46 EM on the test set
+</div>
 
-**LLM MCQ finetuning** \| [Code](https://thinfi.com/0lbj3)
-- Finetuned Qwen2.5-0.5B-Instruct using Hugging Face `transformers` and `trl` libraries to solve CS189 MCQs with 45% accuracy
+<div class="project" markdown="1">
+### Chatbot Arena
+- Explored the LMArena battle data with `plotly` and `gradio`, looking for stylistic confounders, and rebuilt the leaderboard with a Bradley–Terry model
+<img src="/images/projects/chatbot-arena.png" alt="Arena analysis" width="420" loading="lazy">
+</div>
 
-**LLM tokenization and embeddings** \| [Code](https://thinfi.com/0lbj3)
-- Implemented BPE tokenization, analyze Zipfian distributions, then trained a Skip-Gram model to compute embeddings using negative sampling
-- Used `spaCy` to learn a linear transformation $W$ that maps two embedding spaces in different languages to perform machine translation, lemmatize and generate dependency trees of text corpus
+<div class="project" markdown="1">
+### Smaller NLP projects
+- **CLIP retrieval and captioning** on Concadia, with Rational Speech Acts (literal listener, pragmatic speaker and listener) to choose the least ambiguous caption
+- **Text2SQL:** fine-tuned GPT-2 to write executable SQL and compared it with few-shot prompting
+- **MCQ fine-tuning:** Qwen2.5-0.5B-Instruct with `trl` on CS 189 multiple-choice questions (45%)
+- **Tokenization and embeddings:** BPE, Zipf's law, skip-gram with negative sampling, and a learned linear map between two languages' embedding spaces for translation
+- **Evaluation:** PR curves, Levenshtein distance, BLEU, and LLM-as-a-judge on classification, translation, and open-ended generation
+</div>
 
-**ResNet-18** \| [Code](https://thinfi.com/0lbj3)
-- Full ResNet-18 architecture in PyTorch reaching 70% validation accuracy on a sample of the Imagenet dataset
-<img src="/images/projects/resnet-18.png" alt="desc" style="width:500px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 40px;">
+## Building things
 
-**Autostitching photo mosaics** \| [Report](../posts/autostitching-photo-mosaics) \| [Code](https://thinfi.com/0lbj3)
-- Stitching images together to panoramas by estimating homographies, applying projective warping, and blending images with Laplacian pyramid
-- Automated mosaic process using Harris corners, ANMS, and RANSAC homography estimation
+<div class="project" id="viso" markdown="1">
+### Viso <span class="plinks">[code](https://github.com/orgs/viso-study/repositories) · [manim-voiceover-plus](https://github.com/shimamooo/manim-voiceover-plus)</span>
+- Turns math questions into animated explanations. A multi-agent pipeline: `smolagents` RAG research agent, planning agents, and a Manim rendering agent with tool calling
+- Won Most Technical Project at AdventureX and placed in the top 20 at the amber.ac hackathon
+- Published `manim-voiceover-plus` on PyPI for multilingual, parallelized voiceover generation
+</div>
 
-**Language model eval** \| [Code](https://thinfi.com/0lbj3)
-- Evaluated text/audio classification, machine translation, and open-ended text generation, implemented PRC curves, Levenstein distance, BLEU score, LLM-as-a-judge
+<div class="project" markdown="1">
+### AI Entrepreneurs at Berkeley <span class="plinks">[site](https://aientrepreneurs.org) · [code](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)</span>
+- Founding member of a $100M student-run AI incubator; also built and maintain the website
+</div>
 
-**Fashion MNIST classifier** \| [Code](https://thinfi.com/0lbj3)
-- Trained a Fashion MNIST classifier invariant to shifts, rotations, and blurs with `scikit-learn`
+## Smaller course projects
 
-**Image filtering** \| [Report](../posts/filters-and-frequencies) \| [Code](https://thinfi.com/0lbj3)
-- Core image processing techniques such as convolution, image sharpening, hybrid images, and multi-resolution blending using Gaussian and Laplacian pyramids
-<img src="/images/projects/oraple.jpg" alt="desc" style="width:350px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
+<ul class="compact">
+  <li>DNABERT-6 species classification (human / dog / chimp) with k-mer tokenization</li>
+  <li>ConvNeXt on UrbanSound8K spectrograms, 90% accuracy; scratch vs. frozen vs. fine-tuned</li>
+  <li>ResNet-18 from scratch, 70% val accuracy on an ImageNet subset</li>
+  <li>Autodiff engine: computation graph, topological sort, SGD / momentum / Adam</li>
+  <li>Fashion-MNIST classifier robust to shifts, rotations, and blur</li>
+  <li>Fully connected MNIST classifier in RISC-V assembly</li>
+  <li>2-stage pipelined RISC-V CPU in Logisim</li>
+</ul>
 
-**Autodifferentiation** \| [Code](https://thinfi.com/0lbj3)
-- Constructed computation graph of loss functions, implemented downstream gradient propagation using topological sort with Kahn's algorithm
-- Implemented SGD, Momentum, and Adam optimizers
-
-**Coloring the Prokudin-Gorskii photo collection** \| [Report](../posts/prokudin-gorskii) \| [Code](https://thinfi.com/0lbj3)
-- Aligned three color channels quickly with pyramid search
-<img src="/images/projects/prokudin-gorskii.jpg" alt="desc" style="width:350px; display:block; margin-left: auto; margin-right: auto; margin-top: 20px; margin-bottom: 20px;">
-
-**RISC-V MNIST classifier** \| [Code](https://thinfi.com/0lbj3)
-- Fully connected neural network with RISC-V Assembly
-
-**Viso** \| [Repo](https://github.com/orgs/viso-study/repositories)
-- Learning platform that transforms math questions into rich animated explanations
-- Multi-agent pipeline with `smolagents` RAG research agent, tool calling, Manim rendering agent, and planning agents
-- Won most technical project in AdventureX, Top 20 in amber.ac Hackathon
-- Published `manim-voiceover-plus`, a custom PyPi package for multilingual, parallelizable voiceover generation
-
-**RISV-C CPU** \| [Code](https://thinfi.com/0lbj3)
-- 2-stage pipelined CPU in Logisim implementing a subset of the RISC-V ISA
-
-**AI Entrepreneurs at Berkeley** \| [Website](https://aientrepreneurs.org) \| [Repo](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)
-- Founding member of $100M student-run AI incubator, built and maintain the website
-
-**Amateur keyboard player** \| [Recordings](https://www.youtube.com/watch?v=hnmUMC_tGN8)
-- Demoted from concert grand pianist to digital keyboardist
-- Currently sporting a pirated setup with Garritan Yamaha CFX and various transcription tools
+</div>

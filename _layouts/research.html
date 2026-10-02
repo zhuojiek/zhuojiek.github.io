@@ -1,0 +1,29 @@
+---
+layout: base
+nav: Research
+---
+<article class="article research-page technical">
+  <header class="article-header">
+    <p class="kicker"><a href="{{ '/research/' | relative_url }}">Research</a><span> / {{ page.kind | default: "Paper" }}</span></p>
+    <h1>{{ page.title }}</h1>
+    <p class="authors">{{ page.authors | replace: "Anthony Kuang", "<strong>Anthony Kuang</strong>" }}</p>
+    <dl class="byline">
+      <div><dt>Venue</dt><dd>{{ page.venue }}</dd></div>
+      <div><dt>Date</dt><dd>{{ page.date | date: "%B %Y" }}</dd></div>
+    </dl>
+    {% if page.links %}
+    <p class="links">
+      {% for l in page.links %}<a class="pill" href="{{ l.url | relative_url }}">{{ l.name }} ↗</a>{% endfor %}
+    </p>
+    {% endif %}
+  </header>
+  <div class="article-body">
+    <nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ol></ol></nav>
+    <div class="prose">
+      {{ content }}
+    </div>
+  </div>
+  <footer class="article-footer">
+    <a href="{{ '/research/' | relative_url }}">← All research</a>
+  </footer>
+</article>

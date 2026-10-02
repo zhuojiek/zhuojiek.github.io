@@ -1,0 +1,17 @@
+{% comment %} include post-list.html section="writing" — grouped by year {% endcomment %}
+{% assign items = site.posts | where: "section", include.section %}
+{% assign years = items | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for y in years %}
+<div class="year-group">
+  <h3>{{ y.name }}</h3>
+  <ul class="post-list">
+  {% for p in y.items %}
+    <li>
+      <a class="title" href="{{ p.url | relative_url }}">{{ p.title }}{% if p.interactive %}<span class="badge">● Interactive</span>{% endif %}</a>
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%b %-d" }}</time>
+      {% if p.description %}<span class="desc">{{ p.description }}</span>{% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</div>
+{% endfor %}
