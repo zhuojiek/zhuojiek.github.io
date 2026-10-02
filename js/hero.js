@@ -1,6 +1,8 @@
-// Home page header: Gaussian noise transported onto points sampled from my name,
+// Home page header: Gaussian noise transported onto points sampled from a target shape
+// (my name, a robot arm, ...),
 // by integrating the closed-form flow-matching ODE for that point cloud.
-// Same math as /js/flow-demo.js: x_t = (1 - t) x0 + t eps, v = E[eps | x_t] - E[x0 | x_t].
+// Same math as /js/flow-demo.js: noise at t = 0, data at t = 1, x_t = (1 - t) eps + t x1,
+// v(x_t, t) = (E[x1 | x_t] - x_t) / (1 - t), integrated forward from t = 0 to 1.
 (function () {
   "use strict";
   const canvas = document.querySelector(".hero canvas");
@@ -10,7 +12,7 @@
   const replay = document.querySelector("[data-hero=replay]");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const STEPS = 90, T_MIN = 0.003, BLUR = 0.022;
+  const STEPS = 90, T_MAX = 0.997, BLUR = 0.022;
   let W = 0, H = 0, unit = 1, cx = 0, cy = 0;
   let centers = [], parts = [], colors = [], step = 0, raf = null, seed = 1;
 
@@ -24,18 +26,63 @@
   }
   function gauss(r) { const u = Math.max(r(), 1e-12), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
 
-  function sampleName() {
+  // ---- target shapes. Each painter fills a W x H offscreen canvas; points are sampled
+  // from the filled pixels. To add a shape, add a painter here and a button in about.md.
+  const SHAPES = {
+    name: {
+      label: "the name Anthony Kuang",
+      paint(o) {
+        let size = H * 0.78;
+        o.font = `600 ${size}px Fraunces, Georgia, serif`;
+        const text = "Anthony Kuang";
+        const w = o.measureText(text).width;
+        if (w > W * 0.98) { size *= (W * 0.98) / w; o.font = `600 ${size}px Fraunces, Georgia, serif`; }
+        o.textBaseline = "alphabetic";
+        o.fillText(text, 0, H * 0.5 + size * 0.34);
+      },
+    },
+    arm: {
+      label: "a robot arm reaching for a cube",
+      // drawn in a 650 x 200 design box: long links so the arm spans the banner.
+      // Uniform scale (joints stay round), shrunk to fit on narrow screens.
+      paint(o) {
+        const k = Math.min(H / 200, (W * 0.94) / 650), x0 = W / 2 - 325 * k, y0 = (H - 200 * k) / 2;
+        const P = (x, y) => [x0 + x * k, y0 + y * k];
+        const link = (a, b, w) => {
+          o.lineWidth = w * k; o.lineCap = "round";
+          o.beginPath(); o.moveTo(...P(...a)); o.lineTo(...P(...b)); o.stroke();
+        };
+        const disk = (c, r) => { o.beginPath(); o.arc(...P(...c), r * k, 0, 2 * Math.PI); o.fill(); };
+        o.strokeStyle = o.fillStyle;
+        // base plate and turret
+        o.beginPath(); o.roundRect(...P(20, 178), 180 * k, 16 * k, 4 * k); o.fill();
+        o.beginPath(); o.moveTo(...P(62, 178)); o.lineTo(...P(158, 178)); o.lineTo(...P(138, 146)); o.lineTo(...P(82, 146)); o.closePath(); o.fill();
+        // links and joints: shoulder -> elbow -> wrist
+        const shoulder = [110, 136], elbow = [338, 36], wrist = [566, 92];
+        link(shoulder, elbow, 30); link(elbow, wrist, 24);
+        disk(shoulder, 24); disk(elbow, 20); disk(wrist, 15);
+        // gripper: wrist stalk, palm, two open fingers around the cube
+        link(wrist, [588, 124], 14);
+        link([558, 132], [620, 118], 10);
+        link([560, 134], [566, 172], 8);
+        link([618, 120], [628, 162], 8);
+        // the cube it's about to grasp, with clear air between it and the fingers
+        o.beginPath(); o.roundRect(...P(578, 152), 32 * k, 32 * k, 3 * k); o.fill();
+        // hollow out the joints so they read as joints
+        o.globalCompositeOperation = "destination-out";
+        disk(shoulder, 12); disk(elbow, 10); disk(wrist, 7);
+        o.globalCompositeOperation = "source-over";
+      },
+    },
+  };
+  let shape = "name";
+
+  function sampleShape(kind) {
     const off = document.createElement("canvas");
     off.width = W; off.height = H;
     const o = off.getContext("2d");
-    let size = H * 0.78;
-    o.font = `600 ${size}px Fraunces, Georgia, serif`;
-    const text = "Anthony Kuang";
-    const w = o.measureText(text).width;
-    if (w > W * 0.98) { size *= (W * 0.98) / w; o.font = `600 ${size}px Fraunces, Georgia, serif`; }
-    o.textBaseline = "alphabetic";
     o.fillStyle = "#000";
-    o.fillText(text, 0, H * 0.5 + size * 0.34);
+    SHAPES[kind].paint(o);
     const data = o.getImageData(0, 0, W, H).data;
     const pts = [];
     const stride = Math.max(2, Math.round(W / 420));
@@ -49,7 +96,7 @@
   }
 
   function velocity(x, y, t) {
-    const a = 1 - t, b = t, s2 = BLUR * BLUR, var2 = a * a * s2 + b * b, shrink = (a * s2) / var2;
+    const a = t, b = 1 - t, s2 = BLUR * BLUR, var2 = a * a * s2 + b * b, shrink = (a * s2) / var2;
     let maxl = -Infinity;
     const n = centers.length, lw = velocity.buf || (velocity.buf = new Float64Array(8192));
     for (let k = 0; k < n; k++) {
@@ -65,7 +112,7 @@
       ex += w * (mx + shrink * (x - a * mx)); ey += w * (my + shrink * (y - a * my));
     }
     ex /= z; ey /= z;
-    return [(x - a * ex) / b - ex, (y - a * ey) / b - ey, ex, ey];
+    return [(ex - x) / b, (ey - y) / b, ex, ey];
   }
 
   function setup() {
@@ -74,7 +121,7 @@
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     unit = H * 0.42; cx = W * 0.5; cy = H * 0.5;
-    centers = sampleName();
+    centers = sampleShape(shape);
     reset();
   }
 
@@ -104,14 +151,14 @@
   }
 
   function advance() {
-    const t0 = 1 - (1 - T_MIN) * (step / STEPS), t1 = 1 - (1 - T_MIN) * ((step + 1) / STEPS), dt = t0 - t1;
+    const t0 = T_MAX * (step / STEPS), t1 = T_MAX * ((step + 1) / STEPS), dt = t1 - t0;
     const last = step === STEPS - 1;
     parts = parts.map(([x, y]) => {
       const v = velocity(x, y, t0);
-      return last ? [v[2], v[3]] : [x - dt * v[0], y - dt * v[1]];
+      return last ? [v[2], v[3]] : [x + dt * v[0], y + dt * v[1]];
     });
     step++;
-    if (tOut) tOut.textContent = step >= STEPS ? "0.00" : t1.toFixed(2);
+    if (tOut) tOut.textContent = step >= STEPS ? "1.00" : t1.toFixed(2);
   }
 
   function play() {
@@ -119,7 +166,7 @@
     reset();
     if (reduce) {
       parts = centers.map((c) => c.slice()); step = STEPS;
-      if (tOut) tOut.textContent = "0.00";
+      if (tOut) tOut.textContent = "1.00";
       draw(true); return;
     }
     let pause = 18; // hold on the noise for a moment so it reads as noise
@@ -129,7 +176,7 @@
       draw(step >= STEPS);
       if (step < STEPS) raf = requestAnimationFrame(tick);
     };
-    if (tOut) tOut.textContent = "1.00";
+    if (tOut) tOut.textContent = "0.00";
     raf = requestAnimationFrame(tick);
   }
 
@@ -142,6 +189,18 @@
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => draw(step >= STEPS));
   canvas.addEventListener("click", play);
   if (replay) replay.addEventListener("click", play);
+
+  // shape toggle: a new target distribution, sampled from fresh noise
+  const toggles = Array.from(document.querySelectorAll("[data-shape]"));
+  toggles.forEach((btn) => btn.addEventListener("click", () => {
+    const next = btn.getAttribute("data-shape");
+    if (!SHAPES[next] || next === shape) return;
+    shape = next;
+    toggles.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    canvas.setAttribute("aria-label", "Particles flowing from Gaussian noise into " + SHAPES[shape].label);
+    centers = sampleShape(shape);
+    play();
+  }));
 
   const start = () => { setup(); play(); };
   if (document.fonts && document.fonts.load) {

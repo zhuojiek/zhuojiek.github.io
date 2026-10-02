@@ -61,7 +61,7 @@ At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$: low variance,
   <p class="readout" data-out="readout"></p>
   <p class="demo-note">Every δ is computed from the learned critic. Shrinking λ cuts off the long, noisy tail of real rewards and leans on V instead. That trades variance for whatever bias V has. Hover a bar for its value.</p>
 </div>
-<script src="/js/rl-demos.js" defer></script>
+<script src="/js/rl-demos.js?v={{ site.time | date: '%s' }}" defer></script>
 
 <figure class="wide">
   <img src="/images/posts/policy-gradients/lunar-gae.png" alt="LunarLander eval return for lambda in 0, 0.95, 0.98, 0.985, 0.99, 1.">

@@ -1,7 +1,7 @@
 ---
 title: "Courses"
 permalink: /coursework/
-description: "Course reviews, notes, and cheat sheets for a subset of classes I particularly liked. Includes classes I've audited from Berkeley and other schools, which generally means following along with the lectures, discussions, and homeworks from that semester's iteration."
+description: "Course reviews, notes, and cheat sheets for a subset of classes I particularly enjoyed. Includes classes I audited from Berkeley and other schools, which generally means following along with the lectures, discussions, and homeworks from that semester's iteration."
 ---
 
 <table class="courses">
@@ -39,4 +39,4 @@ description: "Course reviews, notes, and cheat sheets for a subset of classes I 
   </tbody>
 </table>
 
-<p class="group-note" style="margin-top:12px">* in progress. Ratings are out of 5.</p>
+<p class="group-note" style="margin-top:12px">* in progress.</p>

@@ -37,7 +37,7 @@ The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise i
 
 ## Part 2: flow matching
 
-With $$x_t = (1-t)\,x_0 + t\,\varepsilon$$ (data at $$t=0$$, noise at $$t=1$$), the UNet takes the time as a sinusoidal embedding and regresses the velocity $$\varepsilon - x_0$$. Sampling is Euler integration from $$t=1$$ to 0.
+With $$x_t = (1-t)\,\varepsilon + t\,x_1$$ (noise at $$t=0$$, data at $$t=1$$), the UNet takes the time as a sinusoidal embedding and regresses the velocity $$x_1 - \varepsilon$$. Sampling is Euler integration from $$t=0$$ to 1.<span class="sidenote">I use the Lipman et al. convention throughout this post. The CS 280 starter code used the reverse, with data at $$t = 0$$, which is why the noise image in Figure 5 is titled $$x_1$$. The two differ only by $$t \mapsto 1 - t$$.</span>
 
 <figure class="wide">
   <img src="/images/posts/ideal-flow/fm-final.png" alt="Sixteen unconditional MNIST samples after 10 epochs of flow matching training.">
@@ -53,11 +53,11 @@ Adding a class embedding with 10% label dropout gives classifier-free guidance, 
 
 ## Part 3: the ideal flow, and why it memorizes
 
-For a finite training set $$\{p^{(i)}\}$$, the optimal velocity has a closed form. Given $$x_t = a_t x_0 + b_t \varepsilon$$ with $$a_t = 1-t$$ and $$b_t = t$$, the posterior over which training point we came from is a softmax over distances:
+For a finite training set $$\{p^{(i)}\}$$, the optimal velocity has a closed form. Given $$x_t = a_t x_1 + b_t \varepsilon$$ with $$a_t = t$$ and $$b_t = 1 - t$$, the posterior over which training point we came from is a softmax over distances:
 
-$$w_i(x, t) \propto \exp\!\left(-\frac{\lVert x - a_t\, p^{(i)}\rVert^2}{2 b_t^2}\right), \qquad \hat x_0 = \sum_i w_i\, p^{(i)},$$
+$$w_i(x, t) \propto \exp\!\left(-\frac{\lVert x - a_t\, p^{(i)}\rVert^2}{2 b_t^2}\right), \qquad \hat x_1 = \sum_i w_i\, p^{(i)},$$
 
-and the velocity is $$v = \frac{x - a_t \hat x_0}{b_t} - \hat x_0$$, which is $$\mathbb{E}[\varepsilon \mid x_t] - \mathbb{E}[x_0 \mid x_t]$$. As $$t \to 0$$ the softmax sharpens onto a single $$p^{(i)}$$, and the sample lands exactly on it. Click to place training points below and watch.
+and the velocity is $$v = \mathbb{E}[x_1 - \varepsilon \mid x_t] = \frac{\hat x_1 - x}{1 - t}$$: head straight for the posterior mean, faster as time runs out. As $$t \to 1$$ the softmax sharpens onto a single $$p^{(i)}$$, and the sample lands exactly on it. Click to place training points below and watch.
 
 <div class="demo narrow" data-demo="memorize">
   <div class="demo-head"><span class="demo-title">The optimal flow on a finite dataset can only copy it</span><span class="demo-tag">Interactive</span></div>
@@ -72,15 +72,15 @@ and the velocity is $$v = \frac{x - a_t \hat x_0}{b_t} - \hat x_0$$, which is $$
   <p class="readout" data-out="readout"></p>
   <p class="demo-note">This is exact: the closed-form optimum, integrated with 70 Euler steps. Turning up σ replaces each point with a Gaussian. That creates new samples, but only blurred copies of training points. Real generalization has to come from somewhere else.</p>
 </div>
-<script src="/js/flow-demo.js" defer></script>
+<script src="/js/flow-demo.js?v={{ site.time | date: '%s' }}" defer></script>
 
-That is the **IS (ideal score)** machine. On MNIST, starting from our noise sample $$x_1$$, it produces a crisp 2 that is literally a training image. Our UNet, from the same noise, produces something else.
+That is the **IS (ideal score)** machine. On MNIST, starting from our noise sample, it produces a crisp 2 that is literally a training image. Our UNet, from the same noise, produces something else.
 
 ## Part 4: the machines
 
 Kamb & Ganguli's idea is to make the posterior *local*. Each pixel only gets to look at a $$k \times k$$ patch around itself, and the softmax runs over training **patches** instead of whole images. For pixel $$u$$, with $$x_{\Omega_u}$$ the patch around it:
 
-$$\ell(p) = -\frac{\lVert x_{\Omega_u} - a_t\, p \rVert^2}{2 b_t^2}, \qquad \hat x_0(u) = \frac{\sum_p e^{\ell(p)}\, p_{\text{center}}}{\sum_p e^{\ell(p)}}.$$
+$$\ell(p) = -\frac{\lVert x_{\Omega_u} - a_t\, p \rVert^2}{2 b_t^2}, \qquad \hat x_1(u) = \frac{\sum_p e^{\ell(p)}\, p_{\text{center}}}{\sum_p e^{\ell(p)}}.$$
 
 Every pixel independently picks the training patches that best explain its neighborhood and copies their center pixel. Different pixels can copy from different images. That is how you get novel combinations: locally consistent, globally new. The four machines differ only in which patches each pixel is allowed to compare against.
 
@@ -94,13 +94,13 @@ Every pixel independently picks the training patches that best explain its neigh
 The patch size $$k$$ follows a schedule over time: small at low noise and large at high noise, ranging from 3 to 27 here. The reason is that a UNet's effective receptive field grows with the noise level. Implementation-wise, everything is a softmax-weighted average over millions of patches (10k images × 1024 positions).<span class="sidenote">For ELS, every pixel compares against all ~10M training patches at every one of the 20 steps. Hence the streaming accumulator.</span> I computed it with a streaming log-sum-exp accumulator so the full weight tensor never exists in memory. ELS is one `unfold` and a big matmul per batch of training images.
 
 <figure class="row" style="--cols: 6">
-  <div class="cell"><img src="/images/posts/ideal-flow/x1.png" alt="The shared noise sample">noise \(x_1\)</div>
+  <div class="cell"><img src="/images/posts/ideal-flow/x1.png" alt="The shared noise sample">noise \(\varepsilon\)</div>
   <div class="cell"><img src="/images/posts/ideal-flow/unet.png" alt="UNet sample">UNet</div>
   <div class="cell"><img src="/images/posts/ideal-flow/is.png" alt="IS sample: a clean 2">IS</div>
   <div class="cell"><img src="/images/posts/ideal-flow/ls.png" alt="LS sample">LS</div>
   <div class="cell"><img src="/images/posts/ideal-flow/els.png" alt="ELS sample: disconnected stroke fragments">ELS</div>
   <div class="cell"><img src="/images/posts/ideal-flow/bbels.png" alt="bbELS sample: stroke fragments, fewer at borders">bbELS</div>
-  <figcaption>Same noise \(x_1\), 20 Euler steps, four analytic machines and the trained UNet.</figcaption>
+  <figcaption>Same noise sample \(\varepsilon\), 20 Euler steps, four analytic machines and the trained UNet.</figcaption>
 </figure>
 
 ## What I actually got

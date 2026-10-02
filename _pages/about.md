@@ -12,8 +12,14 @@ redirect_from:
   <h1>Anthony Kuang</h1>
   <canvas aria-label="Particles flowing from Gaussian noise into the name Anthony Kuang"></canvas>
   <p class="hero-caption">
-    <span>Gaussian noise carried onto 1,800 points sampled from my name by the closed-form flow-matching ODE · t = <span data-hero="t">1.00</span></span>
-    <button type="button" data-hero="replay">Resample noise ↻</button>
+    <span>Bet you can't match my flow · t = <span data-hero="t">0.00</span></span>
+    <span class="hero-controls">
+      <span class="shape-toggle" role="group" aria-label="Target distribution">
+        <button type="button" data-shape="name" aria-pressed="true">me</button>
+        <button type="button" data-shape="arm" aria-pressed="false">clanker</button>
+      </span>
+      <button type="button" data-hero="replay">Resample \(\mathcal{N}(0, I)\) ↻</button>
+    </span>
   </p>
 </section>
 
@@ -22,7 +28,7 @@ redirect_from:
     <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, video diffusion, 3D representations, and VLAs. I'm also interested in agentic approaches and autoresearch.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a> and did research on unified multimodal models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>, <a href="/posts/dqn-sac">actor-critic</a>, and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also possess an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
-    <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robotics researcher at Berkeley, I'd love to chat: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
+    <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robotics researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
   </div>
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Anthony Kuang">
@@ -60,13 +66,12 @@ redirect_from:
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>Elsewhere</h2></div>
+  <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
-    <a href="/projects/">Projects</a>, from a UR7e arm that sorts shoes to Llama 3 from scratch ·
-    <a href="/coursework/">course reviews</a> ·
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard recordings</a> (demoted from concert grand pianist to digital keyboardist)
+    I'm originally from East Oakland and am a fan of Damian Lillard. I'm blessed with the opportunity to chase my dreams. I sometimes enjoy playing the 
+    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>.
   </p>
 </section>
 
 </div>
-<script src="/js/hero.js" defer></script>
+<script src="/js/hero.js?v={{ site.time | date: '%s' }}" defer></script>

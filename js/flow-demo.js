@@ -1,13 +1,13 @@
 // Interactive flow-matching demos.
 //
 // Uses the closed-form ("ideal") flow-matching velocity for a mixture of isotropic
-// Gaussians, with the same convention as my CS 280 code: x_t = (1 - t) x0 + t eps,
-// data at t = 0, noise at t = 1, sampling integrates from t = 1 down to t = 0.
+// Gaussians. Convention (Lipman et al.; rectified flow; pi_0): noise at t = 0, data
+// at t = 1, x_t = (1 - t) eps + t x1, and sampling integrates forward from 0 to 1.
 //
 // For centers mu_k, weights pi_k and per-component std s:
-//   x_t | k ~ N(a mu_k, (a^2 s^2 + b^2) I),        a = 1 - t, b = t
-//   E[x0 | x_t, k] = mu_k + (a s^2 / (a^2 s^2 + b^2)) (x_t - a mu_k)
-//   v(x_t, t) = E[eps | x_t] - E[x0 | x_t],  E[eps | x_t] = (x_t - a E[x0 | x_t]) / b
+//   x_t | k ~ N(t mu_k, (t^2 s^2 + (1 - t)^2) I)
+//   E[x1 | x_t, k] = mu_k + (t s^2 / (t^2 s^2 + (1 - t)^2)) (x_t - t mu_k)
+//   v(x_t, t) = E[x1 - eps | x_t] = (E[x1 | x_t] - x_t) / (1 - t)
 // With s = 0 and one center per training point this is the IS machine: it can only
 // ever reproduce the training set.
 
@@ -15,7 +15,7 @@
   "use strict";
 
   const STEPS = 70;
-  const T_MIN = 0.002;
+  const T_MAX = 0.998;   // stop just short of t = 1, then land on E[x1 | x_t]
 
   function rng(seed) {
     let s = seed >>> 0;
@@ -32,15 +32,16 @@
     return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
   }
 
+  // returns the velocity and the posterior mean E[x1 | x_t]
   function velocity(x, y, t, mix) {
-    const a = 1 - t, b = t;
+    const b = 1 - t;
     const s2 = mix.s * mix.s;
-    const var2 = a * a * s2 + b * b;
-    const shrink = (a * s2) / var2;
+    const var2 = t * t * s2 + b * b;
+    const shrink = (t * s2) / var2;
     let maxl = -Infinity;
     const logw = new Array(mix.mu.length);
     for (let k = 0; k < mix.mu.length; k++) {
-      const dx = x - a * mix.mu[k][0], dy = y - a * mix.mu[k][1];
+      const dx = x - t * mix.mu[k][0], dy = y - t * mix.mu[k][1];
       logw[k] = Math.log(mix.pi[k]) - (dx * dx + dy * dy) / (2 * var2);
       if (logw[k] > maxl) maxl = logw[k];
     }
@@ -49,26 +50,25 @@
       const w = Math.exp(logw[k] - maxl);
       z += w;
       const mx = mix.mu[k][0], my = mix.mu[k][1];
-      ex += w * (mx + shrink * (x - a * mx));
-      ey += w * (my + shrink * (y - a * my));
+      ex += w * (mx + shrink * (x - t * mx));
+      ey += w * (my + shrink * (y - t * my));
     }
     ex /= z; ey /= z;
-    const epx = (x - a * ex) / b, epy = (y - a * ey) / b;
-    return { vx: epx - ex, vy: epy - ey, x0x: ex, x0y: ey };
+    return { vx: (ex - x) / b, vy: (ey - y) / b, x1x: ex, x1y: ey };
   }
 
-  // Integrate every particle from t = 1 to t = T_MIN; returns trajectories[step][i] = [x, y].
+  const timeAt = (k) => T_MAX * (k / STEPS);
+
+  // Integrate every particle from t = 0 to t = 1; returns trajectories[step][i] = [x, y].
   function integrate(noise, mix) {
     const traj = [noise.map((p) => p.slice())];
     let cur = noise.map((p) => p.slice());
     for (let k = 0; k < STEPS; k++) {
-      const t0 = 1 - (1 - T_MIN) * (k / STEPS);
-      const t1 = 1 - (1 - T_MIN) * ((k + 1) / STEPS);
-      const dt = t0 - t1;
+      const t0 = timeAt(k), dt = timeAt(k + 1) - t0;
       cur = cur.map(([x, y]) => {
         const v = velocity(x, y, t0, mix);
-        if (k === STEPS - 1) return [v.x0x, v.x0y]; // land on the denoised estimate
-        return [x - dt * v.vx, y - dt * v.vy];
+        if (k === STEPS - 1) return [v.x1x, v.x1y]; // land on the posterior mean
+        return [x + dt * v.vx, y + dt * v.vy];
       });
       traj.push(cur);
     }
@@ -188,8 +188,7 @@
     function draw(step) {
       k = step;
       const muted = css("--muted"), s1 = css("--s1"), s2 = css("--s2");
-      const t = 1 - (1 - T_MIN) * (step / STEPS);
-      tOut.textContent = step === STEPS ? "0" : t.toFixed(2);
+      tOut.textContent = step === STEPS ? "1" : timeAt(step).toFixed(2);
 
       // left: the regression answer is the conditional mean
       left.clear();
