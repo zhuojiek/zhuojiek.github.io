@@ -1,4 +1,6 @@
 ---
+description: "Aligning the three glass-plate exposures with NCC and an image pyramid."
+section: cs180
 title: Coloring the Prokudin-Gorskii photo collection
 date: 2025-09-12
 permalink: /posts/prokudin-gorskii
@@ -8,7 +10,7 @@ tags:
 
 Sergei Mikhailovich Prokudin-Gorskii, a Russian chemist and photographer, pioneered color photography in the early 20th century by capturing three exposures of each scene on glass plates through red, green, and blue filters, with the vision of combining them into full-color images. After leaving Russia in 1918, his collection was acquired by the Library of Congress and later digitized. Our goal is to transform these stitched negatives - images containing the three stacked exposures - into aligned, artifact-free color photographs.
 
-![image](/cs180/cathedral.jpg)
+![image](/images/cs180-archive/cs180/cathedral.jpg)
 
 - An example of a stitched negative, with the blue, green, and red exposures stacked on top of each other.
 
@@ -40,19 +42,19 @@ The following ordering will be used for the optimal shifts outputted by my algor
 
 ### Cathedral
 
-![image](/cs180/proj1/cathedral.jpg)
+![image](/images/cs180-archive/cs180/proj1/cathedral.jpg)
 
 - (2,5), (3,12)
 
 ### Monastery
 
-![image](/cs180/proj1/monastery.jpg)
+![image](/images/cs180-archive/cs180/proj1/monastery.jpg)
 
 - (2,-3), (2,3)
 
 ### Tobolsk
 
-![image](/cs180/proj1/tobolsk.jpg)
+![image](/images/cs180-archive/cs180/proj1/tobolsk.jpg)
 
 - (3,3), (3,6)
 
@@ -70,68 +72,68 @@ Surprisingly, this approach was able to find the correct displacements for most 
 
 ### Church
 
-![image](/cs180/proj1/church.jpg)
+![image](/images/cs180-archive/cs180/proj1/church.jpg)
 
 - (3,24), (-5,57)
 
 ### Emir
 
-![image](/cs180/proj1/emir_naive.jpg)
+![image](/images/cs180-archive/cs180/proj1/emir_naive.jpg)
 
 - (25,48), (-296,92)
 - Red alignment is messed up, hmmm...
 
 ### Harvesters
 
-![image](/cs180/proj1/harvesters.jpg)
+![image](/images/cs180-archive/cs180/proj1/harvesters.jpg)
 
 - (16,60), (14,124)
 
 ### Icon
 
-![image](/cs180/proj1/icon.jpg)
+![image](/images/cs180-archive/cs180/proj1/icon.jpg)
 
 - (16,41), (22,90)
 
 ### Italil
 
-![image](/cs180/proj1/italil.jpg)
+![image](/images/cs180-archive/cs180/proj1/italil.jpg)
 
 - (20,37), (35,76)
 
 ### Lastochikino
 
-![image](/cs180/proj1/lastochikino.jpg)
+![image](/images/cs180-archive/cs180/proj1/lastochikino.jpg)
 
 - (-1,-2), (-7,73)
 
 ### Lugano
 
-![image](/cs180/proj1/lugano.jpg)
+![image](/images/cs180-archive/cs180/proj1/lugano.jpg)
 
 - (-16,39), (-29,92)
 
 ### Melons
 
-![image](/cs180/proj1/melons.jpg)
+![image](/images/cs180-archive/cs180/proj1/melons.jpg)
 
 - (8,81), (12,178)
 
 ### Self Portrait
 
-![image](/cs180/proj1/self_portrait.jpg)
+![image](/images/cs180-archive/cs180/proj1/self_portrait.jpg)
 
 - (29,79), (36,176)
 
 ### Siren
 
-![image](/cs180/proj1/siren.jpg)
+![image](/images/cs180-archive/cs180/proj1/siren.jpg)
 
 - (-6,48), (-23,96)
 
 ### Three Generations
 
-![image](/cs180/proj1/three_generations.jpg)
+![image](/images/cs180-archive/cs180/proj1/three_generations.jpg)
 
 - (14,53), (11,112)
 
@@ -139,13 +141,13 @@ Surprisingly, this approach was able to find the correct displacements for most 
 
 Everyone but Emir was successfully aligned. This image is particularly difficult because of his outfit:
 
-![image](/cs180/proj1/emir_channels.jpg)
+![image](/images/cs180-archive/cs180/proj1/emir_channels.jpg)
 
 As we see, the blue, green, and red channels have significant differences in the dress region. The blue channel is very intense in this region, while the red channel is the opposite (indeed, the dress appears to be a vivid turquoise color). The green channel lies in between.
 
 Naively using the blue channel as the reference channel leads to very poor alignment with the red channel due to low correlation in the dress region, as demonstrated from the previous results:
 
-![image](/cs180/proj1/emir_naive.jpg)
+![image](/images/cs180-archive/cs180/proj1/emir_naive.jpg)
 
 - green shift: (25,48), red shift: (-296,92)
 
@@ -153,7 +155,7 @@ Instead, we should use the moderate green channel as the reference channel. This
 
 Indeed, when we use the green channel as the reference channel, we get a much better alignment:
 
-![image](/cs180/proj1/emir.jpg)
+![image](/images/cs180-archive/cs180/proj1/emir.jpg)
 
 - blue shift: (-25,-48), red shift: (16,55)
 
@@ -171,19 +173,19 @@ I chose a few interesting images from the Prokudin-Gorskii collection to test on
 
 ### Kurmy
 
-![image](/cs180/proj1/kurmy.jpg)
+![image](/images/cs180-archive/cs180/proj1/kurmy.jpg)
 
 - (-18,25), (-38,115)
 
 ### Stone Gate
 
-![image](/cs180/proj1/stone_gate.jpg)
+![image](/images/cs180-archive/cs180/proj1/stone_gate.jpg)
 
 - (3,34), (5,96)
 
 ### Brick
 
-![image](/cs180/proj1/brick.jpg)
+![image](/images/cs180-archive/cs180/proj1/brick.jpg)
 
 - (9,72), (-30,168)
 

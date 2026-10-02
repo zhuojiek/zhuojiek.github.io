@@ -1,0 +1,42 @@
+---
+layout: base
+nav: Writing
+---
+{% assign words = content | strip_html | number_of_words %}
+{% assign minutes = words | divided_by: 220 | plus: 1 %}
+{% assign technical = false %}
+{% if page.section == "writing" or page.section == "cs180" %}{% assign technical = true %}{% endif %}
+<article class="article{% if technical %} technical{% endif %}">
+  <header class="article-header">
+    <p class="kicker">
+      {% if page.section == "course" %}<a href="{{ '/coursework/' | relative_url }}">Course review</a>
+      {% elsif page.section == "notes" %}<a href="{{ '/writing/#notes' | relative_url }}">Notes</a>
+      {% elsif page.section == "cs180" %}<a href="{{ '/writing/#cs180' | relative_url }}">CS 180 · Project</a>
+      {% elsif page.section == "stream" %}<a href="{{ '/streams/' | relative_url }}">Study stream</a>
+      {% else %}<a href="{{ '/writing/' | relative_url }}">Writing</a>{% if page.tags %}<span> / {{ page.tags | first }}</span>{% endif %}{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.description %}<p class="dek">{{ page.description }}</p>{% endif %}
+    <dl class="byline">
+      <div><dt>Author</dt><dd>Anthony Kuang</dd></div>
+      <div><dt>Published</dt><dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></dd></div>
+      {% if page.section != "stream" %}<div><dt>Reading</dt><dd>{{ minutes }} min</dd></div>{% endif %}
+      {% if page.context %}<div><dt>Context</dt><dd>{{ page.context }}</dd></div>{% endif %}
+    </dl>
+  </header>
+
+  <div class="article-body">
+    {% if technical %}<nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ol></ol></nav>{% endif %}
+    <div class="prose{% if technical %} dropcap{% endif %}">
+      {{ content }}
+    </div>
+  </div>
+
+  <footer class="article-footer">
+    {% if page.section == "course" %}
+      <a href="{{ '/coursework/' | relative_url }}">← All course reviews</a>
+    {% else %}
+      <a href="{{ '/writing/' | relative_url }}">← All writing</a>
+    {% endif %}
+  </footer>
+</article>

@@ -1,31 +1,16 @@
 ---
-layout: archive
-title: "Research"
+title: Research
 permalink: /research/
-author_profile: true
+wide: true
+description: Papers, ongoing work, and course research projects. Each entry links to a one-page summary with the key figure and results.
 ---
 
-{% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
-{% endif %}
+<p class="group-label">Ongoing</p>
+{% include research-list.html group="ongoing" %}
 
-{% include base_path %}
+<p class="group-label">Workshop papers</p>
+{% include research-list.html group="workshop" %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
-
-
-
+<p class="group-label">Course research projects</p>
+<p class="group-note">Semester-long projects from graduate courses, written up in paper format. These are not peer reviewed.</p>
+{% include research-list.html group="course" %}

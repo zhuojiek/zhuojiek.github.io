@@ -1,4 +1,6 @@
 ---
+description: "Convolution, unsharp masking, hybrid images, and Laplacian-pyramid blending (the oraple)."
+section: cs180
 title: Filters and Frequencies
 date: 2025-09-30
 permalink: /posts/filters-and-frequencies
@@ -65,13 +67,13 @@ All solutions implement zero padding (convolve2d has an option to do this using 
 
 Next, we convolve the cameraman image with Dx and Dy, then compute the gradient magnitude image. Then, to get rid of some noise, we pick an appropriate threshold (for me, 0.2 worked well in that it removed most of the noise from the grass without removing edges from the cameraman).
 
-![cameraman_dx](/cs180/proj2/cameraman_Dx.jpg)
+![cameraman_dx](/images/cs180-archive/cs180/proj2/cameraman_Dx.jpg)
 
-![cameraman_dy](/cs180/proj2/cameraman_Dy.jpg)
+![cameraman_dy](/images/cs180-archive/cs180/proj2/cameraman_Dy.jpg)
 
-![cameraman_gradient_magnitude](/cs180/proj2/cameraman_gradient_magnitude.png)
+![cameraman_gradient_magnitude](/images/cs180-archive/cs180/proj2/cameraman_gradient_magnitude.png)
 
-![cameraman_edge_image](/cs180/proj2/cameraman_edge_image.jpg)
+![cameraman_edge_image](/images/cs180-archive/cs180/proj2/cameraman_edge_image.jpg)
 
 Above is cameraman_dx, cameraman_dy, cameraman_gradient_magnitude, and cameraman_edge_image after applying the 0.2 threshold.
 
@@ -87,11 +89,11 @@ gaussian_filter = cv2.getGaussianKernel(5,1) @ cv2.getGaussianKernel(5,1).T # 5x
 
 Here is the result after convolving with the Gaussian filter:
 
-![blurred_cameraman_image](/cs180/proj2/blurred_cameraman_image.jpg)
+![blurred_cameraman_image](/images/cs180-archive/cs180/proj2/blurred_cameraman_image.jpg)
 
 Now let's build the edge image. Look how much noise is gone! Here we used a much lower threshold of 0.1.
 
-![blurred_cameraman_edge_image](/cs180/proj2/blurred_cameraman_edge_image.jpg)
+![blurred_cameraman_edge_image](/images/cs180-archive/cs180/proj2/blurred_cameraman_edge_image.jpg)
 
 But wait, we can do this in a single convolution instead of two! This is because convolution is associative, meaning we can combine the two convolutions into a single convolution. We can thus create a `DoG_Dx` and `DoG_Dy` filter and convolve with the cameraman image.
 
@@ -104,7 +106,7 @@ Here is what `DoG_Dx` and `DoG_Dy` look like:
 
 Now let's convolve the cameraman image with the DoG filters and display the results. Same, as expected.
 
-![blurred_cameraman_edge_image](/cs180/proj2/blurred_cameraman_edge_image.jpg)
+![blurred_cameraman_edge_image](/images/cs180-archive/cs180/proj2/blurred_cameraman_edge_image.jpg)
 
 # Part 2: Fun with Frequencies
 
@@ -142,19 +144,19 @@ To create a hybrid image, we add high frequencies of one image to the low freque
 
 Here is the hybrid image of a man and his cat:
 
-![DerekPicture](/cs180/proj2/DerekPicture.jpg)
+![DerekPicture](/images/cs180-archive/cs180/proj2/DerekPicture.jpg)
 
-![nutmeg](/cs180/proj2/nutmeg.jpg)
+![nutmeg](/images/cs180-archive/cs180/proj2/nutmeg.jpg)
 
-![hybrid](/cs180/proj2/hybrid.jpg)
+![hybrid](/images/cs180-archive/cs180/proj2/hybrid.jpg)
 
 Here is the hybrid image of me and Ayanokoji. We will step through the entire process of creating this image:
 
 We start with the original two images:
 
-![myself](/cs180/proj2/myself.jpg)
+![myself](/images/cs180-archive/cs180/proj2/myself.jpg)
 
-![ayanokoji](/cs180/proj2/ayanokoji.jpg)
+![ayanokoji](/images/cs180-archive/cs180/proj2/ayanokoji.jpg)
 
 Then, we align the two images together by selecting the eyes as reference points.
 
@@ -172,21 +174,21 @@ Here are the relevant images from the alignment process and filtering:
 
 Finally, we obtain the hybrid image:
 
-![hybrid](/cs180/proj2/hybrid-ayanokoji-myself.jpg)
+![hybrid](/images/cs180-archive/cs180/proj2/hybrid-ayanokoji-myself.jpg)
 
 (lil bro is not ayanokoji)
 
 along with the Fourier transform of this image:
 
-![fourier](/cs180/proj2/fourier.png)
+![fourier](/images/cs180-archive/cs180/proj2/fourier.png)
 
 Here is another, of Tomoya and Sunohara from Clannad:
 
-![tomoya](/cs180/proj2/tomoya.jpg)
+![tomoya](/images/cs180-archive/cs180/proj2/tomoya.jpg)
 
-![sunohara](/cs180/proj2/sunohara.jpg)
+![sunohara](/images/cs180-archive/cs180/proj2/sunohara.jpg)
 
-![hybrid](/cs180/proj2/hybrid-tomoya-sunohara.jpg)
+![hybrid](/images/cs180-archive/cs180/proj2/hybrid-tomoya-sunohara.jpg)
 
 ## 2.3 Gaussian and Laplacian Stacks
 
@@ -194,7 +196,7 @@ The general approach is to blend together the frequency bands of the two images 
 
 Here, we see the Oraple:
 
-![oraple](/cs180/proj2/oraple.jpg)
+![oraple](/images/cs180-archive/cs180/proj2/oraple.jpg)
 
 Here are the Gaussian Stacks, Laplacian Stacks, and Blended images:
 
@@ -246,8 +248,8 @@ Here are the Gaussian Stacks, Laplacian Stacks, and Blended images:
 
 Here are my custom blended images:
 
-![blend_venice_neo_venezia](/cs180/proj2/blend_venice_neo_venezia.jpg)
+![blend_venice_neo_venezia](/images/cs180-archive/cs180/proj2/blend_venice_neo_venezia.jpg)
 
-![blend_triangle](/cs180/proj2/blend_triangle.jpg)
+![blend_triangle](/images/cs180-archive/cs180/proj2/blend_triangle.jpg)
 
 The latter uses a triangle as the filter.

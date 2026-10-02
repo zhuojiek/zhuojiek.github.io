@@ -1,4 +1,5 @@
 ---
+section: notes
 title: "Non-negativity and iff condition of KL Divergence"
 date: 2024-06-20
 permalink: /posts/kl-divergence-properties
