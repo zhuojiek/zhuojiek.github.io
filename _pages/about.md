@@ -12,7 +12,7 @@ redirect_from:
   <h1>Anthony Kuang</h1>
   <canvas aria-label="Particles flowing from Gaussian noise into the name Anthony Kuang"></canvas>
   <p class="hero-caption">
-    <span>Bet you can't match my flow · t = <span data-hero="t">0.00</span></span>
+    <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
       <span class="shape-toggle" role="group" aria-label="Target distribution">
         <button type="button" data-shape="name" aria-pressed="true">me</button>
@@ -28,7 +28,7 @@ redirect_from:
     <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, video diffusion, 3D representations, and VLAs. I'm also interested in agentic approaches and autoresearch.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a> and did research on unified multimodal models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>, <a href="/posts/dqn-sac">actor-critic</a>, and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also possess an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
-    <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robotics researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
+    <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
   </div>
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Anthony Kuang">
@@ -68,8 +68,8 @@ redirect_from:
 <section class="section">
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
-    I'm originally from East Oakland and am a fan of Damian Lillard. I'm blessed with the opportunity to chase my dreams. I sometimes enjoy playing the 
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>.
+    I am a fan of Damian Lillard and was originally from East Oakland myself; I attended school virtually through California Connections Academy and graduated as valedictorian. I'm a big fan of Idolm@ster and Animenz. I have a <a href="https://akasha.cv/profile/650357224">top 1% Ayaka</a>. I sometimes enjoy playing the 
+    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I'm blessed with the opportunity to chase my dreams.
   </p>
 </section>
 
