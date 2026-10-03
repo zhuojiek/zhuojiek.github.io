@@ -1,5 +1,5 @@
-title: Anthony Kuang
-description: Anthony Kuang — robot learning, generative models, and RL. CS at UC Berkeley.
+title: Zhuojie Kuang
+description: Zhuojie Kuang — robot learning, generative models, and RL. CS at UC Berkeley.
 url: https://zhuojiekuang.github.io
 baseurl: ""
 repository: zhuojiekuang/zhuojiekuang.github.io
@@ -7,7 +7,7 @@ locale: en-US
 timezone: America/Los_Angeles
 
 author:
-  name: Anthony Kuang
+  name: Zhuojie Kuang
   email: anthonykuang@berkeley.edu
   github: shimamooo
 

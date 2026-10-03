@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Anthony Kuang"
+title: "Zhuojie Kuang"
 layout: base
 redirect_from:
   - /about/
@@ -9,8 +9,8 @@ redirect_from:
 <div class="home">
 
 <section class="hero">
-  <h1>Anthony Kuang</h1>
-  <canvas aria-label="Particles flowing from Gaussian noise into the name Anthony Kuang"></canvas>
+  <h1>Zhuojie Kuang</h1>
+  <canvas aria-label="Particles flowing from Gaussian noise into the name Zhuojie Kuang"></canvas>
   <p class="hero-caption">
     <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
@@ -31,7 +31,7 @@ redirect_from:
     <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
   </div>
   <aside class="spec">
-    <img src="/images/portrait.jpg" alt="Anthony Kuang">
+    <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
     <dl>
       <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo">GitHub</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="/feed.xml">RSS</a></dd></div>
     </dl>

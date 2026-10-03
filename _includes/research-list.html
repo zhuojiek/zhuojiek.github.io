@@ -13,7 +13,7 @@
         <span class="venue">{{ p.venue }}</span>
       </div>
       <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
-      <p class="authors">{{ p.authors | replace: "Anthony Kuang", "<strong>Anthony Kuang</strong>" }}</p>
+      <p class="authors">{{ p.authors | replace: "Zhuojie Kuang", "<strong>Zhuojie Kuang</strong>" }}</p>
       {% unless include.compact %}<p class="blurb">{{ p.blurb }}</p>{% endunless %}
       <p class="links">
         <a class="pill" href="{{ p.url | relative_url }}">Summary</a>
