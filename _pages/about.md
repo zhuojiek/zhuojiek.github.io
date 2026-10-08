@@ -27,7 +27,7 @@ redirect_from:
   <div>
     <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, video diffusion, 3D representations, and VLAs. I'm also interested in agentic approaches and autoresearch.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a> and did research on unified multimodal models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
-    <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>, <a href="/posts/dqn-sac">actor-critic</a>, and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also possess an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
+    <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
     <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
   </div>
   <aside class="spec">
@@ -40,16 +40,13 @@ redirect_from:
 
 <section class="section">
   <div class="section-head"><h2>Research</h2><a href="/research/">All research →</a></div>
-  <p class="group-label">Ongoing</p>
-  {% include research-list.html group="ongoing" %}
-  <p class="group-label">Workshop papers</p>
-  {% include research-list.html group="workshop" %}
-  <p class="group-label">Course research projects</p>
   {% include research-list.html group="course" compact=true %}
+  {% include research-list.html group="ongoing" %}
+  {% include research-list.html group="workshop" %}
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>Writing <em>with figures you can play with</em></h2><a href="/writing/">All writing →</a></div>
+  <div class="section-head"><h2>Writing <em>with interactive figures</em></h2><a href="/writing/">All writing →</a></div>
   <div class="cards">
   {% assign featured = site.posts | where: "featured", true %}
   {% for p in featured %}
@@ -68,8 +65,8 @@ redirect_from:
 <section class="section">
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
-    I am a fan of Damian Lillard and was originally from East Oakland myself; I attended school virtually through California Connections Academy and graduated as valedictorian. I'm a big fan of Idolm@ster and Animenz. I have a <a href="https://akasha.cv/profile/650357224">top 1% Ayaka</a>. I sometimes enjoy playing the 
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I'm blessed with the opportunity to chase my dreams.
+    I am a fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I attended school virtually through California Connections Academy and graduated as valedictorian. I sometimes enjoy playing the 
+    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>.
   </p>
 </section>
 

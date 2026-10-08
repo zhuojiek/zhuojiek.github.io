@@ -519,3 +519,7 @@ table.courses td.group { font-family: var(--sans); font-size: 0.7rem; font-weigh
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .prose img, :root:not([data-theme="light"]) .card-img img, :root:not([data-theme="light"]) .entry-thumb img { filter: brightness(.88) contrast(1.02); } }
 :root[data-theme="dark"] .prose img, :root[data-theme="dark"] .card-img img, :root[data-theme="dark"] .entry-thumb img { filter: brightness(.88) contrast(1.02); }
 .section-head + .year-group { border-top: 0; }
+
+/* Resume page */
+.resume-embed { display: block; width: 100%; height: 85vh; min-height: 560px; margin-top: 18px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper-2); }
+@media (max-width: 640px) { .resume-embed { height: 70vh; min-height: 420px; } }

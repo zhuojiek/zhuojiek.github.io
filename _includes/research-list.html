@@ -8,10 +8,6 @@
       {% else %}<span class="thumb-text">{{ p.thumb_text | escape }}</span>{% endif %}
     </a>
     <div>
-      <div class="entry-meta">
-        {% if p.group == "workshop" %}<span class="chip accent">Workshop</span>{% elsif p.group == "ongoing" %}<span class="chip accent">Ongoing</span>{% else %}<span class="chip">Course project</span>{% endif %}
-        <span class="venue">{{ p.venue }}</span>
-      </div>
       <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
       <p class="authors">{{ p.authors | replace: "Zhuojie Kuang", "<strong>Zhuojie Kuang</strong>" }}</p>
       {% unless include.compact %}<p class="blurb">{{ p.blurb }}</p>{% endunless %}

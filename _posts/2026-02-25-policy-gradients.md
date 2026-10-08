@@ -1,5 +1,5 @@
 ---
-interactive: true
+interactive: false
 card_fit: contain
 title: "Policy gradients, one variance reduction trick at a time"
 description: "REINFORCE on CartPole, HalfCheetah, LunarLander, and InvertedPendulum, adding reward-to-go, advantage normalization, a learned baseline, and GAE one at a time, and watching what each one does to the learning curve."
@@ -7,7 +7,7 @@ date: 2026-02-25
 permalink: /posts/policy-gradients
 featured: true
 image: /images/posts/policy-gradients/lunar-gae.png
-context: "CS 285 · HW 2"
+context: ""
 tags:
   - Reinforcement Learning
 ---

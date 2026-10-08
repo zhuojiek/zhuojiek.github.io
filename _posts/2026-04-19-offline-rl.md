@@ -6,7 +6,7 @@ date: 2026-04-19
 permalink: /posts/offline-rl
 featured: true
 image: /images/featured.gif
-context: "CS 285 · HW 5"
+context: ""
 tags:
   - Reinforcement Learning
   - Robotics

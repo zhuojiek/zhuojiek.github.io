@@ -1,13 +1,13 @@
 ---
-interactive: true
+interactive: false
 card_fit: contain
-title: "Push-T, or why an MSE policy won't commit"
+title: "Behavioral Cloning with Flow Matching Policies"
 description: "Behavior cloning on Push-T with an MSE action-chunking policy and a flow matching policy. The flow policy wins 0.82 to 0.67, and the gap is the conditional mean."
 date: 2026-02-11
 permalink: /posts/push-t-imitation
 featured: true
 image: /images/featured4.gif
-context: "CS 285 · HW 1"
+context: ""
 tags:
   - Robotics
   - Imitation learning

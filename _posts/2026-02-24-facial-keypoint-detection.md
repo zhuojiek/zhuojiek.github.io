@@ -6,7 +6,7 @@ description: "Three ways to predict 68 facial landmarks: a CNN regressing coordi
 date: 2026-02-24
 permalink: /posts/facial-keypoint-detection
 image: /images/facialkeypoint.png
-context: "CS 280 · Project"
+context: ""
 tags:
   - Computer Vision
 ---

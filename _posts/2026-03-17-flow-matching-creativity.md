@@ -1,13 +1,13 @@
 ---
-interactive: true
+interactive: false
 card_fit: contain
-title: "Ideal flow machines: where does a flow model's creativity come from?"
+title: "Ideal flow machines: where does a diffusion model's creativity come from?"
 description: "I trained a flow matching UNet on MNIST, then reimplemented Kamb & Ganguli's analytic score machines (IS, LS, ELS, bbELS) as velocity fields and ran them from the same noise. The ideal flow memorizes. Locality is what lets the trained model do anything else."
 date: 2026-03-17
 permalink: /posts/flow-matching-creativity
 featured: true
 image: /images/posts/ideal-flow/card.png
-context: "CS 280 · Project"
+context: ""
 tags:
   - Generative models
   - Computer Vision

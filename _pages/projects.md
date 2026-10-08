@@ -10,46 +10,46 @@ description: "A list of some things I've built. Code for course projects is priv
 
 <div class="project" id="lace-and-place" markdown="1">
 ### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
-- A UR7e arm that takes a pile of shoes and puts them on a rack, built with ROS 2 and MoveIt
-- GroundingDINO + SAM to detect and segment the shoes, overlap depth information using camera geometry, then class-specific grasps computed from RealSense point clouds
-- Pulled 4 all-nighters in a row during dead week
+- A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
+- GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
+- Pulled 3 all-nighters in a row during dead week
 </div>
 
 <div class="project" markdown="1">
 ### Push-T imitation learning <span class="plinks">[write-up](/posts/push-t-imitation)</span>
-- MSE and flow-matching action-chunking policies trained on expert demos. Flow reaches 0.82 reward vs. 0.67 for MSE, because MSE averages the modes
+- MSE and flow-matching action-chunking policies trained on expert demos
 <img src="/images/featured4.gif" alt="Flow matching policy pushing the T block" width="240" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
 ### Offline RL with flow policies <span class="plinks">[write-up](/posts/offline-rl)</span>
-- SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation. SAC+BC is far more sensitive to its BC coefficient than IQL is; FQL is the only method near 0.5 on antsoccer
+- SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation
 <img src="/images/featured.gif" alt="OGBench cube task" width="200" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
 ### DQN and soft actor-critic <span class="plinks">[write-up](/posts/dqn-sac)</span>
-- Double DQN on CartPole, LunarLander, and MsPacman from pixels. SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
+- DQN on CartPole, LunarLander, and MsPacman from pixels, SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
 <img src="/images/featured2.gif" alt="DQN playing MsPacman" width="200" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
 ### Policy gradients <span class="plinks">[write-up](/posts/policy-gradients)</span>
-- REINFORCE with reward-to-go, a learned baseline, and GAE on CartPole, HalfCheetah, and LunarLander. InvertedPendulum hits its max return within 100K env steps
+- REINFORCE with reward-to-go, learned baseline, and GAE on CartPole, HalfCheetah, and LunarLander
 <img src="/images/featured3.gif" alt="HalfCheetah policy" width="340" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
 ### LLM RL with GRPO
-- GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping. Continued in my [RLHF project](/publication/2026-06-05-hybridrlhf)
+- GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping
 </div>
 
 ## Generative models & vision
 
 <div class="project" markdown="1">
 ### Ideal flow machines <span class="plinks">[write-up](/posts/flow-matching-creativity)</span>
-- Built an attention UNet from scratch, then trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with CFG on MNIST
-- Reimplemented the IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and ran them against the trained UNet from identical noise
+- Built a UNet backbone, then trained one-step denoisers, time-conditioned flow matching, and class-conditioned flow matching with CFG on MNIST
+- Reimplemented the IS, LS, ELS, and bbELS analytic score machines from [Kamb & Ganguli](https://arxiv.org/abs/2412.20292) and ran them against the trained UNet
 <img src="/images/ideal_flow_machine.png" alt="Analytic machine outputs vs UNet" width="520" loading="lazy">
 </div>
 
@@ -81,18 +81,18 @@ description: "A list of some things I've built. Code for course projects is priv
 
 <div class="project" markdown="1">
 ### Llama 3 from scratch
-- BPE tokenizer trained on TinyStories and a transformer in PyTorch: RMSNorm, SwiGLU, RoPE, masked MHA, with FLOPs and memory accounting
+- BPE tokenizer trained on TinyStories and transformer architecture: RMSNorm, SwiGLU, RoPE, masked MHA, with FLOPs and memory accounting
 - Training utilities (stable cross-entropy, gradient clipping, warmup + LR schedule), pretraining on TinyStories, then a classification head for QA compared against few-shot prompting
 </div>
 
 <div class="project" markdown="1">
 ### Berkeley EECS RAG <span class="plinks">[write-up](/posts/berkeley-eecs-rag)</span>
-- Crawled ~15K eecs.berkeley.edu pages and wrote a 138-question QA set (91% IAA). Dense retrieval → cross-encoder rerank → full-document context to Llama-3.1-8B on CPU with 4 GB of RAM. 0.58 F1 / 0.46 EM on the test set
+- Crawled ~15K eecs.berkeley.edu pages and wrote a 138-question QA set (91% IAA), implemented dense retrieval, cross-encoder rerank, full-document context to Llama-3.1-8B on CPU with 4 GB RAM constraint
 </div>
 
 <div class="project" markdown="1">
 ### Chatbot Arena
-- Explored the LMArena battle data with `plotly` and `gradio`, looking for stylistic confounders, and rebuilt the leaderboard with a Bradley–Terry model
+- Explored the LMArena battle data with `plotly` and `gradio`, identified stylistic confounders, and rebuilt the leaderboard with a Bradley–Terry model
 <img src="/images/projects/chatbot-arena.png" alt="Arena analysis" width="420" loading="lazy">
 </div>
 
@@ -109,14 +109,14 @@ description: "A list of some things I've built. Code for course projects is priv
 
 <div class="project" id="viso" markdown="1">
 ### Viso <span class="plinks">[code](https://github.com/orgs/viso-study/repositories) · [manim-voiceover-plus](https://github.com/shimamooo/manim-voiceover-plus)</span>
-- Turns math questions into animated explanations. A multi-agent pipeline: `smolagents` RAG research agent, planning agents, and a Manim rendering agent with tool calling
+- Turns math questions into animated explanations with multi-agent pipeline: `smolagents` RAG research agent, planning agents, and a Manim rendering agent with tool calling
 - Won Most Technical Project at AdventureX and placed in the top 20 at the amber.ac hackathon
 - Published `manim-voiceover-plus` on PyPI for multilingual, parallelized voiceover generation
 </div>
 
 <div class="project" markdown="1">
 ### AI Entrepreneurs at Berkeley <span class="plinks">[site](https://aientrepreneurs.org) · [code](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)</span>
-- Founding member of a $100M student-run AI incubator; also built and maintain the website
+- Founding member of a $40M student-run AI incubator; also built and maintain the website
 </div>
 
 ## Smaller course projects
