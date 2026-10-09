@@ -21,7 +21,6 @@ nav: Writing
       <div><dt>Author</dt><dd>Zhuojie Kuang</dd></div>
       <div><dt>Published</dt><dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></dd></div>
       {% if page.section != "stream" %}<div><dt>Reading</dt><dd>{{ minutes }} min</dd></div>{% endif %}
-      {% if page.context %}<div><dt>Context</dt><dd>{{ page.context }}</dd></div>{% endif %}
     </dl>
   </header>
 
