@@ -27,9 +27,9 @@ Transcript-only RAG fails on lectures in a predictable way. The professor says "
 
 - **Extract** 3 natively timestamped streams: OCR on frames sampled every 2 s, ASR, and VLM descriptions of each frame. A pHash change detector re-runs OCR and the VLM only when the frame changes materially. This removes most of the redundancy in slide-driven lectures.
 - **Chunk by time.** Tile each lecture into $$45$$ s windows with $$15$$ s overlap, and concatenate the three modality-tagged blocks.
-- **Visual carry-forward.** A slide that appeared just before the window started is still on screen, but it contributes no OCR row to the window. So each chunk also gets the latest OCR row and frame description from *before* $$t_0$$, deduplicated against the in-window content.
-- **Retrieve** with one dense vector per chunk (`text-embedding-3-large` in an HNSW index), either across the whole course or filtered to the lecture the student is watching. Then generate with a VLM given the chunks and their frames.
-- **Optionally render** the answer as a narrated Manim video, with a repair loop that feeds render errors back to the LLM.
+- **Visual carry-forward.** A slide that appeared just before the window started is still on screen, but it contributes no OCR row to the window. So each chunk also gets the latest OCR row and frame description from before the timestep, deduplicated against the in-window content.
+- **Retrieve** with one dense vector per chunk (`text-embedding-3-large`), either across the whole course or filtered to the lecture the student is watching. Then generate with a VLM given the chunks and their frames.
+- **Render** the answer as a narrated `manim` video, with an agent harness to catch visual, programmatic, and semantic errors.
 
 ## Results
 
@@ -41,9 +41,4 @@ We hand-annotated 156 questions across COGSCI C127, DATA 100, and CS 288 in seve
 | COGSCI C127 | 32.7% | — | **58.8%** |
 | CS 288 | 63.0% | 79.6% | **83.3%** |
 
-<p class="group-note" style="margin-top:-6px">LLM-judged accuracy, best setting per course. The full table, with F1, EM, retrieval hit rates, and the k and generator ablations, is in the paper.</p>
-
-2 other findings:
-
-- **The generator matters more with retrieval than without it.** On DATA 100, swapping GPT-4o for GPT-5.4 with identical retrieved context went from 66% to 82%. The bottleneck was reasoning over multimodal evidence, not knowledge.
-- **The best $$k$$ depends on the course.** $$k = 8$$ wins on the chart-heavy DATA 100. $$k = 3$$ wins on audio-heavy COGSCI, where extra chunks mostly dilute the evidence.
+<p class="group-note" style="margin-top:-6px">LLM-judged accuracy, best setting per course. The full table is in the paper.</p>

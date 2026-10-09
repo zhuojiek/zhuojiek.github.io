@@ -1,0 +1,18 @@
+{% comment %} Embeds a Google Drive file or folder, or a local PDF. Usage: include drive-embed.html url="..." title="Notes" {% endcomment %}
+{% assign u = include.url %}
+{% if u contains "/drive/folders/" %}
+  {% assign id = u | split: "/drive/folders/" | last | split: "?" | first %}
+  {% assign src = "https://drive.google.com/embeddedfolderview?id=" | append: id | append: "#list" %}
+  {% assign kind = "folder" %}
+{% elsif u contains "/file/d/" %}
+  {% assign id = u | split: "/file/d/" | last | split: "/" | first %}
+  {% assign src = "https://drive.google.com/file/d/" | append: id | append: "/preview" %}
+  {% assign kind = "file" %}
+{% else %}
+  {% assign src = u | relative_url | append: "#view=FitH" %}
+  {% assign kind = "file" %}
+{% endif %}
+<figure class="doc-embed doc-embed-{{ kind }}">
+  <figcaption><span>{{ include.title }}</span> <a href="{{ u }}" target="_blank" rel="noopener">Open ↗</a></figcaption>
+  <iframe src="{{ src }}" title="{{ include.title }}" loading="lazy" allow="autoplay"></iframe>
+</figure>

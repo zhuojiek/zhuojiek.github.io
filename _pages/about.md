@@ -25,7 +25,7 @@ redirect_from:
 
 <section class="intro">
   <div>
-    <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, video diffusion, 3D representations, and VLAs. I'm also interested in agentic approaches and autoresearch.</p>
+    <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, generative models, and 4D representations.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a> and did research on unified multimodal models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
     <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
@@ -39,14 +39,14 @@ redirect_from:
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>Research</h2><a href="/research/">All research →</a></div>
+  <div class="section-head"><h2>Research papers</h2><a href="/research/">All research →</a></div>
   {% include research-list.html group="course" compact=true %}
   {% include research-list.html group="ongoing" %}
   {% include research-list.html group="workshop" %}
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>Writing <em>with interactive figures</em></h2><a href="/writing/">All writing →</a></div>
+  <div class="section-head"><h2>Projects <em>with interactive figures</em></h2><a href="/writing/">All writing →</a></div>
   <div class="cards">
   {% assign featured = site.posts | where: "featured", true %}
   {% for p in featured %}
