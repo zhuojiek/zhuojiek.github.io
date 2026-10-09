@@ -15,8 +15,8 @@ redirect_from:
     <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
       <span class="shape-toggle" role="group" aria-label="Target distribution">
-        <button type="button" data-shape="name" aria-pressed="true">me</button>
-        <button type="button" data-shape="arm" aria-pressed="false">clanker</button>
+        <button type="button" data-shape="name" aria-pressed="true">😎</button>
+        <button type="button" data-shape="arm" aria-pressed="false">🤖</button>
       </span>
       <button type="button" data-hero="replay">Resample \(\mathcal{N}(0, I)\) ↻</button>
     </span>
@@ -28,7 +28,7 @@ redirect_from:
     <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, generative models, and 4D representations.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a> and did research on unified multimodal models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed an SO-101 arm named <a href="/posts/2026/09/21">clanker</a>.</p>
-    <p class="seeking"><strong>I'm actively looking for research positions.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
+    <p class="seeking"><strong>I'm looking for a research position.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, please don't hesitate to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
   </div>
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
