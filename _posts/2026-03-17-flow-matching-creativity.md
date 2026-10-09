@@ -2,7 +2,7 @@
 interactive: false
 card_fit: contain
 title: "Ideal flow machines: where does a diffusion model's creativity come from?"
-description: "I trained a flow matching UNet on MNIST, then reimplemented Kamb & Ganguli's analytic score machines (IS, LS, ELS, bbELS) as velocity fields and ran them from the same noise. The ideal flow memorizes. Locality is what lets the trained model do anything else."
+description: "A flow matching UNet trained on MNIST, compared against Kamb & Ganguli's analytic score machines (IS, LS, ELS, bbELS), reimplemented as velocity fields and run from the same noise."
 date: 2026-03-17
 permalink: /posts/flow-matching-creativity
 featured: true
@@ -13,11 +13,11 @@ tags:
   - Computer Vision
 ---
 
-Here is an uncomfortable fact about diffusion and flow models. If you train one perfectly on a finite dataset, it can only reproduce the training set. The optimal velocity field for an empirical distribution transports every noise sample onto one of the training points. Real models don't do that. They make new digits, faces, and bedrooms. So the creativity must come from the ways the network *fails* to learn the optimal field.
+A diffusion or flow model trained perfectly on a finite dataset can only reproduce the training set: the optimal velocity field for an empirical distribution transports every noise sample onto one of the training points. Trained models do generate new samples, so their ability to generalize has to come from the ways they differ from the optimal field.
 
-[Kamb & Ganguli (2024)](https://arxiv.org/abs/2412.20292) make this precise. They build analytic, training-free "score machines" with exactly the inductive biases of a CNN, locality and translation equivariance, and show that they predict what a trained convolutional diffusion model generates from a given noise sample. In CS 280 we reimplemented these machines for flow matching and compared them against a UNet we trained ourselves, from identical noise.
+[Kamb & Ganguli (2024)](https://arxiv.org/abs/2412.20292) make this precise. They build analytic, training-free "score machines" with the inductive biases of a CNN (locality and translation equivariance) and show that they predict what a trained convolutional diffusion model generates from a given noise sample. In CS 280 we reimplemented these machines for flow matching and compared them against a UNet we trained ourselves, from identical noise.
 
-## Part 1: what one step of denoising can and can't do
+## Part 1: one-step denoising
 
 Before the flow model I trained a plain denoiser $$D(z) \approx x$$ on MNIST digits with noise $$\sigma = 0.5$$ added. It's a small attention UNet, trained with an L2 loss.
 
@@ -26,14 +26,14 @@ Before the flow model I trained a plain denoiser $$D(z) \approx x$$ on MNIST dig
   <figcaption>The \(\sigma = 0.5\) denoiser tested at \(\sigma \in \{0, 0.2, 0.4, 0.5, 0.6, 0.8, 1.0\}\), one row each. It handles less noise fine. With more noise than it was trained on, strokes break up and it starts to hallucinate texture.</figcaption>
 </figure>
 
-Then the naive way to make it generative: train the same network to map *pure* noise $$\varepsilon \sim \mathcal{N}(0, I)$$ straight to a digit.
+To make it generative in one step, I trained the same network to map pure noise $$\varepsilon \sim \mathcal{N}(0, I)$$ directly to a digit.
 
 <figure class="wide">
   <img src="/images/posts/ideal-flow/pure-noise-e5.png" alt="Leftmost: the average MNIST training image. Right: ten one-step outputs from pure noise, all nearly identical blurry blobs matching the average.">
-  <figcaption>Left: the average training image. Right: ten one-step "generations" from different noise after 5 epochs. They are all the average.</figcaption>
+  <figcaption>Left: the average training image. Right: ten one-step "generations" from different noise after 5 epochs. All of them are close to the average image.</figcaption>
 </figure>
 
-The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise it carries no information about $$x$$, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$ and the network outputs the dataset mean, which is every digit superimposed. This is the same failure that makes [an MSE policy fail on Push-T](/posts/push-t-imitation). The fix is the same too: never ask for the mean of a multimodal distribution in one shot. Condition on a partially denoised $$x_t$$ that has already committed to something, and take small steps.
+The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise it carries no information about $$x$$, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$ and the network outputs the dataset mean, which looks like every digit superimposed. This is the same problem as the [MSE policy on Push-T](/posts/push-t-imitation). Iterative denoising avoids it by conditioning on a partially denoised $$x_t$$ and taking small steps, so each step predicts the mean of a narrower distribution.
 
 ## Part 2: flow matching
 
@@ -51,13 +51,13 @@ Adding a class embedding with 10% label dropout gives classifier-free guidance, 
   <figcaption>Class-conditional samples with guidance scale \(\gamma = 5\), one row per digit.</figcaption>
 </figure>
 
-## Part 3: the ideal flow, and why it memorizes
+## Part 3: the ideal flow
 
 For a finite training set $$\{p^{(i)}\}$$, the optimal velocity has a closed form. Given $$x_t = a_t x_1 + b_t \varepsilon$$ with $$a_t = t$$ and $$b_t = 1 - t$$, the posterior over which training point we came from is a softmax over distances:
 
 $$w_i(x, t) \propto \exp\!\left(-\frac{\lVert x - a_t\, p^{(i)}\rVert^2}{2 b_t^2}\right), \qquad \hat x_1 = \sum_i w_i\, p^{(i)},$$
 
-and the velocity is $$v = \mathbb{E}[x_1 - \varepsilon \mid x_t] = \frac{\hat x_1 - x}{1 - t}$$: head straight for the posterior mean, faster as time runs out. As $$t \to 1$$ the softmax sharpens onto a single $$p^{(i)}$$, and the sample lands exactly on it. Click to place training points below and watch.
+and the velocity is $$v = \mathbb{E}[x_1 - \varepsilon \mid x_t] = \frac{\hat x_1 - x}{1 - t}$$, which points toward the posterior mean with speed increasing as $$t \to 1$$. As $$t \to 1$$ the softmax also sharpens onto a single $$p^{(i)}$$, and the sample lands exactly on it. In the demo below you can click to add training points.
 
 <div class="demo narrow" data-demo="memorize">
   <div class="demo-head"><span class="demo-title">The optimal flow on a finite dataset can only copy it</span><span class="demo-tag">Interactive</span></div>
@@ -70,19 +70,19 @@ and the velocity is $$v = \mathbb{E}[x_1 - \varepsilon \mid x_t] = \frac{\hat x_
     <label>data blur σ = <span data-out="sigma">0.00</span> <input type="range" name="sigma" min="0" max="0.4" step="0.01" value="0"></label>
   </div>
   <p class="readout" data-out="readout"></p>
-  <p class="demo-note">This is exact: the closed-form optimum, integrated with 70 Euler steps. Turning up σ replaces each point with a Gaussian. That creates new samples, but only blurred copies of training points. Real generalization has to come from somewhere else.</p>
+  <p class="demo-note">This is the closed-form optimum, integrated with 70 Euler steps. Increasing σ replaces each point with a Gaussian, which produces new samples, but only blurred copies of training points.</p>
 </div>
 <script src="/js/flow-demo.js?v={{ site.time | date: '%s' }}" defer></script>
 
-That is the **IS (ideal score)** machine. On MNIST, starting from our noise sample, it produces a crisp 2 that is literally a training image. Our UNet, from the same noise, produces something else.
+This is the **IS (ideal score)** machine. On MNIST, from our noise sample, it produces a 2 that is an exact copy of a training image. The UNet produces a different image from the same noise.
 
 ## Part 4: the machines
 
-Kamb & Ganguli's idea is to make the posterior *local*. Each pixel only gets to look at a $$k \times k$$ patch around itself, and the softmax runs over training **patches** instead of whole images. For pixel $$u$$, with $$x_{\Omega_u}$$ the patch around it:
+Kamb & Ganguli make the posterior local. Each pixel only gets to look at a $$k \times k$$ patch around itself, and the softmax runs over training **patches** instead of whole images. For pixel $$u$$, with $$x_{\Omega_u}$$ the patch around it:
 
 $$\ell(p) = -\frac{\lVert x_{\Omega_u} - a_t\, p \rVert^2}{2 b_t^2}, \qquad \hat x_1(u) = \frac{\sum_p e^{\ell(p)}\, p_{\text{center}}}{\sum_p e^{\ell(p)}}.$$
 
-Every pixel independently picks the training patches that best explain its neighborhood and copies their center pixel. Different pixels can copy from different images. That is how you get novel combinations: locally consistent, globally new. The four machines differ only in which patches each pixel is allowed to compare against.
+Every pixel independently picks the training patches that best explain its neighborhood and copies their center pixel. Different pixels can copy from different images. This allows new combinations that are locally consistent with the training data but aren't copies of any one image. The four machines differ only in which patches each pixel is allowed to compare against.
 
 | Machine | Patches | Compared against | Inductive bias |
 |---|---|---|---|
@@ -91,7 +91,7 @@ Every pixel independently picks the training patches that best explain its neigh
 | ELS | $$k \times k$$ | training patches **at any location** | locality + translation equivariance |
 | bbELS | $$k \times k$$ | any location, but border patches only match border patches with the same overlap | + the boundary breaks equivariance |
 
-The patch size $$k$$ follows a schedule over time: small at low noise and large at high noise, ranging from 3 to 27 here. The reason is that a UNet's effective receptive field grows with the noise level. Implementation-wise, everything is a softmax-weighted average over millions of patches (10k images × 1024 positions).<span class="sidenote">For ELS, every pixel compares against all ~10M training patches at every one of the 20 steps. Hence the streaming accumulator.</span> I computed it with a streaming log-sum-exp accumulator so the full weight tensor never exists in memory. ELS is one `unfold` and a big matmul per batch of training images.
+The patch size $$k$$ follows a schedule over time: small at low noise and large at high noise, ranging from 3 to 27 here. The reason is that a UNet's effective receptive field grows with the noise level. In the implementation, everything is a softmax-weighted average over millions of patches (10k images × 1024 positions).<span class="sidenote">For ELS, every pixel compares against all ~10M training patches at every one of the 20 steps.</span> I computed it with a streaming log-sum-exp accumulator so the full weight tensor never exists in memory. ELS is one `unfold` and a big matmul per batch of training images.
 
 <figure class="row" style="--cols: 6">
   <div class="cell"><img src="/images/posts/ideal-flow/x1.png" alt="The shared noise sample">noise \(\varepsilon\)</div>
@@ -103,17 +103,17 @@ The patch size $$k$$ follows a schedule over time: small at low noise and large 
   <figcaption>Same noise sample \(\varepsilon\), 20 Euler steps, four analytic machines and the trained UNet.</figcaption>
 </figure>
 
-## What I actually got
+## Results
 
-The results were mixed, and I think the mismatch is more informative than a clean match would have been.
+The results only partly matched the paper.
 
-- **IS** copied a training image, as it must.
-- **LS** gave the closest match to the UNet: a single connected stroke in roughly the right place, with the same loop at the bottom. MNIST digits are centered, so "only compare to patches at the same location" is a very strong and correct prior here.
+- **IS** copied a training image, as expected.
+- **LS** gave the closest match to the UNet: a single connected stroke in roughly the right place, with the same loop at the bottom. MNIST digits are centered, so comparing only against patches at the same location is a good prior for this dataset.
 - **ELS and bbELS** produced collages of plausible stroke fragments that don't form a digit. Each patch is locally reasonable, but nothing coordinates them globally. The boundary-broken version clears up the borders as intended, but the interior stays fragmented.
 
 The paper reports strong agreement between ELS and purely convolutional UNets. My two best guesses for why mine didn't:
 
-1. **My UNet has self-attention**, at 16×16 in the encoder and 8×8 in the bottleneck. Attention is exactly the non-local mechanism ELS leaves out. A model that can see the whole image at every step has no reason to behave like a patch-wise posterior, and LS winning is consistent with that. The UNet appears to be using the global position of strokes.
-2. **The scale schedule wasn't calibrated.** The paper fits $$k(t)$$ per timestep to the trained network. I used a fixed hand-written ramp. If $$k$$ is too small at high noise, each pixel commits to a local patch before there is any global structure to agree with, which gives exactly the fragmented look.
+1. **My UNet has self-attention**, at 16×16 in the encoder and 8×8 in the bottleneck. Attention is non-local, which ELS doesn't model. A network that sees the whole image at every step doesn't need to behave like a patch-wise posterior, and LS matching best is consistent with the UNet using the global position of strokes.
+2. **The scale schedule wasn't calibrated.** The paper fits $$k(t)$$ per timestep to the trained network. I used a fixed hand-written ramp. If $$k$$ is too small at high noise, each pixel commits to a local patch before there is any global structure to agree with, which would produce the fragmented samples.
 
-The clean experiment would be to retrain without attention and fit the schedule by maximizing per-step agreement with the UNet's velocity. That's next on the list. Still, the picture is clear enough to change how I think about these models: **the inductive biases are the generalization**. A network that perfectly fit the training objective would be a lookup table. What we call creativity is a structured way of failing to fit it.
+The next experiment would be to retrain without attention and fit the schedule by maximizing per-step agreement with the UNet's velocity. Even with the mismatch, the main point holds: a network that perfectly fit the training objective would only reproduce training images, so generalization comes from the network's inductive biases.

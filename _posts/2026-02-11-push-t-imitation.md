@@ -2,7 +2,7 @@
 interactive: false
 card_fit: contain
 title: "Behavioral Cloning with Flow Matching Policies"
-description: "Behavior cloning on Push-T with an MSE action-chunking policy and a flow matching policy. The flow policy wins 0.82 to 0.67, and the gap is the conditional mean."
+description: "Behavior cloning on Push-T with an MSE action-chunking policy and a flow matching policy. The flow policy reaches 0.82 mean reward and the MSE policy 0.67."
 date: 2026-02-11
 permalink: /posts/push-t-imitation
 featured: true
@@ -13,14 +13,14 @@ tags:
   - Imitation learning
 ---
 
-Push-T is the "hello world" of visuomotor imitation learning. A circular agent has to push a T-shaped block into a target pose, and you get a set of expert demonstrations to clone. It looks trivial, and it is mostly a test of one thing: whether your policy class can represent an action distribution with more than one mode.
+Push-T is a standard benchmark for visuomotor imitation learning. A circular agent pushes a T-shaped block into a target pose, and the policy is trained on a set of expert demonstrations. The task is simple, but it requires a policy that can represent an action distribution with more than one mode.
 
-I trained two policies on the same demos with the same budget. One regresses action chunks with MSE. The other samples action chunks with flow matching. The flow policy reached a mean reward of **0.82**, and the MSE policy plateaued around **0.67**. This post is about why the gap has to be there.
+I trained two policies on the same demos with the same budget. One regresses action chunks with MSE. The other samples action chunks with flow matching. The flow policy reached a mean reward of **0.82**, and the MSE policy plateaued around **0.67**. This post aims to explain the gap.
 
 ## Setup
 
 - **State:** $$s \in \mathbb{R}^5$$ (agent position plus block pose).
-- **Action:** a chunk of 8 future 2D agent targets, $$a \in \mathbb{R}^{8 \times 2}$$.<span class="sidenote">Action chunking was popularized by ACT (Zhao et al., 2023) for bimanual manipulation.</span> Predicting chunks instead of single actions gives temporally consistent motion and fewer chances to dither between strategies at every step.
+- **Action:** a chunk of 8 future 2D agent targets, $$a \in \mathbb{R}^{8 \times 2}$$.<span class="sidenote">Action chunking was popularized by ACT (Zhao et al., 2023) for bimanual manipulation.</span> Predicting chunks instead of single actions gives temporally consistent motion and fewer chances to switch between strategies at every step.
 - **Training:** 400 epochs (75,600 gradient steps) for both policies, with evaluation every 10k steps.
 
 ## The MSE policy
@@ -32,16 +32,16 @@ A 3-layer MLP (256 hidden units, ReLU) maps the state to a flattened $$8 \times 
   <figcaption>The loss keeps going down. The reward stops improving after about 30k steps and bounces between 0.57 and 0.67. Its best was 0.669, at step 50k.</figcaption>
 </figure>
 
-The training loss looks healthy the whole way, and that's the problem. The network is getting better at the thing MSE asks for, which isn't the thing we want. The minimizer of the squared error is the conditional mean:
+The training loss keeps decreasing, but MSE doesn't measure what we want. The minimizer of the squared error is the conditional mean:
 
 $$\pi_{\text{MSE}}^*(s) = \arg\min_{\hat a}\; \mathbb{E}_{a \sim \pi_E(\cdot \mid s)} \lVert a - \hat a \rVert^2 = \mathbb{E}[a \mid s].$$
 
-In Push-T the expert's action distribution is often bimodal. From the same state, the demonstrator can go around the left side of the T or the right side to get behind it. Both are good. Their average sends the agent straight into the middle of the block, or leaves it hovering between the two plans. That is what the rollouts look like: hesitant pushes and contact that slides off.
+In Push-T the expert's action distribution is often bimodal. From the same state, the demonstrator can go around the left side of the T or the right side to get behind it. Both work, but their average sends the agent into the middle of the block or leaves it between the two plans. The rollouts show this: hesitant pushes and contact that slides off.
 
-Here is the same thing in a toy 2D action space. The gray points are expert actions for a single state, split between two modes. On the left is where an MSE regressor ends up. On the right, noise is transported to actions by the flow-matching velocity field for this distribution.
+The demo below shows this in a toy 2D action space. The gray points are expert actions for a single state, split between two modes. On the left is where an MSE regressor ends up. On the right, noise is transported to actions by the flow-matching velocity field for this distribution.
 
 <div class="demo" data-demo="mse-vs-flow">
-  <div class="demo-head"><span class="demo-title">Regression averages the modes. A flow samples them.</span><span class="demo-tag">Interactive</span></div>
+  <div class="demo-head"><span class="demo-title">MSE regression vs. flow matching on a bimodal distribution</span><span class="demo-tag">Interactive</span></div>
   <p class="legend"><span class="key"><i style="background:var(--muted)"></i>expert actions</span><span class="key"><i style="background:var(--s2)"></i>MSE prediction</span><span class="key"><i style="background:var(--s1)"></i>flow samples</span></p>
   <div class="demo-grid">
     <div class="demo-panel"><span class="label">MSE regression</span><canvas data-role="mse" aria-label="Expert actions in two clusters and the MSE-optimal prediction between them"></canvas></div>
@@ -55,13 +55,13 @@ Here is the same thing in a toy 2D action space. The gray points are expert acti
     <label>left / right split <input type="range" name="split" min="0.1" max="0.9" step="0.01" value="0.5"></label>
   </div>
   <p class="readout" data-out="readout"></p>
-  <p class="demo-note">The velocity field here is the closed-form optimum for a Gaussian mixture, so this shows what flow matching converges to, not a trained network. Slide the modes together and the two answers agree. That is why MSE is fine for unimodal tasks.</p>
+  <p class="demo-note">The velocity field here is the closed-form optimum for a Gaussian mixture, so this shows what flow matching converges to, not a trained network. When the modes are close together the two answers agree, so MSE works for unimodal tasks.</p>
 </div>
 <script src="/js/flow-demo.js?v={{ site.time | date: '%s' }}" defer></script>
 
-Try the split slider too. With a 70/30 split, the MSE answer moves toward the bigger mode but still sits in empty space. Unless the modes overlap, no single point is a good action.
+With a 70/30 split, the MSE prediction moves toward the larger mode but still falls between the two. Unless the modes overlap, no single point is a good action.
 
-The same failure showed up in a completely different setting a month later. In CS 280 I trained a one-step denoiser to map pure Gaussian noise to MNIST digits, and it output the average digit: a gray blob that is every class superimposed. Pure noise carries no information about which digit to produce, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$. [More on that in the ideal flow machines post.](/posts/flow-matching-creativity)
+The same problem came up a month later in CS 280, where I trained a one-step denoiser to map pure Gaussian noise to MNIST digits. It output the average digit, a gray blob of every class superimposed, because pure noise carries no information about which digit to produce, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$. [More on that in the ideal flow machines post.](/posts/flow-matching-creativity)
 
 ## The flow matching policy
 
@@ -73,18 +73,18 @@ This is still an MSE loss, so it still learns a conditional mean. The difference
 
 <figure class="wide">
   <img src="/images/posts/push-t/flow-curves.png" alt="Flow matching policy training loss falls from about 0.87 to 0.19; evaluation reward rises steadily from 0.33 to 0.82.">
-  <figcaption>The flow policy's reward keeps climbing for the whole run and ends at 0.82. Its loss floors around 0.19. That is expected: the target \(a_1 - \varepsilon\) is random given \(a_t\), so the minimum of this loss is its conditional variance, not zero. Don't compare the two loss curves to each other.</figcaption>
+  <figcaption>The flow policy's reward keeps climbing for the whole run and ends at 0.82. Its loss floors around 0.19. That is expected: the target \(a_1 - \varepsilon\) is random given \(a_t\), so the minimum of this loss is its conditional variance, not zero, so the two loss curves aren't comparable.</figcaption>
 </figure>
 
 <figure>
   <img src="/images/featured4.gif" alt="Rollout of the flow matching policy pushing the T block into the green target." style="max-width:360px">
-  <figcaption>A flow policy rollout. It picks a side and goes.</figcaption>
+  <figcaption>A flow policy rollout. It commits to one side of the block.</figcaption>
 </figure>
 
-The qualitative difference in rollouts matches the numbers. The flow policy picks a strategy and executes it, and its pushes make clean contact. The MSE policy's pushes look tentative, as you would expect from a policy that is literally splitting the difference.
+The rollouts match the numbers. The flow policy commits to one strategy and its pushes make clean contact. The MSE policy's pushes look tentative, consistent with averaging between strategies.
 
-## Takeaways
+## Summary
 
-- A smooth, falling training loss tells you nothing about whether your policy class can represent the expert. The MSE policy fit the conditional mean well, and the conditional mean is a bad action.
-- Multimodality is the default in manipulation, not an edge case: grasp from either side, go around either way, use either hand. This is a big part of why Diffusion Policy and flow-matching action heads like $$\pi_0$$'s took over.
-- The flow head costs you something later. Its likelihood is intractable, and maximizing a Q-function through it means backpropagating through an ODE solve. That is the main obstacle to doing RL on top of these policies, which I come back to in [the offline RL post](/posts/offline-rl).
+- A decreasing training loss doesn't show whether the policy class can represent the expert. The MSE policy fit the conditional mean well, but the conditional mean is a bad action.
+- Multimodal action distributions are common in manipulation (grasping from either side, going around either way, using either hand), which is a large part of why Diffusion Policy and flow-matching action heads like $$\pi_0$$'s are widely used.
+- The flow head has a downside. Its likelihood is intractable, and maximizing a Q-function through it means backpropagating through an ODE solve. That is the main obstacle to doing RL on top of these policies, which I come back to in [the offline RL post](/posts/offline-rl).
