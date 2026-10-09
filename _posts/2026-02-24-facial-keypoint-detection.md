@@ -26,7 +26,7 @@ The task is to predict 68 landmarks (jaw, brows, eyes, nose, mouth) as $$(x, y)$
 
 ## 1. Regressing coordinates directly
 
-A 4-block CNN (32→256 channels, BatchNorm, max-pool, increasing dropout) followed by an MLP head that outputs 136 numbers, trained with SmoothL1. A small sweep over learning rate, loss, and activation favored lr 1e-3, SmoothL1 over MSE (less sensitive to the occasional badly placed label), and ELU over ReLU.
+A 4-block CNN (32 to 256 channels, BatchNorm, max-pool, increasing dropout) followed by an MLP head that outputs 136 numbers, trained with SmoothL1. A small sweep over learning rate, loss, and activation favored lr 1e-3, SmoothL1 over MSE (less sensitive to the occasional badly placed label), and ELU over ReLU.
 
 <figure class="wide">
   <img src="/images/posts/facial-keypoints/cnn-preds.png" alt="Test predictions (red) vs ground truth (green) for the direct regression CNN; several faces have landmarks shifted or shrunk toward the center.">
@@ -46,7 +46,7 @@ This has the same problem as [MSE action regression](/posts/push-t-imitation): w
 
 This reduced test MSE from 0.046 to 0.0076, a 6× improvement, and removed most of the large failures. ImageNet features already encode edges and object parts, so the head only has to map them to coordinates.
 
-**DINOv2** (ViT-S/14, CLS token → linear head) reached 0.0099 and was the hardest to train. Phase 1 (frozen backbone) barely improved, and phase 2 needed a backbone learning rate of 2e-6 to avoid degrading the features. I think regressing from the CLS token was the main problem. It's a global summary trained to be invariant to the kind of spatial detail this task needs, and the patch tokens carry more localization information.
+**DINOv2** (ViT-S/14, CLS token to linear head) reached 0.0099 and was the hardest to train. Phase 1 (frozen backbone) barely improved, and phase 2 needed a backbone learning rate of 2e-6 to avoid degrading the features. I think regressing from the CLS token was the main problem. It's a global summary trained to be invariant to the kind of spatial detail this task needs, and the patch tokens carry more localization information.
 
 ## 3. Heatmaps
 

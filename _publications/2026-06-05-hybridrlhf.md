@@ -9,7 +9,7 @@ kind: Research project
 authors: "Zhuojie Kuang, Richik Pal, Eddie Cui"
 venue: "CS 185/285 (Deep RL) final project"
 thumb: /images/research/rlhf-winrates.png
-blurb: "Six RLHF baselines (DPO, IPO, AOT, GRPO, DrGRPO, GSPO) under one benchmark, then a hybrid built on the observation that AOT and DPO are useful at different stages of training: a scheduled AOT→DPO loss, confidence-weighted pairs, and reward-model reranking. 0.865 win rate vs. 0.763 for the best baseline."
+blurb: "Six RLHF baselines (DPO, IPO, AOT, GRPO, DrGRPO, GSPO) under one benchmark, then a hybrid built on the observation that AOT and DPO are useful at different stages of training: a scheduled AOT to DPO loss, confidence-weighted pairs, and reward-model reranking. 0.865 win rate vs. 0.763 for the best baseline."
 links:
   - { name: Paper (PDF), url: "/files/CS_185_Final_Report.pdf" }
 ---

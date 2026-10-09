@@ -1,7 +1,7 @@
 ---
 card_fit: contain
 title: "Offline RL: SAC+BC, IQL, and flow Q-learning on OGBench"
-description: "SAC+BC, IQL, and flow Q-learning on an OGBench manipulation task and a navigation task, with a sweep over each method's main hyperparameter."
+description: "SAC+BC, IQL, and flow Q-learning on an OGBench manipulation task and a navigation task."
 date: 2026-04-19
 permalink: /posts/offline-rl
 featured: true
@@ -73,4 +73,3 @@ $$\mathcal{L}(\omega) = -Q\big(s, \mu_\omega(s, z)\big) + \alpha\,\big\lVert \mu
 
 The distillation term keeps the one-step policy close to the BC policy for the same noise $$z$$. Different noise still maps to different modes, and Q moves each sample toward better actions within its mode. No gradient goes through the ODE, so the RL update costs about the same as SAC+BC.
 
-Keeping a generative BC policy frozen and training a small policy next to it with RL is also how Seohong described adapting VLAs in [Sergey's seminar](/posts/2026/09/26): steer the frozen VLA's noise, or learn residual corrections to its actions with a small Gaussian policy and SAC. FQL applies the same idea offline.
