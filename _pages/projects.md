@@ -122,9 +122,9 @@ description: "A list of some things I've built. Code for course projects is priv
 
 <ul class="compact">
   <li>DNABERT-6 species classification (human / dog / chimp) with k-mer tokenization</li>
-  <li>ConvNeXt on UrbanSound8K spectrograms, 90% accuracy; scratch vs. frozen vs. fine-tuned</li>
-  <li>ResNet-18 from scratch, 70% val accuracy on an ImageNet subset</li>
-  <li>Autodiff engine: computation graph, topological sort, SGD / momentum / Adam</li>
+  <li>ConvNeXt on UrbanSound8K spectrograms</li>
+  <li>ResNet-18 from scratch</li>
+  <li>Autodiff engine: computation graph, topo sort, SGD / momentum / Adam</li>
   <li>Fashion-MNIST classifier robust to shifts, rotations, and blur</li>
   <li>Fully connected MNIST classifier in RISC-V assembly</li>
   <li>2-stage pipelined RISC-V CPU in Logisim</li>
