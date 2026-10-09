@@ -6,7 +6,7 @@ date: 2026-05-27
 group: course
 order: 2
 kind: Research project
-authors: "Shuai Meng, Anthony Kuang"
+authors: "Shuai Meng, Zhuojie Kuang"
 venue: "CS 280 (Graduate Computer Vision) final project"
 thumb: /images/research/waveletflow-sample.png
 blurb: "FourierFlow fights spectral bias by boosting high frequencies, but a Fourier mode lives everywhere in the domain. Replacing its Fourier mixing branch with a wavelet branch lets the model sharpen detail where the vortices are, cutting RMSE by 8.4% on PDEBench compressible Navier–Stokes."

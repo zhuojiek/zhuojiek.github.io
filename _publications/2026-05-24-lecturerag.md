@@ -6,7 +6,7 @@ date: 2026-05-24
 group: course
 order: 3
 kind: Research project
-authors: "Meenakshi Mittal, Micah Mok, Anthony Kuang"
+authors: "Meenakshi Mittal, Micah Mok, Zhuojie Kuang"
 venue: "CS 288 (Advanced NLP) final project"
 thumb: /images/research/lecture-rag-pipeline.png
 blurb: "Answers to lecture questions live in speech, slides, charts, and gestures. We bundle OCR, ASR, and VLM frame descriptions into time-aligned chunks and add a carry-forward rule for slides shown just before a window. On a new 156-question benchmark, lecture-filtered retrieval reaches 82% accuracy on DATA 100, up from 20% with no context, in about 3 s per question."

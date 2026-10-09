@@ -30,11 +30,11 @@
   // from the filled pixels. To add a shape, add a painter here and a button in about.md.
   const SHAPES = {
     name: {
-      label: "the name Anthony Kuang",
+      label: "the name Zhuojie Kuang",
       paint(o) {
         let size = H * 0.78;
         o.font = `600 ${size}px Fraunces, Georgia, serif`;
-        const text = "Anthony Kuang";
+        const text = "Zhuojie Kuang";
         const w = o.measureText(text).width;
         if (w > W * 0.98) { size *= (W * 0.98) / w; o.font = `600 ${size}px Fraunces, Georgia, serif`; }
         o.textBaseline = "alphabetic";
