@@ -33,7 +33,7 @@ redirect_from:
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
     <dl>
-      <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo">GitHub</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="/feed.xml">RSS</a></dd></div>
+      <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo?tab=repositories">GitHub</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="/feed.xml">RSS</a></dd></div>
     </dl>
   </aside>
 </section>
