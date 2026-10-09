@@ -12,7 +12,6 @@ description: "A list of some things I've built. Code for course projects is priv
 ### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
 - A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
 - GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
-- Pulled 3 all-nighters in a row during dead week
 </div>
 
 <div class="project" markdown="1">

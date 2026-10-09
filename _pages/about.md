@@ -65,7 +65,7 @@ redirect_from:
 <section class="section">
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
-    I am a fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I attended school virtually through California Connections Academy and graduated as valedictorian. I sometimes enjoy playing the 
+    I am a big fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I attended school virtually through California Connections Academy and graduated as valedictorian. I sometimes enjoy playing the 
     <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>.
   </p>
 </section>
