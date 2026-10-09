@@ -12,7 +12,7 @@ redirect_from:
   <h1>Zhuojie Kuang</h1>
   <canvas aria-label="Particles flowing from Gaussian noise into the name Zhuojie Kuang"></canvas>
   <p class="hero-caption">
-    <span>Match my flow · t = <span data-hero="t">0.00</span></span>
+    <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
       <span class="shape-toggle" role="group" aria-label="Target distribution">
         <button type="button" data-shape="name" aria-pressed="true">👾</button>
