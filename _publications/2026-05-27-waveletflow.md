@@ -21,9 +21,9 @@ links:
 
 ## The problem of spectral bias
 
-Diffusion and flow models recover coarse, low frequency structure first and fine, high frequency structure last. The reason is the signal-to-noise ratio per frequency. Noise is white, so its power is flat across frequencies. Natural and physical signals have power that decays like $$\lvert\omega\rvert^{-\alpha}$$. High frequencies therefore drop below the noise floor earliest in the forward process, and the reverse process has the least signal to recover them from. For turbulence that is bad news, because the vortices and shear layers carrying the interesting physics live at high wavenumbers.
+Diffusion and flow models recover coarse, low frequency structure first and fine, high frequency structure last.  High frequencies therefore drop below the noise floor earliest in the forward process, and the reverse process has the least signal to recover them from. For turbulence that is bad news, because the vortices and shear layers carrying the interesting physics live at high wavenumbers.
 
-FourierFlow (Wang et al.) addresses this with a learnable spectral filter weighted by $$\lVert\xi\rVert^\eta$$, which pushes the model toward high frequencies. However this filter is global. Turbulent fields are mostly smooth with a few localized vortex cores, so amplifying a certain frequency band amplifies the quiet regions too.
+FourierFlow (Wang et al.) addressed this with a learnable spectral filter weighted by $$\lVert\xi\rVert^\eta$$, which pushes the model toward high frequencies. However this filter is global. Turbulent fields are mostly smooth with a few localized vortex cores, so amplifying a certain frequency band amplifies the quiet regions too.
 
 ## WaveletFlow Architecture
 
