@@ -35,7 +35,7 @@ The tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a
 | IQL | ≈0.92 ($$\alpha = 30$$) | ≈0.20 ($$\alpha = 10$$) |
 | FQL | ≈1.00 ($$\alpha = 100$$) | ≈0.48 ($$\alpha = 10$$) |
 
-All three methods nearly solve cube. On antsoccer FQL does best, at about 0.48.
+All 3 methods nearly solve cube. On antsoccer FQL does best, at about 0.48.
 
 <figure class="half">
   <img src="/images/posts/offline-rl/fql-cube.png" alt="FQL on cube-single: success reaches 0.84 at 100k and stays between 0.84 and 1.0.">
@@ -49,15 +49,15 @@ I swept each method's main hyperparameter on cube-single.
 
 <figure class="half">
   <img src="/images/posts/offline-rl/sacbc-cube-sweep.png" alt="SAC+BC sweep: alpha 100 and 300 reach about 1.0; alpha 1000 peaks at 0.92 then degrades to 0.6.">
-  <img src="/images/posts/offline-rl/iql-cube-sweep.png" alt="IQL sweep over alpha 1, 3, 10: all three track each other between 0.6 and 1.0.">
+  <img src="/images/posts/offline-rl/iql-cube-sweep.png" alt="IQL sweep over alpha 1, 3, 10: all 3 track each other between 0.6 and 1.0.">
   <figcaption>Left: SAC+BC with \(\alpha \in \{100, 300, 1000\}\). Right: IQL with \(\alpha \in \{1, 3, 10\}\).</figcaption>
 </figure>
 
 SAC+BC is sensitive to $$\alpha$$. $$\alpha = 100$$ and 300 both reach about 1.0, but $$\alpha = 1000$$ peaks at 0.92 and then drops to 0.6. With too much BC weight the actor imitates the play data, which wasn't collected for this task. With too little it exploits the critic's errors. The best value also differed by 100× between tasks (300 on cube, 3 on antsoccer).
 
-IQL is much less sensitive. Across a 10× range of $$\alpha$$ the three curves stay in the same 0.6–1.0 band and cross each other repeatedly. IQL only evaluates Q at dataset actions, so $$\alpha$$ only changes how strongly it weights the better dataset actions, and the policy can't move outside the data. This also limits IQL to reweighting the data, and it had the lowest score on antsoccer.
+IQL is much less sensitive. Across a 10× range of $$\alpha$$ the 3 curves stay in the same 0.6–1.0 band and cross each other repeatedly. IQL only evaluates Q at dataset actions, so $$\alpha$$ only changes how strongly it weights the better dataset actions, and the policy can't move outside the data. This also limits IQL to reweighting the data, and it had the lowest score on antsoccer.
 
-The three SAC+BC runs used different seeds, so the $$\alpha = 1000$$ drop could partly be a seed effect. I'd need several seeds per setting to say more.
+The 3 SAC+BC runs used different seeds, so the $$\alpha = 1000$$ drop could partly be a seed effect. I'd need several seeds per setting to say more.
 
 ## Flow Q-learning
 

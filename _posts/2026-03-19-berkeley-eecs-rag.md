@@ -12,14 +12,14 @@ The assignment was to build a question-answering system for everything on eecs.b
 
 ## The corpus
 
-I wrote the crawler. It starts from the sitemaps, does a breadth-first crawl over `eecs.berkeley.edu` and `www2.eecs.berkeley.edu` while respecting the `robots.txt` delays, and ran for about 72 hours, ending with ~15K HTML pages. Two choices affected retrieval quality:
+I wrote the crawler. It starts from the sitemaps, does a breadth-first crawl over `eecs.berkeley.edu` and `www2.eecs.berkeley.edu` while respecting the `robots.txt` delays, and ran for about 72 hours, ending with ~15K HTML pages. 2 choices affected retrieval quality:
 
 - **Filtering.** To keep the corpus manageable, I kept only the 1,500 most recent (2020–2026). I also dropped listing and search-result pages, which mostly contain links to other pages and add near-duplicate noise to the index.
 - **Structure.** Extracting text with ResiliParse while preserving some structural HTML tags retrieved better than plain text. Headings and lists give the embedding model context about what a block of text describes.
 
 ## The data
 
-We wrote 138 QA pairs by sampling random pages: 65% factoid, 26% multi-hop (e.g. "the email of the professor who teaches the AI course in Lewis 100 and has a BA in Physics from Oxford"), and the rest yes/no and counting. A quarter of them are time-sensitive. Two of us independently annotated 40 of them. Agreement was 69% under strict exact match but 91% under lenient string matching. The gap suggests exact match is too strict for this task, which also shows up in the error analysis below.
+We wrote 138 QA pairs by sampling random pages: 65% factoid, 26% multi-hop (e.g. "the email of the professor who teaches the AI course in Lewis 100 and has a BA in Physics from Oxford"), and the rest yes/no and counting. A quarter of them are time-sensitive. 2 of us independently annotated 40 of them. Agreement was 69% under strict exact match but 91% under lenient string matching. The gap suggests exact match is too strict for this task, which also shows up in the error analysis below.
 
 ## The pipeline
 
@@ -27,7 +27,7 @@ We wrote 138 QA pairs by sampling random pages: 65% factoid, 26% multi-hop (e.g.
 2. **Rerank** the candidates with a cross-encoder (`bge-reranker-base`), which reads the question and the chunk together.
 3. **Expand** the top 5 chunks to their *full source documents* and pass those to Llama-3.1-8B-Instruct, prompted to output only a short answer.
 
-In step 3, ranking happens on small chunks, which keeps retrieval precise, while the model sees the whole page, so it doesn't miss context outside the chunk. A chunk saying "received the award in 2022" isn't much use if the name of the award is two paragraphs up.
+In step 3, ranking happens on small chunks, which keeps retrieval precise, while the model sees the whole page, so it doesn't miss context outside the chunk. A chunk saying "received the award in 2022" isn't much use if the name of the award is 2 paragraphs up.
 
 ## Ablations
 
@@ -48,7 +48,7 @@ Grouping the F1 = 0 errors from the best model:
 - **Aggregation:** the right page is retrieved, but the model picks the wrong fact, e.g. naming the wrong professor for "earliest-born professor".
 - **Temporal:** "January 2017" vs. "2016" for when RISELab was founded.
 - **Span selection:** "510" instead of "1 (510) 642-3214".
-- **The metric:** "Two." vs. "2", and "Two semesters." vs. "1 year". These are correct answers that score zero.
+- **Metric:** "Two." vs. "2", and "Two semesters." vs. "1 year". These are correct answers that score zero.
 
 The last category is the easiest to fix and matches the 69% vs. 91% gap in the annotations. Normalizing number words, dates, phone numbers, and simple unit equivalences before scoring would recover these points without changing the system. After that, I'd add hybrid sparse+dense retrieval, since BM25 tends to do better than embeddings on names and course numbers.
 

@@ -29,15 +29,15 @@ Before the flow model I trained a plain denoiser $$D(z) \approx x$$ on MNIST dig
 To make it generative in one step, I trained the same network to map pure noise $$\varepsilon \sim \mathcal{N}(0, I)$$ directly to a digit.
 
 <figure class="wide">
-  <img src="/images/posts/ideal-flow/pure-noise-e5.png" alt="Leftmost: the average MNIST training image. Right: ten one-step outputs from pure noise, all nearly identical blurry blobs matching the average.">
-  <figcaption>Left: the average training image. Right: ten one-step "generations" from different noise after 5 epochs. All of them are close to the average image.</figcaption>
+  <img src="/images/posts/ideal-flow/pure-noise-e5.png" alt="Leftmost: the average MNIST training image. Right: 10 one-step outputs from pure noise, all nearly identical blurry blobs matching the average.">
+  <figcaption>Left: the average training image. Right: 10 one-step "generations" from different noise after 5 epochs. All of them are close to the average image.</figcaption>
 </figure>
 
 The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise it carries no information about $$x$$, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$ and the network outputs the dataset mean, which looks like every digit superimposed. This is the same problem as the [MSE policy on Push-T](/posts/push-t-imitation). Iterative denoising avoids it by conditioning on a partially denoised $$x_t$$ and taking small steps, so each step predicts the mean of a narrower distribution.
 
 ## Part 2: flow matching
 
-With $$x_t = (1-t)\,\varepsilon + t\,x_1$$ (noise at $$t=0$$, data at $$t=1$$), the UNet takes the time as a sinusoidal embedding and regresses the velocity $$x_1 - \varepsilon$$. Sampling is Euler integration from $$t=0$$ to 1.<span class="sidenote">I use the Lipman et al. convention throughout this post. The CS 280 starter code used the reverse, with data at $$t = 0$$, which is why the noise image in Figure 5 is titled $$x_1$$. The two differ only by $$t \mapsto 1 - t$$.</span>
+With $$x_t = (1-t)\,\varepsilon + t\,x_1$$ (noise at $$t=0$$, data at $$t=1$$), the UNet takes the time as a sinusoidal embedding and regresses the velocity $$x_1 - \varepsilon$$. Sampling is Euler integration from $$t=0$$ to 1.<span class="sidenote">I use the Lipman et al. convention throughout this post. The CS 280 starter code used the reverse, with data at $$t = 0$$, which is why the noise image in Figure 5 is titled $$x_1$$. The 2 differ only by $$t \mapsto 1 - t$$.</span>
 
 <figure class="wide">
   <img src="/images/posts/ideal-flow/fm-final.png" alt="Sixteen unconditional MNIST samples after 10 epochs of flow matching training.">
@@ -47,7 +47,7 @@ With $$x_t = (1-t)\,\varepsilon + t\,x_1$$ (noise at $$t=0$$, data at $$t=1$$), 
 Adding a class embedding with 10% label dropout gives classifier-free guidance, $$v = v_\varnothing + \gamma\,(v_c - v_\varnothing)$$:
 
 <figure>
-  <img src="/images/posts/ideal-flow/cfg.png" alt="Grid of class-conditional samples, four per digit 0 through 9." style="max-width:260px">
+  <img src="/images/posts/ideal-flow/cfg.png" alt="Grid of class-conditional samples, 4 per digit 0 through 9." style="max-width:260px">
   <figcaption>Class-conditional samples with guidance scale \(\gamma = 5\), one row per digit.</figcaption>
 </figure>
 
@@ -82,7 +82,7 @@ Kamb & Ganguli make the posterior local. Each pixel only gets to look at a $$k \
 
 $$\ell(p) = -\frac{\lVert x_{\Omega_u} - a_t\, p \rVert^2}{2 b_t^2}, \qquad \hat x_1(u) = \frac{\sum_p e^{\ell(p)}\, p_{\text{center}}}{\sum_p e^{\ell(p)}}.$$
 
-Every pixel independently picks the training patches that best explain its neighborhood and copies their center pixel. Different pixels can copy from different images. This allows new combinations that are locally consistent with the training data but aren't copies of any one image. The four machines differ only in which patches each pixel is allowed to compare against.
+Every pixel independently picks the training patches that best explain its neighborhood and copies their center pixel. Different pixels can copy from different images. This allows new combinations that are locally consistent with the training data but aren't copies of any one image. The 4 machines differ only in which patches each pixel is allowed to compare against.
 
 | Machine | Patches | Compared against | Inductive bias |
 |---|---|---|---|
@@ -100,7 +100,7 @@ The patch size $$k$$ follows a schedule over time: small at low noise and large 
   <div class="cell"><img src="/images/posts/ideal-flow/ls.png" alt="LS sample">LS</div>
   <div class="cell"><img src="/images/posts/ideal-flow/els.png" alt="ELS sample: disconnected stroke fragments">ELS</div>
   <div class="cell"><img src="/images/posts/ideal-flow/bbels.png" alt="bbELS sample: stroke fragments, fewer at borders">bbELS</div>
-  <figcaption>Same noise sample \(\varepsilon\), 20 Euler steps, four analytic machines and the trained UNet.</figcaption>
+  <figcaption>Same noise sample \(\varepsilon\), 20 Euler steps, 4 analytic machines and the trained UNet.</figcaption>
 </figure>
 
 ## Results
@@ -111,7 +111,7 @@ The results only partly matched the paper.
 - **LS** gave the closest match to the UNet: a single connected stroke in roughly the right place, with the same loop at the bottom. MNIST digits are centered, so comparing only against patches at the same location is a good prior for this dataset.
 - **ELS and bbELS** produced collages of plausible stroke fragments that don't form a digit. Each patch is locally reasonable, but nothing coordinates them globally. The boundary-broken version clears up the borders as intended, but the interior stays fragmented.
 
-The paper reports strong agreement between ELS and purely convolutional UNets. My two best guesses for why mine didn't:
+The paper reports strong agreement between ELS and purely convolutional UNets. My 2 best guesses for why mine didn't:
 
 1. **My UNet has self-attention**, at 16×16 in the encoder and 8×8 in the bottleneck. Attention is non-local, which ELS doesn't model. A network that sees the whole image at every step doesn't need to behave like a patch-wise posterior, and LS matching best is consistent with the UNet using the global position of strokes.
 2. **The scale schedule wasn't calibrated.** The paper fits $$k(t)$$ per timestep to the trained network. I used a fixed hand-written ramp. If $$k$$ is too small at high noise, each pixel commits to a local patch before there is any global structure to agree with, which would produce the fragmented samples.

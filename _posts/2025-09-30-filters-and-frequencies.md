@@ -12,7 +12,7 @@ tags:
 
 ## 1.1 Convolutions from Scratch
 
-The naive way to convolve an image is to use 4 for loops, iterating over height, width, and the kernel dimensions. More efficient is to use two for loops over the height and width, then flatten the kernel and image into 1D arrays to do a single dot product with Numpy. Lastly, there is the optimized convolve2d function from Scipy. All three methods work well as seen below:
+The naive way to convolve an image is to use 4 for loops, iterating over height, width, and the kernel dimensions. More efficient is to use 2 for loops over the height and width, then flatten the kernel and image into 1D arrays to do a single dot product with Numpy. Lastly, there is the optimized convolve2d function from Scipy. All 3 methods work well as seen below:
 
 The first column is 2 for loops, the second column is 4 for loops, the third column is the optimized convolve2d function. First row is box filter, second row is Dx, third row is Dy.
 
@@ -95,7 +95,7 @@ Now let's build the edge image. Look how much noise is gone! Here we used a much
 
 ![blurred_cameraman_edge_image](/images/cs180-archive/cs180/proj2/blurred_cameraman_edge_image.jpg)
 
-But wait, we can do this in a single convolution instead of two! This is because convolution is associative, meaning we can combine the two convolutions into a single convolution. We can thus create a `DoG_Dx` and `DoG_Dy` filter and convolve with the cameraman image.
+But wait, we can do this in a single convolution instead of 2! This is because convolution is associative, meaning we can combine the 2 convolutions into a single convolution. We can thus create a `DoG_Dx` and `DoG_Dy` filter and convolve with the cameraman image.
 
 Here is what `DoG_Dx` and `DoG_Dy` look like:
 
@@ -152,13 +152,13 @@ Here is the hybrid image of a man and his cat:
 
 Here is the hybrid image of me and Ayanokoji. We will step through the entire process of creating this image:
 
-We start with the original two images:
+We start with the original 2 images:
 
 ![myself](/images/cs180-archive/cs180/proj2/myself.jpg)
 
 ![ayanokoji](/images/cs180-archive/cs180/proj2/ayanokoji.jpg)
 
-Then, we align the two images together by selecting the eyes as reference points.
+Then, we align the 2 images together by selecting the eyes as reference points.
 
 Here are the relevant images from the alignment process and filtering:
 
@@ -192,7 +192,7 @@ Here is another, of Tomoya and Sunohara from Clannad:
 
 ## 2.3 Gaussian and Laplacian Stacks
 
-The general approach is to blend together the frequency bands of the two images using a Laplacian Stack and Gaussian filter.
+The general approach is to blend together the frequency bands of the 2 images using a Laplacian Stack and Gaussian filter.
 
 Here, we see the Oraple:
 

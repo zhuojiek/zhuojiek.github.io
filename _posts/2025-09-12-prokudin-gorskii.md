@@ -1,5 +1,5 @@
 ---
-description: "Aligning the three glass-plate exposures with NCC and an image pyramid."
+description: "Aligning the 3 glass-plate exposures with NCC and an image pyramid."
 section: cs180
 title: Coloring the Prokudin-Gorskii photo collection
 date: 2025-09-12
@@ -8,17 +8,17 @@ tags:
   - Computer Vision
 ---
 
-Sergei Mikhailovich Prokudin-Gorskii, a Russian chemist and photographer, pioneered color photography in the early 20th century by capturing three exposures of each scene on glass plates through red, green, and blue filters, with the vision of combining them into full-color images. After leaving Russia in 1918, his collection was acquired by the Library of Congress and later digitized. Our goal is to transform these stitched negatives - images containing the three stacked exposures - into aligned, artifact-free color photographs.
+Sergei Mikhailovich Prokudin-Gorskii, a Russian chemist and photographer, pioneered color photography in the early 20th century by capturing 3 exposures of each scene on glass plates through red, green, and blue filters, with the vision of combining them into full-color images. After leaving Russia in 1918, his collection was acquired by the Library of Congress and later digitized. Our goal is to transform these stitched negatives - images containing the 3 stacked exposures - into aligned, artifact-free color photographs.
 
 ![image](/images/cs180-archive/cs180/cathedral.jpg)
 
 - An example of a stitched negative, with the blue, green, and red exposures stacked on top of each other.
 
-What should our approch be? Well, the basic idea is to partition the stitched negative into 3 images, one for each channel. Then, we choose one channel as the reference (in this case, the blue channel) and align the other two channels to the reference. The algorithm should return the optimal shift for the red and green channels. Finally, we will apply these shifts and then stack the aligned red and green channels on top of the blue channel to form a full-color image.
+What should our approch be? Well, the basic idea is to partition the stitched negative into 3 images, one for each channel. Then, we choose one channel as the reference (in this case, the blue channel) and align the other 2 channels to the reference. The algorithm should return the optimal shift for the red and green channels. Finally, we will apply these shifts and then stack the aligned red and green channels on top of the blue channel to form a full-color image.
 
 ## Small images
 
-My first idea was to minimize the Euclidean distance between the pixels of the two channels. However, some initial testing seemed to indicate that maximizing the Normalized Cross-Correlation (NCC) score led to slightly better alignments.
+My first idea was to minimize the Euclidean distance between the pixels of the 2 channels. However, some initial testing seemed to indicate that maximizing the Normalized Cross-Correlation (NCC) score led to slightly better alignments.
 
 Thus, I implemented NCC. Both approaches involved flattening the images into one dimensional arrays. In the case of NCC, I also normalized the arrays and then took the dot product.
 
@@ -30,7 +30,7 @@ Next, I worried that the inconsistent borders of the images would affect the res
 
 The basic algorithm is as follows:
 
-The inputs to the `align` function are two images, `img1` and `img2`. The output is the optimal shift (dx, dy) that maximizes the NCC score.
+The inputs to the `align` function are 2 images, `img1` and `img2`. The output is the optimal shift (dx, dy) that maximizes the NCC score.
 
 img2 is the reference channel, while img1 is the channel we are aligning to the reference. Following the approach described above, we will need to call align(red, blue) and align(green, blue).
 

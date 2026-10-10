@@ -11,7 +11,7 @@ tags:
   - Computer Vision
 ---
 
-The task is to predict 68 landmarks (jaw, brows, eyes, nose, mouth) as $$(x, y)$$ pairs from a 224×224 grayscale face. I tried three approaches: regressing coordinates directly, fine-tuning pretrained backbones, and predicting heatmaps.
+The task is to predict 68 landmarks (jaw, brows, eyes, nose, mouth) as $$(x, y)$$ pairs from a 224×224 grayscale face. I tried 3 approaches: regressing coordinates directly, fine-tuning pretrained backbones, and predicting heatmaps.
 
 <figure>
   <img src="/images/posts/facial-keypoints/sample.png" alt="A training face with its 68 ground-truth keypoints in red." style="max-width:320px">
@@ -37,7 +37,7 @@ This has the same problem as [MSE action regression](/posts/push-t-imitation): w
 
 ## 2. Transfer learning
 
-**ResNet-18.** I replaced the first conv with a 1-channel version, initialized by averaging the pretrained RGB filters so the pretrained edge filters are kept. I put a small MLP head on top and trained in two phases: 15 epochs with only the input conv and head trainable, then 20 epochs end to end with a 4× smaller learning rate on the backbone than on the head.
+**ResNet-18.** I replaced the first conv with a 1-channel version, initialized by averaging the pretrained RGB filters so the pretrained edge filters are kept. I put a small MLP head on top and trained in 2 phases: 15 epochs with only the input conv and head trainable, then 20 epochs end to end with a 4× smaller learning rate on the backbone than on the head.
 
 <figure class="wide">
   <img src="/images/posts/facial-keypoints/resnet-loss.png" alt="ResNet-18 training curve with the backbone unfreezing at epoch 15.">
@@ -57,7 +57,7 @@ Instead of 136 numbers, predict 68 images: a U-Net outputs a 64×64 heatmap per 
   <figcaption>Predicted and target heatmaps for a few keypoints. Each is a single peak.</figcaption>
 </figure>
 
-This parameterization suits a conv net. The output is in the same spatial frame as the input, so translation equivariance handles what the regression MLP had to learn. A heatmap can also be bimodal when the model is unsure, and the argmax picks one mode instead of averaging them, similar to flow vs. MSE policies. Training was the most stable of the four.
+This parameterization suits a conv net. The output is in the same spatial frame as the input, so translation equivariance handles what the regression MLP had to learn. A heatmap can also be bimodal when the model is unsure, and the argmax picks one mode instead of averaging them, similar to flow vs. MSE policies. Training was the most stable of the 4.
 
 <figure class="wide">
   <img src="/images/posts/facial-keypoints/unet-preds.png" alt="Heatmap model predictions closely matching ground truth on test faces.">

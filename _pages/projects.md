@@ -66,7 +66,7 @@ description: "A list of some things I've built. Code for course projects is priv
 
 <div class="project" markdown="1">
 ### Facial keypoint detection <span class="plinks">[write-up](/posts/facial-keypoint-detection)</span>
-- 68 landmarks predicted three ways: CNN coordinate regression, ResNet-18 / DINOv2 transfer, and U-Net Gaussian heatmaps
+- 68 landmarks predicted 3 ways: CNN coordinate regression, ResNet-18 / DINOv2 transfer, and U-Net Gaussian heatmaps
 <img src="/images/facialkeypoint.png" alt="Facial keypoint predictions" width="520" loading="lazy">
 </div>
 
@@ -100,7 +100,7 @@ description: "A list of some things I've built. Code for course projects is priv
 - **CLIP retrieval and captioning** on Concadia, with Rational Speech Acts (literal listener, pragmatic speaker and listener) to choose the least ambiguous caption
 - **Text2SQL:** fine-tuned GPT-2 to write executable SQL and compared it with few-shot prompting
 - **MCQ fine-tuning:** Qwen2.5-0.5B-Instruct with `trl` on CS 189 multiple-choice questions (45%)
-- **Tokenization and embeddings:** BPE, Zipf's law, skip-gram with negative sampling, and a learned linear map between two languages' embedding spaces for translation
+- **Tokenization and embeddings:** BPE, Zipf's law, skip-gram with negative sampling, and a learned linear map between 2 languages' embedding spaces for translation
 - **Evaluation:** PR curves, Levenshtein distance, BLEU, and LLM-as-a-judge on classification, translation, and open-ended generation
 </div>
 

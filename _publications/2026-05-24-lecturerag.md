@@ -16,7 +16,7 @@ links:
 
 <figure class="wide">
   <img src="/images/research/lecture-rag-pipeline.png" alt="Pipeline: OCR, ASR, and VLM frame descriptions are aligned into overlapping chunks with a visual carry-forward rule, embedded into an HNSW index, retrieved, and passed with frames to a VLM generator; an optional stage renders a Manim explanation video.">
-  <figcaption><strong>Pipeline.</strong> Three timestamped streams are tiled into overlapping 45 s windows.</figcaption>
+  <figcaption><strong>Pipeline.</strong> 3 timestamped streams are tiled into overlapping 45 s windows.</figcaption>
 </figure>
 
 ## Problem statement
@@ -26,14 +26,14 @@ Transcript-only RAG fails on lectures in a predictable way. The professor says "
 ## Method
 
 - **Extract** 3 natively timestamped streams: OCR on frames sampled every 2 s, ASR, and VLM descriptions of each frame. A pHash change detector re-runs OCR and the VLM only when the frame changes materially. This removes most of the redundancy in slide-driven lectures.
-- **Chunk by time.** Tile each lecture into $$45$$ s windows with $$15$$ s overlap, and concatenate the three modality-tagged blocks.
+- **Chunk by time.** Tile each lecture into $$45$$ s windows with $$15$$ s overlap, and concatenate the 3 modality-tagged blocks.
 - **Visual carry-forward.** A slide that appeared just before the window started is still on screen, but it contributes no OCR row to the window. So each chunk also gets the latest OCR row and frame description from before the timestep, deduplicated against the in-window content.
 - **Retrieve** with one dense vector per chunk (`text-embedding-3-large`), either across the whole course or filtered to the lecture the student is watching. Then generate with a VLM given the chunks and their frames.
 - **Render** the answer as a narrated `manim` video, with an agent harness to catch visual, programmatic, and semantic errors.
 
 ## Results
 
-We hand-annotated 156 questions across COGSCI C127, DATA 100, and CS 288 in seven categories: text, images, tables, charts, complex layouts, motion, and audio. Each question has a time window marking where in the lecture the answer appears.
+We hand-annotated 156 questions across COGSCI C127, DATA 100, and CS 288 in 7 categories: text, images, tables, charts, complex layouts, motion, and audio. Each question has a time window marking where in the lecture the answer appears.
 
 | Course | No context (GPT-5.4) | Global retrieval | Lecture-filtered |
 |---|---|---|---|

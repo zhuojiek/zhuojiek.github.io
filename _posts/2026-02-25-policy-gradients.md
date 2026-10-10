@@ -24,7 +24,7 @@ Vanilla REINFORCE weights every $$\log\pi(a_t \mid s_t)$$ by the return of the *
 
 <figure class="half">
   <img src="/images/posts/policy-gradients/cartpole-small.png" alt="CartPole learning curves with batch size 1000 for vanilla, reward-to-go, normalized advantages, and both.">
-  <img src="/images/posts/policy-gradients/cartpole-large.png" alt="CartPole learning curves with batch size 4000 for the same four variants.">
+  <img src="/images/posts/policy-gradients/cartpole-large.png" alt="CartPole learning curves with batch size 4000 for the same 4 variants.">
   <figcaption>CartPole with batch size 1000 (left) and 4000 (right). "rtg" is reward-to-go and "na" is normalized advantages.</figcaption>
 </figure>
 

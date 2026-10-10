@@ -9,7 +9,7 @@ kind: Research project
 authors: "Zhuojie Kuang, Richik Pal, Eddie Cui"
 venue: "CS 185/285 (Deep RL) final project"
 thumb: /images/research/rlhf-winrates.png
-blurb: "Six RLHF baselines (DPO, IPO, AOT, GRPO, DrGRPO, GSPO) under one benchmark, then a hybrid built on the observation that AOT and DPO are useful at different stages of training: a scheduled AOT to DPO loss, confidence-weighted pairs, and reward-model reranking. 0.865 win rate vs. 0.763 for the best baseline."
+blurb: "6 RLHF baselines (DPO, IPO, AOT, GRPO, DrGRPO, GSPO) under one benchmark, then a hybrid built on the observation that AOT and DPO are useful at different stages of training: a scheduled AOT to DPO loss, confidence-weighted pairs, and reward-model reranking. 0.865 win rate vs. 0.763 for the best baseline."
 links:
   - { name: Paper (PDF), url: "/files/CS_185_Final_Report.pdf" }
 ---
@@ -37,7 +37,7 @@ This suggests a hybrid schedule. AOT distribution-level signal is most useful ea
 
 $$\mathcal{L} = (1-\alpha_t)\,\mathcal{L}_{\text{AOT}} + \alpha_t\,\mathcal{L}_{\text{DPO}}, \qquad \alpha_t: 0 \to 1.$$
 
-We combined it with two other changes. **Confidence-weighted DPO** scales each pair's loss by a weight in $$[0.7, 1.3]$$ derived from the dataset's judge confidence. **Reward-model reranking** picks the highest-scoring response from a pool of policies.
+We combined it with 2 other changes. **Confidence-weighted DPO** scales each pair's loss by a weight in $$[0.7, 1.3]$$ derived from the dataset's judge confidence. **Reward-model reranking** picks the highest-scoring response from a pool of policies.
 
 ## Results
 
