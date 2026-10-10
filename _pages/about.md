@@ -15,7 +15,8 @@ redirect_from:
     <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
       <span class="shape-toggle" role="group" aria-label="Target distribution">
-        <button type="button" data-shape="name" aria-pressed="true">👾</button>
+        <button type="button" data-shape="name" aria-pressed="true" aria-label="Zhuojie Kuang">\(\aleph_0\)</button>
+        <button type="button" data-shape="hanzi" aria-pressed="false" aria-label="邝卓杰">杰</button>
         <button type="button" data-shape="arm" aria-pressed="false">🤖</button>
       </span>
       <button type="button" data-hero="replay">Resample \(\mathcal{N}(0, I)\) ↻</button>
@@ -71,4 +72,5 @@ redirect_from:
 </section>
 
 </div>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&text=%E9%82%9D%E5%8D%93%E6%9D%B0&display=swap">
 <script src="/js/hero.js?v={{ site.time | date: '%s' }}" defer></script>

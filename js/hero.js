@@ -1,5 +1,5 @@
 // Home page header: Gaussian noise transported onto points sampled from a target shape
-// (my name, a robot arm, ...),
+// (my name, in English or Chinese, a robot arm, ...),
 // by integrating the closed-form flow-matching ODE for that point cloud.
 // Same math as /js/flow-demo.js: noise at t = 0, data at t = 1, x_t = (1 - t) eps + t x1,
 // v(x_t, t) = (E[x1 | x_t] - x_t) / (1 - t), integrated forward from t = 0 to 1.
@@ -39,6 +39,19 @@
         if (w > W * 0.98) { size *= (W * 0.98) / w; o.font = `600 ${size}px Fraunces, Georgia, serif`; }
         o.textBaseline = "alphabetic";
         o.fillText(text, 0, H * 0.5 + size * 0.34);
+      },
+    },
+    hanzi: {
+      label: "the name 邝卓杰",
+      paint(o) {
+        let size = H * 0.8;
+        const font = (s) => `600 ${s}px "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif`;
+        o.font = font(size);
+        const text = "邝卓杰";
+        const w = o.measureText(text).width;
+        if (w > W * 0.98) { size *= (W * 0.98) / w; o.font = font(size); }
+        o.textAlign = "center"; o.textBaseline = "middle";
+        o.fillText(text, W / 2, H * 0.5);
       },
     },
     arm: {
@@ -204,6 +217,6 @@
 
   const start = () => { setup(); play(); };
   if (document.fonts && document.fonts.load) {
-    Promise.race([document.fonts.load("600 120px Fraunces"), new Promise((r) => setTimeout(r, 1500))]).then(start);
+    Promise.race([Promise.all([document.fonts.load("600 120px Fraunces"), document.fonts.load('600 120px "Noto Serif SC"', "邝卓杰")]), new Promise((r) => setTimeout(r, 1500))]).then(start);
   } else start();
 })();
