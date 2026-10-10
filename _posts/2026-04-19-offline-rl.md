@@ -12,7 +12,7 @@ tags:
   - Robotics
 ---
 
-In [online actor-critic](/posts/dqn-sac) methods the critic already tends to overestimate. Offline, the critic is trained on a fixed dataset and never sees the result of an action outside it, so its errors on those actions are never corrected, and an actor that maximizes Q will tend to pick them. Most offline RL methods maximize return while keeping the policy close to the data. The three I implemented put that constraint in different places.
+In [online actor-critic](/posts/dqn-sac) methods the critic already tends to overestimate. Offline, the critic is trained on a fixed dataset and never sees the result of an action outside it, so its errors on those actions are never corrected, and an actor that maximizes Q will tend to pick them. Most offline RL methods maximize return while keeping the policy close to the data. I implemented the following 3 methods:
 
 | Method | Constraint | Main hyperparameter |
 |---|---|---|
@@ -20,7 +20,7 @@ In [online actor-critic](/posts/dqn-sac) methods the critic already tends to ove
 | **IQL** | never queries Q at actions outside the data. $$V$$ is an expectile ($$\tau = 0.9$$) of in-data Q values, and the policy is extracted by advantage-weighted regression with weights $$e^{\alpha A(s,a)}$$ on dataset actions | AWR inverse temperature |
 | **FQL** | trains a flow-matching BC policy, then distills it into a one-step policy that maximizes Q while staying close to the flow policy's outputs | distillation weight |
 
-Tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a goal; manipulation) and `antsoccer-arena-navigate` (a quadruped dribbles a ball to a goal; long-horizon locomotion). Both are single-task, 1M gradient steps.
+The tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a goal) and `antsoccer-arena-navigate` (a quadruped dribbles a ball to a goal, more long-horizon). Both are single-task with 1M gradient steps.
 
 <figure>
   <img src="/images/featured.gif" alt="Simulated arm picking and placing a cube in OGBench cube-single." style="max-width:260px">
@@ -29,7 +29,7 @@ Tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a goa
 
 ## Results
 
-Peak eval success read off each run's curve. These are single seeds, so treat differences of 0.1 as noise.
+Peak eval success read off each run's curve.
 
 | | cube-single | antsoccer-navigate |
 |---|---|---|
