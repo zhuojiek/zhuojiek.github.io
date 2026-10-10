@@ -97,11 +97,7 @@ img, video { height: auto; }
   color: var(--ink); font-variation-settings: "opsz" 40;
 }
 .site-name:hover { color: var(--ink); }
-.site-name .mark {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: radial-gradient(circle at 34% 36%, var(--s2) 0 30%, transparent 32%), radial-gradient(circle at 68% 66%, var(--s1) 0 26%, transparent 28%);
-  box-shadow: inset 0 0 0 1px var(--rule-strong);
-}
+.site-name .mark { height: 1.15em; width: auto; fill: currentColor; flex: none; }
 .site-nav { display: flex; align-items: center; gap: 2px; font-family: var(--sans); font-size: 0.82rem; flex-wrap: wrap; }
 .site-nav a { color: var(--ink-2); padding: 6px 10px; border-radius: 999px; }
 .site-nav a:hover { color: var(--ink); background: var(--paper-2); }

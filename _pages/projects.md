@@ -1,24 +1,12 @@
 ---
 title: "Projects"
 permalink: /projects/
-description: "A list of some things I've built. Code for course projects is private for academic integrity purposes, but can be provided upon request."
+description: "A list of some things I've built."
 ---
 
 <div class="projects" markdown="1">
 
 ## Robot learning & RL
-
-<div class="project" id="lace-and-place" markdown="1">
-### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
-- A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
-- GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
-</div>
-
-<div class="project" markdown="1">
-### Push-T imitation learning <span class="plinks">[write-up](/posts/push-t-imitation)</span>
-- MSE and flow-matching action-chunking policies trained on expert demos
-<img src="/images/featured4.gif" alt="Flow matching policy pushing the T block" width="240" loading="lazy">
-</div>
 
 <div class="project" markdown="1">
 ### Offline RL with flow policies <span class="plinks">[write-up](/posts/offline-rl)</span>
@@ -33,6 +21,12 @@ description: "A list of some things I've built. Code for course projects is priv
 </div>
 
 <div class="project" markdown="1">
+### Imitation learning <span class="plinks">[write-up](/posts/push-t-imitation)</span>
+- MSE and flow-matching action-chunking policies trained on expert demos
+<img src="/images/featured4.gif" alt="Flow matching policy pushing the T block" width="240" loading="lazy">
+</div>
+
+<div class="project" markdown="1">
 ### Policy gradients <span class="plinks">[write-up](/posts/policy-gradients)</span>
 - REINFORCE with reward-to-go, learned baseline, and GAE on CartPole, HalfCheetah, and LunarLander
 <img src="/images/featured3.gif" alt="HalfCheetah policy" width="340" loading="lazy">
@@ -41,6 +35,12 @@ description: "A list of some things I've built. Code for course projects is priv
 <div class="project" markdown="1">
 ### LLM RL with GRPO
 - GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping
+</div>
+
+<div class="project" id="lace-and-place" markdown="1">
+### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
+- A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
+- GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
 </div>
 
 ## Generative models & vision
