@@ -12,7 +12,7 @@ tags:
   - Robotics
 ---
 
-In [online actor-critic](/posts/dqn-sac) methods the critic already tends to overestimate. Offline, the critic is trained on a fixed dataset and never sees the result of an action outside it, so its errors on those actions are never corrected, and an actor that maximizes Q will tend to pick them. Most offline RL methods maximize return while keeping the policy close to the data. I implemented the following 3 methods:
+In [online actor-critic](/posts/dqn-sac) methods the critic already tends to overestimate. For offline methods, the critic is trained on a fixed dataset and never sees the result of an action outside it, so its errors on those actions are never corrected, and an actor that maximizes Q will tend to pick them. Most offline RL methods maximize return while keeping the policy close to the data. I implemented the following 3 methods:
 
 | Method | Constraint | Main hyperparameter |
 |---|---|---|
@@ -28,8 +28,6 @@ The tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a
 </figure>
 
 ## Results
-
-Peak eval success read off each run's curve.
 
 | | cube-single | antsoccer-navigate |
 |---|---|---|
