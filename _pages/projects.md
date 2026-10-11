@@ -37,6 +37,13 @@ description: "A list of some things I've built."
 - GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping
 </div>
 
+
+<div class="project" markdown="1">
+### ENPIRE SO-101 <span class="plinks">[write-up](/posts/enpire-so101) · [code](https://github.com/shimamooo/ENPIRE-so101/tree/so101-port)</span>
+- Ported the ENPIRE robot harness from the bimanual YAM station to my 3D-printed SO-101: MuJoCo model with `mink` IK for the 5-DoF arm, a LeRobot Feetech driver, leader-arm teleop, and a portal RPC server compatible with the existing YAM client
+<img src="/images/clanker-1.jpg" alt="3D-printed SO-101 arm" width="200" loading="lazy">
+</div>
+
 <div class="project" id="lace-and-place" markdown="1">
 ### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
 - A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
