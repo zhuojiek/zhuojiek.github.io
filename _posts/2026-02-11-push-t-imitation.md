@@ -41,7 +41,7 @@ In Push-T the expert's action distribution is often bimodal. From the same state
 The demo below shows this in a toy 2D action space. The gray points are expert actions for a single state, split between 2 modes. On the left is where an MSE regressor ends up. On the right, noise is transported to actions by the flow-matching velocity field for this distribution.
 
 <div class="demo" data-demo="mse-vs-flow">
-  <div class="demo-head"><span class="demo-title">MSE regression vs. flow matching on a bimodal distribution</span><span class="demo-tag">Interactive</span></div>
+  <div class="demo-head"><span class="demo-title">MSE regression vs. flow matching on a bimodal distribution</span></div>
   <p class="legend"><span class="key"><i style="background:var(--muted)"></i>expert actions</span><span class="key"><i style="background:var(--s2)"></i>MSE prediction</span><span class="key"><i style="background:var(--s1)"></i>flow samples</span></p>
   <div class="demo-grid">
     <div class="demo-panel"><span class="label">MSE regression</span><canvas data-role="mse" aria-label="Expert actions in 2 clusters and the MSE-optimal prediction between them"></canvas></div>

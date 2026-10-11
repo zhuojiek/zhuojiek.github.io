@@ -51,7 +51,7 @@ $$\hat A_t^{\text{GAE}(\lambda)} = \sum_{l \ge 0} (\gamma\lambda)^l\, \delta_{t+
 At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$: low variance, but biased by whatever is wrong with $$V_\phi$$. At $$\lambda = 1$$ the $$V_\phi$$ terms telescope away and you get reward-to-go minus the baseline: unbiased, high variance.
 
 <div class="demo narrow" data-demo="gae">
-  <div class="demo-head"><span class="demo-title">How much GAE(λ) trusts each future TD error</span><span class="demo-tag">Interactive</span></div>
+  <div class="demo-head"><span class="demo-title">How much GAE(λ) trusts each future TD error</span></div>
   <p class="legend"><span class="key"><i style="background:var(--s1)"></i>GAE(λ) weights</span><span class="key"><i style="background:var(--s2)"></i>λ = 1 (Monte Carlo)</span></p>
   <div class="chart-wrap"></div>
   <div class="demo-controls">
