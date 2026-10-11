@@ -147,7 +147,7 @@
         text(svg, sx(v), m.t + h + 16, (v > 0 ? "+" : "") + v, { "text-anchor": "middle" });
       }
       el("line", { x1: m.l, x2: m.l + w, y1: m.t + h, y2: m.t + h, stroke: css("--rule-strong") }, svg);
-      text(svg, m.l + w / 2, m.t + h + 34, "estimated value of the greedy action (true value of every action = 0)", { "text-anchor": "middle", fill: ink });
+      text(svg, m.l + w / 2, m.t + h + 34, "estimated value of the action", { "text-anchor": "middle", fill: ink });
 
       const bw = (X1 - X0) / BINS;
       function area(c, color) {
@@ -183,7 +183,7 @@
 
       readout.innerHTML = sim.n === 1
         ? `With one action there is nothing to choose between, so both estimators are unbiased.`
-        : `Over ${TRIALS.toLocaleString()} trials, the max estimator overestimates by <b>${ms.toFixed(2)}</b> (about ${(ms / sim.sigma).toFixed(2)}σ). The double estimator's mean is ${fmt(md)}, which is unbiased up to sampling noise.`;
+        : `Over ${TRIALS.toLocaleString()} trials, the max estimator overestimates by <b>${ms.toFixed(2)}</b>`;
     }
     nIn.addEventListener("input", draw); sIn.addEventListener("input", draw);
     root.querySelector("button[data-act=resample]").addEventListener("click", () => { seed++; draw(); });
