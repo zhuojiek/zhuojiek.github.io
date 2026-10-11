@@ -25,7 +25,7 @@ Vanilla REINFORCE weights every $$\log\pi(a_t \mid s_t)$$ by the return of the *
 <figure class="half">
   <img src="/images/posts/policy-gradients/cartpole-small.png" alt="CartPole learning curves with batch size 1000 for vanilla, reward-to-go, normalized advantages, and both.">
   <img src="/images/posts/policy-gradients/cartpole-large.png" alt="CartPole learning curves with batch size 4000 for the same 4 variants.">
-  <figcaption>CartPole with batch size 1000 (left) and 4000 (right). "rtg" is reward-to-go and "na" is normalized advantages.</figcaption>
+  <figcaption>CartPole with batch size 1000 (left) and 4000 (right).</figcaption>
 </figure>
 
 On CartPole, reward-to-go beat the trajectory-centric estimator. Normalizing advantages (subtracting the batch mean and dividing by the std) helped both: it acts like a per-batch learning-rate adjustment and keeps the gradient scale consistent. A bigger batch smoothed everything out. With 4000 steps per update, everything except vanilla REINFORCE sits at 200 almost the whole time. Vanilla REINFORCE with the large batch still collapses twice, at about 170k and 265k steps, and doesn't fully recover from the second. A larger batch reduces variance but doesn't fix the estimator.
@@ -48,7 +48,7 @@ Once you have $$V_\phi$$ you can also bootstrap with it. Generalized advantage e
 
 $$\hat A_t^{\text{GAE}(\lambda)} = \sum_{l \ge 0} (\gamma\lambda)^l\, \delta_{t+l}, \qquad \delta_t = r_t + \gamma V_\phi(s_{t+1}) - V_\phi(s_t).$$
 
-At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$: low variance, but biased by whatever is wrong with $$V_\phi$$. At $$\lambda = 1$$ the $$V_\phi$$ terms telescope away and you get reward-to-go minus the baseline: unbiased, high variance.
+At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$. At $$\lambda = 1$$ you get reward-to-go minus the baseline.
 
 <div class="demo narrow" data-demo="gae">
   <div class="demo-head"><span class="demo-title">How much GAE(λ) trusts each future TD error</span></div>
@@ -59,7 +59,6 @@ At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$: low variance,
     <label>λ <input type="range" name="lambda" min="0" max="1" step="0.01" value="0.95"> <span class="val" data-out="lambda"></span></label>
   </div>
   <p class="readout" data-out="readout"></p>
-  <p class="demo-note">Every δ is computed from the learned critic. Shrinking λ cuts off the long, noisy tail of real rewards and leans on V instead. That trades variance for whatever bias V has. Hover a bar for its value.</p>
 </div>
 <script src="/js/rl-demos.js?v={{ site.time | date: '%s' }}" defer></script>
 
@@ -68,9 +67,9 @@ At $$\lambda = 0$$ this is the one-step TD advantage $$\delta_t$$: low variance,
   <figcaption>LunarLander-v2 for six values of \(\lambda\).</figcaption>
 </figure>
 
-$$\lambda = 0$$ (blue) is the clear loser. It hovers around −100 to 0 for the whole run, because $$V_\phi$$ is inaccurate early in training and $$\lambda = 0$$ relies on it entirely. The intermediate values, 0.95 to 0.99, are the ones that reach +200, with $$\lambda = 0.98$$ the most stable. $$\lambda = 1$$ gets there too but is noisier. The best values are close to 1, which fits LunarLander's long episodes.
+$$\lambda = 0$$ (blue) is the worst performing. It hovers around −100 to 0 for the whole run, because $$V_\phi$$ is inaccurate early in training and $$\lambda = 0$$ relies on it entirely. The intermediate values, 0.95 to 0.99, are the ones that reach +200, with $$\lambda = 0.98$$ the most stable. $$\lambda = 1$$ gets there too but is noisier. The best values are close to 1, which fits LunarLander's long episodes.
 
-## InvertedPendulum in 100k steps
+## InvertedPendulum
 
 The last task was to get InvertedPendulum to its maximum return of 1000 within 100k environment steps.
 
@@ -86,4 +85,4 @@ uv run src/scripts/run.py --env_name InvertedPendulum-v4 -n 100 \
 
 The batch size mattered most. With the default 5000 steps per iteration, a 100k-step budget is 20 gradient updates. With 1000 it is 100 updates. Reward-to-go and advantage normalization made the noisier updates usable, and raising the learning rate from 0.005 to 0.02 made each update larger.
 
-The policy isn't stable, though. The tuned run keeps dropping below 1000 and recovering, since a large step size with a high-variance gradient occasionally produces a bad update. Vanilla policy gradient has no limit on how much one update can change the policy. Trust regions and PPO's clipped ratio address this, and [GRPO](/publication/2026-06-05-hybridrlhf) uses the clipped ratio too.
+The policy isn't stable, though. The tuned run keeps dropping below 1000 and recovering, since a large step size with a high-variance gradient occasionally produces a bad update.
