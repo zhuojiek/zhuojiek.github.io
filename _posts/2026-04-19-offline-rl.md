@@ -1,7 +1,7 @@
 ---
 card_fit: contain
 title: "Offline RL: SAC+BC, IQL, and flow Q-learning on OGBench"
-description: "SAC+BC, IQL, and flow Q-learning on an OGBench manipulation task and a navigation task."
+description: "SAC+BC, IQL, and flow Q-learning on OGBench and navigation task."
 date: 2026-04-19
 permalink: /posts/offline-rl
 featured: true
@@ -31,9 +31,9 @@ The tasks are from OGBench: `cube-single-play` (pick up a cube and place it at a
 
 | | cube-single | antsoccer-navigate |
 |---|---|---|
-| SAC+BC | ≈1.00 ($$\alpha = 300$$) | ≈0.32 ($$\alpha = 3$$) |
-| IQL | ≈0.92 ($$\alpha = 30$$) | ≈0.20 ($$\alpha = 10$$) |
-| FQL | ≈1.00 ($$\alpha = 100$$) | ≈0.48 ($$\alpha = 10$$) |
+| SAC+BC | 1.00 ($$\alpha = 300$$) | 0.32 ($$\alpha = 3$$) |
+| IQL | 0.92 ($$\alpha = 30$$) | 0.20 ($$\alpha = 10$$) |
+| FQL | 1.00 ($$\alpha = 100$$) | 0.48 ($$\alpha = 10$$) |
 
 All 3 methods nearly solve cube. On antsoccer FQL does best, at about 0.48.
 

@@ -2,7 +2,7 @@
 featured: true
 card_fit: contain
 title: "Facial keypoints: regression vs. transfer learning vs. heatmaps"
-description: "Predicting 68 facial landmarks with a CNN coordinate regressor, fine-tuned ResNet-18 and DINOv2 backbones, and a U-Net that outputs Gaussian heatmaps."
+description: "Predicting 68 facial landmarks with a CNN coordinate regressor, fine-tuned ResNet-18 and DINOv2 backbones, and a U-Net outputting Gaussian heatmaps."
 date: 2026-02-24
 permalink: /posts/facial-keypoint-detection
 image: /images/facialkeypoint.png

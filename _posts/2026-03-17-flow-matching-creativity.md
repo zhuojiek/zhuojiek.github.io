@@ -2,7 +2,7 @@
 interactive: false
 card_fit: contain
 title: "Ideal flow machines: where does a diffusion model's creativity come from?"
-description: "A flow matching UNet trained on MNIST, compared against Kamb & Ganguli's analytic score machines (IS, LS, ELS, bbELS), reimplemented as velocity fields and run from the same noise."
+description: "Reimplemented and analyze analytic score machines (IS, LS, ELS, bbELS)."
 date: 2026-03-17
 permalink: /posts/flow-matching-creativity
 featured: true

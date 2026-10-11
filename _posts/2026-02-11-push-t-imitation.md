@@ -2,7 +2,7 @@
 interactive: false
 card_fit: contain
 title: "Behavioral Cloning with Flow Matching Policies"
-description: "Behavior cloning on Push-T with an MSE action-chunking policy and a flow matching policy. The flow policy reaches 0.82 mean reward and the MSE policy 0.67."
+description: "Behavior cloning on Push-T with an MSE action-chunking policy and a flow matching policy."
 date: 2026-02-11
 permalink: /posts/push-t-imitation
 featured: true

@@ -10,13 +10,13 @@ description: "A list of some things I've built."
 
 <div class="project" markdown="1">
 ### Offline RL with flow policies <span class="plinks">[write-up](/posts/offline-rl)</span>
-- SAC+BC, IQL, and flow Q-learning on OGBench manipulation and navigation
+- SAC+BC, IQL, and flow Q-learning on OGBench and navigation task.
 <img src="/images/featured.gif" alt="OGBench cube task" width="200" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
 ### DQN and soft actor-critic <span class="plinks">[write-up](/posts/dqn-sac)</span>
-- DQN on CartPole, LunarLander, and MsPacman from pixels, SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
+- DQN on CartPole, LunarLander, and MsPacman, SAC with auto-tuned temperature and clipped double-Q on HalfCheetah and Hopper
 <img src="/images/featured2.gif" alt="DQN playing MsPacman" width="200" loading="lazy">
 </div>
 

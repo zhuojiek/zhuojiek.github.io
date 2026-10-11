@@ -1,5 +1,5 @@
 ---
-title: "A RAG system for the Berkeley EECS website, on a CPU with 4 GB of RAM"
+title: "A RAG system for the Berkeley EECS directory with 4 GB of RAM"
 description: "Crawling ~15K eecs.berkeley.edu pages, writing a 138-question QA set, and building a pipeline of dense retrieval, cross-encoder reranking, and Llama-3.1-8B."
 date: 2026-03-19
 permalink: /posts/berkeley-eecs-rag
@@ -8,11 +8,11 @@ tags:
   - NLP
 ---
 
-The assignment was to build a question-answering system for everything on eecs.berkeley.edu: faculty pages, awards, course listings, news, tech reports. We had to build every part ourselves, starting from scraping, and the final system had to run on a CPU with 4 GB of RAM. The questions are short and factual ("What award did Nelson Morgan receive in 2022?"), scored by exact match and F1 against a short reference answer. Teammates: Micah Mok and Meenakshi Mittal.
+The assignment was to build a question-answering system for everything on eecs.berkeley.edu: faculty pages, awards, course listings, news, tech reports. We had to build every part ourselves, starting from scraping, and the final system had to run on a CPU with 4 GB of RAM. The questions are short and factual ("What award did Nelson Morgan receive in 2022?"), scored by exact match and F1 against a short reference answer.
 
 ## The corpus
 
-I wrote the crawler. It starts from the sitemaps, does a breadth-first crawl over `eecs.berkeley.edu` and `www2.eecs.berkeley.edu` while respecting the `robots.txt` delays, and ran for about 72 hours, ending with ~15K HTML pages. 2 choices affected retrieval quality:
+I wrote the crawler. It starts from the sitemaps, does a breadth-first crawl over `eecs.berkeley.edu` and `www2.eecs.berkeley.edu` while respecting the `robots.txt` delays, and ran for about 72 hours, ending with ~15K HTML pages.
 
 - **Filtering.** To keep the corpus manageable, I kept only the 1,500 most recent (2020–2026). I also dropped listing and search-result pages, which mostly contain links to other pages and add near-duplicate noise to the index.
 - **Structure.** Extracting text with ResiliParse while preserving some structural HTML tags retrieved better than plain text. Headings and lists give the embedding model context about what a block of text describes.
@@ -42,7 +42,7 @@ The best configuration scored **0.58 F1 / 0.46 EM** on the held-out test set. Al
 
 ## Error analysis
 
-Grouping the F1 = 0 errors from the best model:
+Some failure modes we encountered:
 
 - **Retrieval:** the right page never shows up ("media contact for the department").
 - **Aggregation:** the right page is retrieved, but the model picks the wrong fact, e.g. naming the wrong professor for "earliest-born professor".
