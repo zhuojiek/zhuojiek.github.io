@@ -40,7 +40,7 @@ description: "A list of some things I've built."
 
 <div class="project" markdown="1">
 ### ENPIRE SO-101 <span class="plinks">[write-up](/posts/enpire-so101) · [code](https://github.com/shimamooo/ENPIRE-so101/tree/so101-port)</span>
-- Ported the ENPIRE robot harness from the bimanual YAM station to my 3D-printed SO-101: MuJoCo model with `mink` IK for the 5-DoF arm, a LeRobot Feetech driver, leader-arm teleop, and a portal RPC server compatible with the existing YAM client
+- Ported the ENPIRE robot harness from YAM station to my SO-101, MuJoCo with `mink` IK for the 5-DoF arm, Feetech drivers, leader-arm teleop, RPC server
 <img src="/images/clanker-1.jpg" alt="3D-printed SO-101 arm" width="200" loading="lazy">
 </div>
 
