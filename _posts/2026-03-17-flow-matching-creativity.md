@@ -33,7 +33,7 @@ To make it generative in one step, I trained the same network to map pure noise 
   <figcaption>Left: the average training image. Right: 10 one-step "generations" from different noise after 5 epochs. All of them are close to the average image.</figcaption>
 </figure>
 
-The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise it carries no information about $$x$$, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$ and the network outputs the dataset mean, which looks like every digit superimposed. Indeed, MSE tends to predict the mean. Iterative denoising avoids it by conditioning on a partially denoised $$x_t$$ and taking small steps, so each step predicts the mean of a narrower distribution.
+The L2-optimal predictor is $$\mathbb{E}[x \mid z]$$. When $$z$$ is pure noise it carries no information about $$x$$, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$ and the network outputs the dataset mean, which looks like every digit superimposed. Indeed, MSE tends to be mean seeking. Iterative denoising avoids it by conditioning on a partially denoised $$x_t$$ and taking small steps, so each step predicts the mean of a narrower distribution.
 
 ## Part 2: flow matching
 
