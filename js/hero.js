@@ -91,16 +91,30 @@
   let shape = "name";
 
   function sampleShape(kind) {
+    // paint on an oversized canvas so ink past the edges (measureText can under-report
+    // a glyph's width, e.g. the "g" on narrow phones) is kept, then fit it back inside W x H
+    const PAD = Math.round(H * 0.5), OW = W * 2, OH = H + 2 * PAD;
     const off = document.createElement("canvas");
-    off.width = W; off.height = H;
+    off.width = OW; off.height = OH;
     const o = off.getContext("2d");
     o.fillStyle = "#000";
+    o.translate(0, PAD);
     SHAPES[kind].paint(o);
-    const data = o.getImageData(0, 0, W, H).data;
-    const pts = [];
+    const data = o.getImageData(0, 0, OW, OH).data;
+    let pts = [];
     const stride = Math.max(2, Math.round(W / 420));
-    for (let y = 0; y < H; y += stride) for (let x = 0; x < W; x += stride) {
-      if (data[(y * W + x) * 4 + 3] > 140) pts.push([x, y]);
+    for (let y = 0; y < OH; y += stride) for (let x = 0; x < OW; x += stride) {
+      if (data[(y * OW + x) * 4 + 3] > 140) pts.push([x, y - PAD]);
+    }
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (const [x, y] of pts) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    const m = 4, s = Math.min(1, (W - 2 * m) / (x1 - x0 + 1), (H - 2 * m) / (y1 - y0 + 1));
+    if (pts.length && (s < 1 || x0 < m || x1 > W - m || y0 < m || y1 > H - m)) {
+      // scale about the ink's center, then shift it fully on screen
+      const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+      let dx = W / 2 - mx, dy = H / 2 - my;
+      if (kind === "name") dx = m + s * (mx - x0) - mx; // keep the name left-aligned
+      pts = pts.map(([x, y]) => [mx + dx + s * (x - mx), my + dy + s * (y - my)]);
     }
     const r = rng(7);
     for (let i = pts.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [pts[i], pts[j]] = [pts[j], pts[i]]; }
