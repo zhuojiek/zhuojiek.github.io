@@ -75,6 +75,7 @@ a { color: var(--accent); text-decoration: none; }
 a:hover { color: var(--accent-ink); }
 img, video, canvas, svg { max-width: 100%; }
 img, video { height: auto; }
+iframe[src*="youtube.com/embed"], iframe[src*="youtube-nocookie.com/embed"] { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; }
 
 /* ---------- chrome ---------- */
 

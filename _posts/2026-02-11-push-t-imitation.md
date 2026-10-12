@@ -29,7 +29,7 @@ A 3-layer MLP (256 hidden units, ReLU) maps the state to a flattened $$8 \times 
 
 <figure class="wide">
   <img src="/images/posts/push-t/mse-curves.png" alt="MSE policy training loss falls smoothly to about 0.015; evaluation reward rises to about 0.67 at 50k steps and then fluctuates.">
-  <figcaption>The loss keeps going down. The reward stops improving after about 30k steps and bounces between 0.57 and 0.67. Its best was 0.669, at step 50k.</figcaption>
+  <figcaption>The loss keeps going down. The reward stops improving after about 30k steps and bounces between 0.57 and 0.67. The best was 0.669, at step 50k.</figcaption>
 </figure>
 
 The training loss keeps decreasing, but MSE doesn't measure what we want. The minimizer of the squared error is the conditional mean:
@@ -55,13 +55,8 @@ The demo below shows this in a toy 2D action space. The gray points are expert a
     <label>left / right split <input type="range" name="split" min="0.1" max="0.9" step="0.01" value="0.5"></label>
   </div>
   <p class="readout" data-out="readout"></p>
-  <p class="demo-note">The velocity field here is the closed-form optimum for a Gaussian mixture, so this shows what flow matching converges to, not a trained network. When the modes are close together the 2 answers agree, so MSE works for unimodal tasks.</p>
 </div>
 <script src="/js/flow-demo.js?v={{ site.time | date: '%s' }}" defer></script>
-
-With a 70/30 split, the MSE prediction moves toward the larger mode but still falls between the 2. Unless the modes overlap, no single point is a good action.
-
-The same problem came up a month later in CS 280, where I trained a one-step denoiser to map pure Gaussian noise to MNIST digits. It output the average digit, a gray blob of every class superimposed, because pure noise carries no information about which digit to produce, so $$\mathbb{E}[x \mid z] = \mathbb{E}[x]$$. [More on that in the ideal flow machines post.](/posts/flow-matching-creativity)
 
 ## The flow matching policy
 
@@ -73,7 +68,7 @@ This is still an MSE loss, so it still learns a conditional mean. The difference
 
 <figure class="wide">
   <img src="/images/posts/push-t/flow-curves.png" alt="Flow matching policy training loss falls from about 0.87 to 0.19; evaluation reward rises steadily from 0.33 to 0.82.">
-  <figcaption>The flow policy's reward keeps climbing for the whole run and ends at 0.82. Its loss floors around 0.19. That is expected: the target \(a_1 - \varepsilon\) is random given \(a_t\), so the minimum of this loss is its conditional variance, not zero, so the 2 loss curves aren't comparable.</figcaption>
+  <figcaption>The flow policy's reward keeps climbing for the whole run and ends at 0.82. Its loss floors around 0.19.</figcaption>
 </figure>
 
 <figure>
@@ -81,10 +76,9 @@ This is still an MSE loss, so it still learns a conditional mean. The difference
   <figcaption>A flow policy rollout. It commits to one side of the block.</figcaption>
 </figure>
 
-The rollouts match the numbers. The flow policy commits to one strategy and its pushes make clean contact. The MSE policy's pushes look tentative, consistent with averaging between strategies.
+The rollouts match the numbers: the flow policy commits to one strategy and its pushes make clean contact. The MSE policy's pushes look tentative, consistent with averaging between strategies.
 
 ## Summary
 
-- A decreasing training loss doesn't show whether the policy class can represent the expert. The MSE policy fit the conditional mean well, but the conditional mean is a bad action.
 - Multimodal action distributions are common in manipulation (grasping from either side, going around either way, using either hand), which is a large part of why Diffusion Policy and flow-matching action heads like $$\pi_0$$'s are widely used.
-- The flow head has a downside. Its likelihood is intractable, and maximizing a Q-function through it means backpropagating through an ODE solve. That is the main obstacle to doing RL on top of these policies, which I come back to in [the offline RL post](/posts/offline-rl).
+- The flow head has a downside. Its likelihood is intractable, and maximizing a Q-function through it means backpropagating through an ODE solve. That is the main obstacle to doing RL on top of these policies. So VLA RL requires some modifications.

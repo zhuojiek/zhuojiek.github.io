@@ -216,8 +216,7 @@
       const nearMean = final.filter((q) => Math.abs(q[0] - mean[0]) < 0.25 * Math.max(d, 0.4)).length;
       readout.textContent =
         `MSE prediction sits ${Math.abs(mean[0]).toFixed(2)} from center, ` +
-        `${(Math.min(Math.abs(mean[0] - mix.mu[0][0]), Math.abs(mean[0] - mix.mu[1][0]))).toFixed(2)} from the nearest mode. ` +
-        `${Math.round((100 * nearMean) / final.length)}% of flow samples land in that gap.`;
+        `${(Math.min(Math.abs(mean[0] - mix.mu[0][0]), Math.abs(mean[0] - mix.mu[1][0]))).toFixed(2)} from the nearest mode. `;
     }
 
     const anim = animator(draw, scrub);
