@@ -1,8 +1,8 @@
 ---
 interactive: false
 card_fit: contain
-title: "Policy gradients, one variance reduction trick at a time"
-description: "REINFORCE on CartPole, HalfCheetah, LunarLander, and InvertedPendulum, adding reward-to-go, advantage normalization, a learned baseline, and GAE one at a time."
+title: "Policy gradients, one variance reduction at a time"
+description: "REINFORCE on CartPole, HalfCheetah, LunarLander, and InvertedPendulum, adding reward-to-go, advantage normalization, learned baseline, and GAE."
 date: 2026-02-25
 permalink: /posts/policy-gradients
 featured: true
@@ -16,7 +16,7 @@ The policy gradient is
 
 $$\nabla_\theta J(\theta) = \mathbb{E}_{\tau \sim \pi_\theta}\Big[\sum_{t} \nabla_\theta \log \pi_\theta(a_t \mid s_t)\; \hat A_t\Big].$$
 
-Much of on-policy RL comes down to the choice of $$\hat A_t$$, which trades off bias and variance. The vanilla estimator is unbiased but has high variance. Each technique below reduces variance, and the later ones introduce some bias to do so. I added them one at a time.
+Much of on-policy RL comes down to the choice of $$\hat A_t$$, which trades off bias and variance. The vanilla estimator is unbiased but has high variance. Each technique below reduces variance, and the later ones introduce some bias to do so.
 
 ## Reward-to-go
 

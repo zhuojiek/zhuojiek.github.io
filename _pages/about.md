@@ -67,7 +67,7 @@ redirect_from:
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
     I am a big fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I sometimes enjoy playing the 
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. You can usually find me at events at Saturday Robotics and Simons Institute.
+    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. You can usually find me at events at <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> and <a href="https://simons.berkeley.edu">Simons Institute</a>.
   </p>
 </section>
 

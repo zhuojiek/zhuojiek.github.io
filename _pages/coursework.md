@@ -39,4 +39,4 @@ description: "Course reviews, notes, and cheat sheets for some classes I particu
   </tbody>
 </table>
 
-<p class="group-note" style="margin-top:12px">* in progress † teaching ‡ audit</p>
+<p class="group-note" style="margin-top:12px">* in progress † audit ‡ teaching</p>
