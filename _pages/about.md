@@ -29,7 +29,7 @@ redirect_from:
     <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, generative models, and 4D representations.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a>, <a href="https://www.deftai.co/">Deft Robotics</a>, and did research on unified models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed a robot arm named <a href="/posts/2026/09/21">clanker</a>.</p>
-    <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p>
+    <!-- <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p> -->
   </div>
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
@@ -67,7 +67,7 @@ redirect_from:
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
     I am a big fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I sometimes enjoy playing the 
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. You can usually find me at events at <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> and <a href="https://simons.berkeley.edu">Simons Institute</a>.
+    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I attend and help host the <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> reading groups.
   </p>
 </section>
 

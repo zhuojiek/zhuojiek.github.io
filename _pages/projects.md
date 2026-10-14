@@ -48,6 +48,7 @@ description: "A list of some things I've built."
 ### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
 - A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
 - GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
+<img src="/images/projects/lace-and-place.gif" alt="UR7e arm grasping a sneaker by the heel" width="360" loading="lazy">
 </div>
 
 ## Generative models & vision
@@ -123,6 +124,7 @@ description: "A list of some things I've built."
 <div class="project" markdown="1">
 ### AI Entrepreneurs at Berkeley <span class="plinks">[site](https://aientrepreneurs.org) · [code](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)</span>
 - Founding member of a $40M student-run AI incubator; also built and maintain the website
+<img src="/images/aieb.png" alt="AI Entrepreneurs at Berkeley website homepage" width="520" loading="lazy">
 </div>
 
 ## Smaller course projects
