@@ -45,9 +45,12 @@ description: "A list of some things I've built."
 </div>
 
 <div class="project" id="lace-and-place" markdown="1">
-### Lace & Place: autonomous shoe sorting <span class="plinks">[site](https://ziwon-z1.github.io/106A_website/) · [code](https://github.com/shimamooo/106a-final-project)</span>
-- A UR7e arm that takes a pile of shoes and sorts them on a rack, built with ROS 2
-- GroundingDINO + SAM to detect and segment the shoes, overlap depth using projective geometry, then compute class-specific grippable points from point clouds
+### Lace & Place: autonomous shoe sorting
+- A UR7e arm that takes a pile of shoes and sorts them on a rack.
+- Implemented and compared 2 approaches using ROS 2 and LeRobot
+1. Classical perception, grasp estimation, motion planning, and grasping: align depth sensor map with scene camera using projective geometry, GroundingDINO & SAM, compute graspable points from filtered point clouds, IK with MoveIt, PD controller.
+2. Robot foundation models: fine-tuned SmolVLA on 250 trajectories for each class.
+
 <img src="/images/projects/lace-and-place.gif" alt="UR7e arm grasping a sneaker by the heel" width="360" loading="lazy">
 </div>
 

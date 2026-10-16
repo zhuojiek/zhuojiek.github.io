@@ -26,7 +26,7 @@ redirect_from:
 
 <section class="intro">
   <div>
-    <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I'm interested in general-purpose robots for open-world manipulation, especially through unified architectures, generative models, and 4D representations.</p>
+    <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I am interested in developing Robotic systems that autonomously improve through physical interaction, using Reinforcement Learning and Generative World Models to enable general-purpose manipulation. I've also recently been interested in Agentic Robotic systems.</p>
     <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a>, <a href="https://www.deftai.co/">Deft Robotics</a>, and did research on unified models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
     <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed a robot arm named <a href="/posts/2026/09/21">clanker</a>.</p>
     <!-- <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p> -->
