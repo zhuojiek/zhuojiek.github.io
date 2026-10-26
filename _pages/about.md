@@ -41,6 +41,7 @@ redirect_from:
 
 <section class="section">
   <div class="section-head"><h2>Research</h2><a href="/research/">All research →</a></div>
+  {% include research-list.html group="current" embeds=true %}
   {% include research-list.html group="course" compact=true %}
   {% include research-list.html group="ongoing" %}
   {% include research-list.html group="workshop" %}

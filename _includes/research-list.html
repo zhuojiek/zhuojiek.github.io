@@ -4,7 +4,7 @@
 {% for p in items %}
   <article class="entry">
     <a class="entry-thumb" href="{{ p.url | relative_url }}" aria-hidden="true" tabindex="-1">
-      {% if p.thumb %}<img src="{{ p.thumb | relative_url }}" alt="" loading="lazy">
+      {% if p.thumb %}<img src="{{ p.thumb | relative_url }}" alt="" loading="lazy"{% if p.thumb_fit == "cover" %} class="cover"{% endif %}>
       {% else %}<span class="thumb-text">{{ p.thumb_text | escape }}</span>{% endif %}
     </a>
     <div>
@@ -16,6 +16,12 @@
         <a class="pill" href="{{ p.url | relative_url }}">Summary</a>
         {% for l in p.links %}<a class="pill" href="{{ l.url | relative_url }}">{{ l.name }}</a>{% endfor %}
       </p>
+      {% if include.embeds and p.embed %}
+      <figure class="doc-embed site-embed">
+        <figcaption><span>{{ p.embed | remove: "https://" | remove: "http://" | split: "/" | first }}</span> <a href="{{ p.embed }}" target="_blank" rel="noopener">Open ↗</a></figcaption>
+        <iframe src="{{ p.embed }}" title="{{ p.title | escape }} project site" loading="lazy"></iframe>
+      </figure>
+      {% endif %}
     </div>
   </article>
 {% endfor %}
