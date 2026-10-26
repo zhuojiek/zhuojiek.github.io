@@ -4,7 +4,8 @@
 {% for p in items %}
   <article class="entry">
     <a class="entry-thumb" href="{{ p.url | relative_url }}" aria-hidden="true" tabindex="-1">
-      {% if p.thumb %}<img src="{{ p.thumb | relative_url }}" alt="" loading="lazy"{% if p.thumb_fit == "cover" %} class="cover"{% endif %}>
+      {% if p.thumb_video %}<video src="{{ p.thumb_video | relative_url }}"{% if p.thumb %} poster="{{ p.thumb | relative_url }}"{% endif %} autoplay loop muted playsinline preload="metadata"></video>
+      {% elsif p.thumb %}<img src="{{ p.thumb | relative_url }}" alt="" loading="lazy"{% if p.thumb_fit == "cover" %} class="cover"{% endif %}>
       {% else %}<span class="thumb-text">{{ p.thumb_text | escape }}</span>{% endif %}
     </a>
     <div>

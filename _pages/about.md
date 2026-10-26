@@ -29,6 +29,7 @@ redirect_from:
     <p class="lead">Hi, I'm Anthony! I'm a CS undergrad at UC Berkeley.</p>
     <p>I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a>. I previously interned at <a href="https://stripe.com">Stripe</a>, <a href="https://www.deftai.co/">Deft Robotics</a>, and did research on <a href="https://darrellgroup.github.io"> unified models</a>.</p>
     <p>I am interested in developing robots that continuously improve through physical and simulated interaction, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics).</p>
+    <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
     <!-- <p class="seeking"><strong>I always love to talk about Robotics and AI.</strong> Feel free to chat with me anything at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a> or WeChat</p> -->
   </div>
   <aside class="spec">
