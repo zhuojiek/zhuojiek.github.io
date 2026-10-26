@@ -1,6 +1,6 @@
 ---
 layout: base
-nav: Writing
+nav: Blog
 ---
 {% assign words = content | strip_html | number_of_words %}
 {% assign minutes = words | divided_by: 220 | plus: 1 %}
@@ -10,10 +10,10 @@ nav: Writing
   <header class="article-header">
     <p class="kicker">
       {% if page.section == "course" %}<a href="{{ '/coursework/' | relative_url }}">Course review</a>
-      {% elsif page.section == "notes" %}<a href="{{ '/writing/#notes' | relative_url }}">Notes</a>
-      {% elsif page.section == "cs180" %}<a href="{{ '/writing/#cs180' | relative_url }}">CS 180 · Project</a>
+      {% elsif page.section == "notes" %}<a href="{{ '/blog/#notes' | relative_url }}">Notes</a>
+      {% elsif page.section == "cs180" %}<a href="{{ '/blog/#cs180' | relative_url }}">CS 180 · Project</a>
       {% elsif page.section == "stream" %}<a href="{{ '/streams/' | relative_url }}">Study stream</a>
-      {% else %}<a href="{{ '/writing/' | relative_url }}">Writing</a>{% if page.tags %}<span> / {{ page.tags | first }}</span>{% endif %}{% endif %}
+      {% else %}<a href="{{ '/blog/' | relative_url }}">Blog</a>{% if page.tags %}<span> / {{ page.tags | first }}</span>{% endif %}{% endif %}
     </p>
     <h1>{{ page.title }}</h1>
     {% if page.description %}<p class="dek">{{ page.description }}</p>{% endif %}
@@ -35,7 +35,7 @@ nav: Writing
     {% if page.section == "course" %}
       <a href="{{ '/coursework/' | relative_url }}">← All course reviews</a>
     {% else %}
-      <a href="{{ '/writing/' | relative_url }}">← All writing</a>
+      <a href="{{ '/blog/' | relative_url }}">← All posts</a>
     {% endif %}
   </footer>
 </article>

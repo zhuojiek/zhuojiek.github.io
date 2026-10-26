@@ -40,12 +40,8 @@ defaults:
     values: { layout: page }
 
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
   - jekyll-redirect-from
-
-feed:
-  path: feed.xml
 
 include:
   - _pages

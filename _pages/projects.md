@@ -106,14 +106,14 @@ description: "A list of some things I've built."
 <img src="/images/projects/chatbot-arena.png" alt="Arena analysis" width="420" loading="lazy">
 </div>
 
-<div class="project" markdown="1">
+<!-- <div class="project" markdown="1">
 ### Smaller NLP projects
 - **CLIP retrieval and captioning** on Concadia, with Rational Speech Acts (literal listener, pragmatic speaker and listener) to choose the least ambiguous caption
 - **Text2SQL:** fine-tuned GPT-2 to write executable SQL and compared it with few-shot prompting
 - **MCQ fine-tuning:** Qwen2.5-0.5B-Instruct with `trl` on CS 189 multiple-choice questions (45%)
 - **Tokenization and embeddings:** BPE, Zipf's law, skip-gram with negative sampling, and a learned linear map between 2 languages' embedding spaces for translation
 - **Evaluation:** PR curves, Levenshtein distance, BLEU, and LLM-as-a-judge on classification, translation, and open-ended generation
-</div>
+</div> -->
 
 ## Building things
 
@@ -126,11 +126,11 @@ description: "A list of some things I've built."
 
 <div class="project" markdown="1">
 ### AI Entrepreneurs at Berkeley <span class="plinks">[site](https://aientrepreneurs.org) · [code](https://github.com/AIEntrepreneursBerkeley/aientrepreneurs.org)</span>
-- Founding member of a $40M student-run AI incubator; also built and maintain the website
+- Founding member of the largest student-run AI incubator; also built and maintain the website
 <img src="/images/aieb.png" alt="AI Entrepreneurs at Berkeley website homepage" width="520" loading="lazy">
 </div>
 
-## Smaller course projects
+<!-- ## Smaller course projects
 
 <ul class="compact">
   <li>DNABERT-6 species classification (human / dog / chimp) with k-mer tokenization</li>
@@ -140,6 +140,6 @@ description: "A list of some things I've built."
   <li>Fashion-MNIST classifier robust to shifts, rotations, and blur</li>
   <li>Fully connected MNIST classifier in RISC-V assembly</li>
   <li>2-stage pipelined RISC-V CPU in Logisim</li>
-</ul>
+</ul> -->
 
 </div>

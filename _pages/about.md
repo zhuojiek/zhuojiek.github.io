@@ -26,15 +26,15 @@ redirect_from:
 
 <section class="intro">
   <div>
-    <p class="lead">Hi! I'm a CS undergrad at UC Berkeley. I am interested in developing Robotic systems that autonomously improve through physical interaction, using Reinforcement Learning and Generative World Models to enable general-purpose manipulation. I've also recently been interested in Agentic Robotic systems.</p>
-    <p>I'm currently interning at <a href="https://www.roboticscenter.ai">Robotics Center</a> and work part time at <a href="https://www.codeninjas.com">Code Ninjas</a>. I previously interned at <a href="https://stripe.com">Stripe</a>, <a href="https://www.deftai.co/">Deft Robotics</a>, and did research on unified models in <a href="https://darrellgroup.github.io">Trevor Darrell's group</a>.</p>
-    <p>Lately I've been rebuilding the robot learning stack from scratch: <a href="/posts/push-t-imitation">flow-matching policies</a>, <a href="/posts/policy-gradients">policy gradients</a>,  and <a href="/posts/offline-rl">offline RL with flow Q-learning</a>. I also 3D-printed a robot arm named <a href="/posts/2026/09/21">clanker</a>.</p>
-    <!-- <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a></p> -->
+    <p class="lead">Hi, I'm Anthony! I'm a CS undergrad at UC Berkeley.</p>
+    <p>I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a>. I previously interned at <a href="https://stripe.com">Stripe</a>, <a href="https://www.deftai.co/">Deft Robotics</a>, and did research on <a href="https://darrellgroup.github.io"> unified models</a>.</p>
+    <p>I am interested in developing robots that continuously improve through physical and simulated interaction, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics).</p>
+    <!-- <p class="seeking"><strong>I always love to talk about Robotics and AI.</strong> Feel free to chat with me anything at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a> or WeChat</p> -->
   </div>
   <aside class="spec">
     <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
     <dl>
-      <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo?tab=repositories">GitHub</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="/feed.xml">RSS</a></dd></div>
+      <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo?tab=repositories">GitHub</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a></dd></div>
     </dl>
   </aside>
 </section>
@@ -47,7 +47,7 @@ redirect_from:
 </section>
 
 <section class="section">
-  <div class="section-head"><h2>Projects <em>with interactive figures</em></h2><a href="/writing/">All writing →</a></div>
+  <div class="section-head"><h2>Projects</h2><a href="/blog/">All posts →</a></div>
   <div class="cards">
   {% assign featured = site.posts | where: "featured", true %}
   {% for p in featured %}

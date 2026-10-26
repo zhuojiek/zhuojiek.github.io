@@ -111,17 +111,10 @@ iframe[src*="youtube.com/embed"], iframe[src*="youtube-nocookie.com/embed"] { di
 
 .site-footer { margin-top: 120px; border-top: 1px solid var(--rule); background: var(--paper-2); }
 .footer-inner {
-  max-width: var(--max); margin: 0 auto; padding: 36px 20px 44px;
-  display: grid; grid-template-columns: 1fr auto; gap: 18px 40px;
-  font-family: var(--sans); font-size: 0.84rem; color: var(--muted);
+  max-width: var(--max); margin: 0 auto; padding: 24px 20px 32px;
+  font-family: var(--sans); font-size: 0.76rem; color: var(--muted);
 }
 .footer-inner p { margin: 0; }
-.footer-name { font-family: var(--display); font-size: 1.1rem; color: var(--ink); margin-bottom: 4px !important; }
-.footer-links { display: flex; gap: 18px; align-items: start; }
-.footer-links a { color: var(--ink-2); }
-.footer-links a:hover { color: var(--accent); }
-.colophon { grid-column: 1 / -1; font-size: 0.76rem; border-top: 1px dashed var(--rule-strong); padding-top: 14px; }
-@media (max-width: 600px) { .footer-inner { grid-template-columns: 1fr; } }
 
 /* ---------- shared type ---------- */
 
