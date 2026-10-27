@@ -26,7 +26,7 @@ redirect_from:
 
 <section class="intro">
   <div>
-    <p class="lead">Hi, I'm Zhuojie! I'm a CS undergrad at UC Berkeley.</p>
+    <p class="lead">Hi, I'm Zhuojie! I'm a 3rd year CS undergrad at UC Berkeley.</p>
     <p>I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a> and previously did research on <a href="https://darrellgroup.github.io"> unified models</a>.</p>
     <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics).</p>
     <p class="seeking"><strong>I'm looking for a research position and plan to target 2028 PhD programs.</strong> If you're a robot learning researcher at Berkeley with capacity for mentorship, feel free to reach out: <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
