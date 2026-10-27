@@ -28,7 +28,7 @@ redirect_from:
   <div>
     <p class="lead">Hi, I'm Zhuojie! I'm a 3rd year CS undergrad at UC Berkeley.</p>
     <p>I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a> and previously did research on <a href="https://darrellgroup.github.io"> unified models</a>.</p>
-    <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I aim to become a full-stack roboticist with knowledge of the entire stack, from actuators and control to distributed training and RL.</p>
+    <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I am studying to become a full-stack roboticist with knowledge of the entire stack, from actuators and control to distributed training and RL.</p>
     <p class="seeking"><strong>I'm currently looking for a research opportunity for robot learning.</strong> If you're a robotics researcher with an open project, please reach out to me at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
     <!-- <p class="seeking"><strong>I always love to talk about Robotics and AI.</strong> Feel free to chat with me anything at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a> or WeChat</p> -->
   </div>
