@@ -68,12 +68,12 @@ redirect_from:
 <section class="section">
   <div class="section-head"><h2>Miscellaneous</h2></div>
   <p class="group-note" style="margin:0">
-    I am a big fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I sometimes enjoy playing the 
+    I am a big fan of Damian Lillard and similarly grew up in East Oakland. I sometimes enjoy playing the 
     <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I attend and help host the <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> reading groups.
   </p>
   <div class="x-posts">
   {% for url in site.data.tweets %}
-    <div class="x-post"><blockquote class="twitter-tweet" data-dnt="true" data-conversation="none"><a href="{{ url | replace: 'x.com', 'twitter.com' }}">View post on X →</a></blockquote></div>
+    <div class="x-post" data-href="{{ url }}"><blockquote class="twitter-tweet" data-dnt="true" data-conversation="none"><a href="{{ url | replace: 'x.com', 'twitter.com' }}">View post on X →</a></blockquote></div>
   {% endfor %}
   </div>
 </section>
@@ -82,10 +82,20 @@ redirect_from:
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&text=%E9%82%9D%E5%8D%93%E6%9D%B0&display=swap">
 <script>
   (function () {
-    var t = document.documentElement.getAttribute('data-theme');
-    var dark = t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.querySelectorAll('.twitter-tweet').forEach(function (b) { b.setAttribute('data-theme', dark ? 'dark' : 'light'); });
+    var root = document.documentElement;
     var posts = document.querySelectorAll('.x-post');
+    var isDark = function () {
+      var t = root.getAttribute('data-theme');
+      return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+    var theme = isDark() ? 'dark' : 'light';
+    posts.forEach(function (p) {
+      p.querySelector('blockquote').setAttribute('data-theme', theme);
+      p.dataset.source = p.innerHTML;
+      p.addEventListener('click', function () {
+        if (p.classList.contains('is-ready')) window.open(p.dataset.href, '_blank', 'noopener');
+      });
+    });
     window.twttr = window.twttr || { _e: [], ready: function (f) { this._e.push(f); } };
     twttr.ready(function (t) {
       t.events.bind('rendered', function (e) {
@@ -96,12 +106,29 @@ redirect_from:
         var top = parseFloat(css.getPropertyValue('--x-crop-top')) || 0;
         var bottom = parseFloat(css.getPropertyValue('--x-crop-bottom')) || 0;
         // Crop X's header (avatar, name, follow) and footer (date, actions, "Read more").
-        var fit = function () { post.style.height = Math.max(0, frame.offsetHeight - top - bottom) + 'px'; };
+        var clip = frame.parentElement;
+        var fit = function () { clip.style.height = Math.max(0, frame.offsetHeight - top - bottom) + 'px'; };
         fit();
         if (window.ResizeObserver) new ResizeObserver(fit).observe(frame);
         post.classList.add('is-ready');
+        post.style.minHeight = '';
       });
     });
+    // X bakes the theme into each embed, so redraw them when the site theme changes.
+    var retheme = function () {
+      var next = isDark() ? 'dark' : 'light';
+      if (next === theme || !window.twttr.widgets) return;
+      theme = next;
+      posts.forEach(function (p) {
+        p.style.minHeight = p.offsetHeight + 'px';
+        p.classList.remove('is-ready', 'is-failed');
+        p.innerHTML = p.dataset.source;
+        p.querySelector('blockquote').setAttribute('data-theme', theme);
+        twttr.widgets.load(p);
+      });
+    };
+    new MutationObserver(retheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
     setTimeout(function () {
       posts.forEach(function (p) { if (!p.classList.contains('is-ready')) p.classList.add('is-failed'); });
     }, 10000);

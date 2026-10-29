@@ -530,12 +530,17 @@ table.courses td.group { font-family: var(--sans); font-size: 0.7rem; font-weigh
 .x-post { position: relative; break-inside: avoid; margin-bottom: 1rem; min-height: 220px; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-2); transition: min-height .3s ease, background .3s ease, border-color .3s ease; }
 .x-post > * { margin: 0 !important; opacity: 0; transition: opacity .35s ease; }
 .x-post blockquote.twitter-tweet { visibility: hidden; padding: 16px; }
-.x-post { --x-crop-top: 60px; --x-crop-bottom: 84px; }
+.x-post { --x-crop-top: 66px; --x-crop-bottom: 116px; --x-card-bg: #fff; --x-card-rule: #cfd9de; }
+:root[data-theme="dark"] .x-post { --x-card-bg: #15202b; --x-card-rule: #38444d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .x-post { --x-card-bg: #15202b; --x-card-rule: #38444d; } }
 .x-post > .twitter-tweet-rendered { max-width: none !important; }
 .x-post iframe { width: calc(100% + 2px) !important; max-width: none !important; margin: 0 -1px !important; color-scheme: normal; }
-.x-post.is-ready { overflow: hidden; }
+.x-post.is-ready { min-height: 0; padding: 8px 0; overflow: hidden; background: var(--x-card-bg); border-color: var(--x-card-rule); }
+.x-post.is-ready > .twitter-tweet-rendered { overflow: hidden; }
+.x-post.is-ready iframe { pointer-events: none; }
+.x-post.is-ready { cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease; }
+.x-post.is-ready:hover { border-color: var(--rule-strong); box-shadow: var(--shadow); }
 .x-post.is-ready iframe { margin-top: calc(-1 * var(--x-crop-top)) !important; }
-.x-post.is-ready { min-height: 0; border-color: transparent; background: transparent; }
 .x-post.is-ready > * { opacity: 1; }
 .x-post.is-failed { min-height: 0; }
 .x-post.is-failed blockquote.twitter-tweet { visibility: visible; opacity: 1; font-family: var(--sans); font-size: .9rem; }
