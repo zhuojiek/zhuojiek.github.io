@@ -525,3 +525,17 @@ table.courses td.group { font-family: var(--sans); font-size: 0.7rem; font-weigh
 .site-embed { margin: 16px 0 4px; }
 .site-embed iframe { height: 440px; min-height: 0; }
 @media (max-width: 640px) { .doc-embed iframe { height: 60vh; min-height: 360px; } }
+
+.x-posts { margin-top: 1.25rem; columns: 300px; column-gap: 1rem; }
+.x-post { position: relative; break-inside: avoid; margin-bottom: 1rem; min-height: 220px; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper-2); transition: min-height .3s ease, background .3s ease, border-color .3s ease; }
+.x-post > * { margin: 0 !important; opacity: 0; transition: opacity .35s ease; }
+.x-post blockquote.twitter-tweet { visibility: hidden; padding: 16px; }
+.x-post { --x-crop-top: 60px; --x-crop-bottom: 84px; }
+.x-post > .twitter-tweet-rendered { max-width: none !important; }
+.x-post iframe { width: calc(100% + 2px) !important; max-width: none !important; margin: 0 -1px !important; color-scheme: normal; }
+.x-post.is-ready { overflow: hidden; }
+.x-post.is-ready iframe { margin-top: calc(-1 * var(--x-crop-top)) !important; }
+.x-post.is-ready { min-height: 0; border-color: transparent; background: transparent; }
+.x-post.is-ready > * { opacity: 1; }
+.x-post.is-failed { min-height: 0; }
+.x-post.is-failed blockquote.twitter-tweet { visibility: visible; opacity: 1; font-family: var(--sans); font-size: .9rem; }
