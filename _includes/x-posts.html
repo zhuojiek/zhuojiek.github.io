@@ -1,0 +1,63 @@
+{% comment %} Cropped X post embeds from _data/tweets.yml. Styles: .x-posts / .x-post in the page CSS. {% endcomment %}
+<div class="x-posts">
+{% for url in site.data.tweets %}
+  <div class="x-post" data-href="{{ url }}"><blockquote class="twitter-tweet" data-dnt="true" data-conversation="none"><a href="{{ url | replace: 'x.com', 'twitter.com' }}">View post on X →</a></blockquote></div>
+{% endfor %}
+</div>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var posts = document.querySelectorAll('.x-post');
+    var isDark = function () {
+      var t = root.getAttribute('data-theme');
+      return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    };
+    var theme = isDark() ? 'dark' : 'light';
+    posts.forEach(function (p) {
+      p.querySelector('blockquote').setAttribute('data-theme', theme);
+      p.dataset.source = p.innerHTML;
+      p.addEventListener('click', function () {
+        if (p.classList.contains('is-ready')) window.open(p.dataset.href, '_blank', 'noopener');
+      });
+    });
+    window.twttr = window.twttr || { _e: [], ready: function (f) { this._e.push(f); } };
+    twttr.ready(function (t) {
+      t.events.bind('rendered', function (e) {
+        var post = e.target.closest && e.target.closest('.x-post');
+        if (!post) return;
+        var frame = post.querySelector('iframe');
+        var css = getComputedStyle(post);
+        var top = parseFloat(css.getPropertyValue('--x-crop-top')) || 0;
+        var bottom = parseFloat(css.getPropertyValue('--x-crop-bottom')) || 0;
+        // Crop X's header (avatar, name, follow) and footer (date, actions, "Read more").
+        var clip = frame.parentElement;
+        var fit = function () { clip.style.height = Math.max(0, frame.offsetHeight - top - bottom) + 'px'; };
+        fit();
+        if (window.ResizeObserver) new ResizeObserver(fit).observe(frame);
+        post.classList.add('is-ready');
+        post.style.minHeight = '';
+      });
+    });
+    // X bakes the theme into each embed, so redraw them when the site theme changes.
+    var retheme = function () {
+      var next = isDark() ? 'dark' : 'light';
+      if (next === theme || !window.twttr.widgets) return;
+      theme = next;
+      posts.forEach(function (p) {
+        p.style.minHeight = p.offsetHeight + 'px';
+        p.classList.remove('is-ready', 'is-failed');
+        p.innerHTML = p.dataset.source;
+        p.querySelector('blockquote').setAttribute('data-theme', theme);
+        twttr.widgets.load(p);
+      });
+    };
+    new MutationObserver(retheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
+    setTimeout(function () {
+      posts.forEach(function (p) { if (!p.classList.contains('is-ready')) p.classList.add('is-failed'); });
+    }, 10000);
+    var s = document.createElement('script');
+    s.src = 'https://platform.twitter.com/widgets.js'; s.async = true; s.charset = 'utf-8';
+    document.body.appendChild(s);
+  })();
+</script>

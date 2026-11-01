@@ -88,7 +88,7 @@
       },
     },
   };
-  let shape = "name";
+  let shape = SHAPES[canvas.dataset.startShape] ? canvas.dataset.startShape : "name";
 
   function sampleShape(kind) {
     // paint on an oversized canvas so ink past the edges (measureText can under-report

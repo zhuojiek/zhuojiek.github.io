@@ -6,6 +6,7 @@ date: 2025-12-13
 permalink: /posts/diffusion-flow-matching
 tags:
   - Computer Vision
+  - Generative Models
 ---
 
 # Project 5A: Diffusion

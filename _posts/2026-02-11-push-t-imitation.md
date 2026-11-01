@@ -10,7 +10,7 @@ image: /images/featured4.gif
 context: ""
 tags:
   - Robotics
-  - Imitation learning
+  - Imitation Learning
 ---
 
 Push-T is a standard benchmark for visuomotor imitation learning. A circular agent pushes a T-shaped block into a target pose, and the policy is trained on a set of expert demonstrations. The task is simple, but it requires a policy that can represent an action distribution with more than one mode.

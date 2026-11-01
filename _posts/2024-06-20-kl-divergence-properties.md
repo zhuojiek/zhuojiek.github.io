@@ -4,8 +4,7 @@ title: "Non-negativity and iff condition of KL Divergence"
 date: 2024-06-20
 permalink: /posts/kl-divergence-properties
 tags:
-  - Machine Learning
-  - Statistics
+  - Probability & Statistics
 ---
 
 2 interesting properties of the KL Divergence:

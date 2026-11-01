@@ -2,139 +2,64 @@
 permalink: /
 title: "Zhuojie Kuang"
 layout: base
+hero: true
+sidebar: true
 redirect_from:
   - /about/
   - /about.html
 ---
-<div class="home">
-
 <section class="hero">
   <h1>Zhuojie Kuang</h1>
-  <canvas aria-label="Particles flowing from Gaussian noise into the name Zhuojie Kuang"></canvas>
+  <canvas data-start-shape="arm" aria-label="Particles flowing from Gaussian noise into a robot arm"></canvas>
   <p class="hero-caption">
     <span>Can you match my flow? · t = <span data-hero="t">0.00</span></span>
     <span class="hero-controls">
-      <span class="shape-toggle" role="group" aria-label="Target distribution">
-        <button type="button" data-shape="name" aria-pressed="true" aria-label="Zhuojie Kuang">\(\aleph_0\)</button>
-        <button type="button" data-shape="hanzi" aria-pressed="false" aria-label="邝卓杰">杰</button>
-        <button type="button" data-shape="arm" aria-pressed="false">🤖</button>
-      </span>
       <button type="button" data-hero="replay">Resample \(\mathcal{N}(0, I)\) ↻</button>
     </span>
   </p>
 </section>
 
 <section class="intro">
-  <div>
-    <p class="lead">Hi, I'm Zhuojie! I'm a 3rd year CS undergrad at UC Berkeley.</p>
-    <p>I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a> and previously did research on <a href="https://darrellgroup.github.io"> unified models</a>.</p>
-    <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I am studying to become a full-stack roboticist with knowledge of the <a href="/coursework/">entire stack</a>, from actuators and control to distributed training and RL.</p>
-    <p class="seeking"><strong>I'm currently looking for a research opportunity in robot learning.</strong> If you're a robotics researcher with an open project, please reach out to me at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
-    <!-- <p class="seeking"><strong>I always love to talk about Robotics and AI.</strong> Feel free to chat with me anything at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a> or WeChat</p> -->
-  </div>
-  <aside class="spec">
-    <img src="/images/portrait.jpg" alt="Zhuojie Kuang">
-    <dl>
-      <div><dt>Contact</dt><dd><a href="https://github.com/shimamooo?tab=repositories">GitHub</a> · <a href="https://x.com/zhuojiek">Twitter</a> · <a href="mailto:anthonykuang@berkeley.edu">Email</a></dd></div>
-    </dl>
-  </aside>
+  <p>Hi, I'm Zhuojie, a 3rd year CS undergrad at UC Berkeley. I'm currently a research intern at <a href="https://www.roboticscenter.ai">Robotics Center</a> and previously did research on <a href="https://darrellgroup.github.io">unified models</a>.</p>
+  <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I am studying to become a full-stack roboticist with knowledge of the <a href="/coursework/">entire stack</a>, from actuators and control to distributed training and RL.</p>
+  <p class="seeking"><strong>I'm looking for a research opportunity in robot learning.</strong> If you're a robotics researcher with an open project, please reach out at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
 </section>
 
-<section class="section">
-  <div class="section-head"><h2>Research</h2><a href="/research/">All research →</a></div>
-  {% include research-list.html group="current" embeds=true %}
-  {% include research-list.html group="course" compact=true %}
-  {% include research-list.html group="ongoing" %}
-  {% include research-list.html group="workshop" %}
+<section>
+  <h2 class="sec">Research <a href="/research/">All »</a></h2>
+  <ol class="research">
+  {% assign groups = "current,ongoing,workshop,course" | split: "," %}
+  {% for g in groups %}{% assign items = site.publications | where: "group", g | sort: "order" %}{% for p in items %}
+    <li>
+      <a class="r-title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+      <div class="r-authors">{{ p.authors | replace: "Zhuojie Kuang", "<strong>Zhuojie Kuang</strong>" }}</div>
+      <div class="r-meta"><em>{{ p.venue | default: p.kind }}</em>{% for l in p.links %} · <a href="{{ l.url | relative_url }}">{{ l.name }}</a>{% endfor %}</div>
+    </li>
+  {% endfor %}{% endfor %}
+  </ol>
 </section>
 
-<section class="section">
-  <div class="section-head"><h2>Projects</h2><a href="/blog/">All posts →</a></div>
-  <div class="cards">
-  {% assign featured = site.posts | where: "featured", true %}
-  {% for p in featured %}
-    <a class="card" href="{{ p.url | relative_url }}">
-      <div class="card-img"><img src="{{ p.image | relative_url }}" alt="" loading="lazy"{% if p.card_fit %} class="{{ p.card_fit }}"{% endif %}></div>
-      <div class="card-body">
-        <div class="card-meta"><span>{{ p.date | date: "%b %Y" }}</span>{% if p.context %}<span>{{ p.context }}</span>{% endif %}{% if p.interactive %}<span class="demo-flag">● Interactive</span>{% endif %}</div>
-        <h3>{{ p.title }}</h3>
-        <p>{{ p.description }}</p>
-      </div>
-    </a>
+<section>
+  <h2 class="sec">Posts <a href="/blog/">All »</a></h2>
+  {% assign labels = "writing:Technical posts:/blog/|notes:Notes:/blog/#notes|cs180:CS 180 projects:/blog/#cs180" | split: "|" %}
+  {% assign shown = 0 %}
+  {% for p in site.posts %}
+    {% if p.section == "course" or p.section == "stream" %}{% continue %}{% endif %}
+    {% assign shown = shown | plus: 1 %}{% if shown > 10 %}{% break %}{% endif %}
+    <article class="post-item">
+      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% if p.interactive %} <span class="badge">Interactive</span>{% endif %}</h3>
+      <div class="meta"><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>{% for l in labels %}{% assign parts = l | split: ":" %}{% if parts[0] == p.section %} · <a href="{{ parts[2] | relative_url }}">{{ parts[1] }}</a>{% endif %}{% endfor %}</div>
+      <p class="excerpt">{{ p.content | strip_html | normalize_whitespace | truncate: 220 }}</p>
+      <a class="more" href="{{ p.url | relative_url }}">Read more »</a>
+    </article>
   {% endfor %}
-  </div>
 </section>
 
-<section class="section">
-  <div class="section-head"><h2>Miscellaneous</h2></div>
-  <p class="group-note" style="margin:0">
-    I am a big fan of Damian Lillard and similarly grew up in East Oakland. I sometimes enjoy playing the 
-    <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I attend and help host the <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> reading groups.
-  </p>
-  <div class="x-posts">
-  {% for url in site.data.tweets %}
-    <div class="x-post" data-href="{{ url }}"><blockquote class="twitter-tweet" data-dnt="true" data-conversation="none"><a href="{{ url | replace: 'x.com', 'twitter.com' }}">View post on X →</a></blockquote></div>
-  {% endfor %}
-  </div>
+<section>
+  <h2 class="sec">Misc</h2>
+  <p>I am a big fan of <a href="https://www.youtube.com/watch?v=heP3LWn8-KQ">Damian Lillard</a> and similarly grew up in East Oakland. I sometimes enjoy playing the <a href="https://www.youtube.com/watch?v=hnmUMC_tGN8">keyboard</a>. I attend and help host the <a href="https://x.com/saturdayrobotic">Saturday Robotics</a> reading groups.</p>
+  {% include x-posts.html %}
 </section>
 
-</div>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&text=%E9%82%9D%E5%8D%93%E6%9D%B0&display=swap">
-<script>
-  (function () {
-    var root = document.documentElement;
-    var posts = document.querySelectorAll('.x-post');
-    var isDark = function () {
-      var t = root.getAttribute('data-theme');
-      return t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    };
-    var theme = isDark() ? 'dark' : 'light';
-    posts.forEach(function (p) {
-      p.querySelector('blockquote').setAttribute('data-theme', theme);
-      p.dataset.source = p.innerHTML;
-      p.addEventListener('click', function () {
-        if (p.classList.contains('is-ready')) window.open(p.dataset.href, '_blank', 'noopener');
-      });
-    });
-    window.twttr = window.twttr || { _e: [], ready: function (f) { this._e.push(f); } };
-    twttr.ready(function (t) {
-      t.events.bind('rendered', function (e) {
-        var post = e.target.closest && e.target.closest('.x-post');
-        if (!post) return;
-        var frame = post.querySelector('iframe');
-        var css = getComputedStyle(post);
-        var top = parseFloat(css.getPropertyValue('--x-crop-top')) || 0;
-        var bottom = parseFloat(css.getPropertyValue('--x-crop-bottom')) || 0;
-        // Crop X's header (avatar, name, follow) and footer (date, actions, "Read more").
-        var clip = frame.parentElement;
-        var fit = function () { clip.style.height = Math.max(0, frame.offsetHeight - top - bottom) + 'px'; };
-        fit();
-        if (window.ResizeObserver) new ResizeObserver(fit).observe(frame);
-        post.classList.add('is-ready');
-        post.style.minHeight = '';
-      });
-    });
-    // X bakes the theme into each embed, so redraw them when the site theme changes.
-    var retheme = function () {
-      var next = isDark() ? 'dark' : 'light';
-      if (next === theme || !window.twttr.widgets) return;
-      theme = next;
-      posts.forEach(function (p) {
-        p.style.minHeight = p.offsetHeight + 'px';
-        p.classList.remove('is-ready', 'is-failed');
-        p.innerHTML = p.dataset.source;
-        p.querySelector('blockquote').setAttribute('data-theme', theme);
-        twttr.widgets.load(p);
-      });
-    };
-    new MutationObserver(retheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
-    setTimeout(function () {
-      posts.forEach(function (p) { if (!p.classList.contains('is-ready')) p.classList.add('is-failed'); });
-    }, 10000);
-    var s = document.createElement('script');
-    s.src = 'https://platform.twitter.com/widgets.js'; s.async = true; s.charset = 'utf-8';
-    document.body.appendChild(s);
-  })();
-</script>
 <script src="/js/hero.js?v={{ site.time | date: '%s' }}" defer></script>

@@ -1,5 +1,5 @@
 title: Zhuojie Kuang
-description: Zhuojie Kuang — robot learning, generative models, and RL. CS at UC Berkeley.
+description: Zhuojie Kuang - robot learning, generative models, and RL. CS at UC Berkeley.
 url: https://zhuojiekuang.github.io
 baseurl: ""
 repository: zhuojiekuang/zhuojiekuang.github.io
@@ -86,7 +86,6 @@ exclude:
   - _pages/archive-layout-with-content.md
   - _pages/collection-archive.html
   - _pages/category-archive.html
-  - _pages/tag-archive.html
   - _pages/page-archive.html
   - _pages/sitemap.md
   - _pages/talkmap.html

@@ -1,0 +1,29 @@
+<section class="box about">
+  <img src="{{ '/images/portrait.jpg' | relative_url }}" alt="Zhuojie Kuang" width="72" height="72">
+  <div>
+    <p><strong>Zhuojie Kuang</strong> <span lang="zh">邝卓杰</span><br>CS undergrad</p>
+    <p class="contact"><a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="https://github.com/shimamooo">GitHub</a> · <a href="https://x.com/zhuojiek">Twitter</a></p>
+  </div>
+</section>
+
+<section class="box">
+  <h2>Recent posts</h2>
+  <ul class="plain">
+  {% assign shown = 0 %}
+  {% for p in site.posts %}
+    {% if p.section == "course" or p.section == "stream" %}{% continue %}{% endif %}
+    <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+    {% assign shown = shown | plus: 1 %}{% if shown == 6 %}{% break %}{% endif %}
+  {% endfor %}
+  </ul>
+</section>
+
+<section class="box">
+  <h2>Categories</h2>
+  <ul class="plain counts">
+  {% assign tags = site.tags | sort %}
+  {% for t in tags %}
+    <li><a href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a> <span>{{ t[1].size }}</span></li>
+  {% endfor %}
+  </ul>
+</section>

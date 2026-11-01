@@ -5,7 +5,6 @@ date: 2024-06-22
 permalink: /posts/06/22/latex-preamble
 tags:
   - LaTeX
-  - Math
 ---
 
 Attached is a simple $$\LaTeX$$ preamble for my course notes, inspired by the Berkeley EECS 127 Reader.

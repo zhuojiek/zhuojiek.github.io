@@ -9,8 +9,7 @@ featured: true
 image: /images/posts/ideal-flow/card.png
 context: ""
 tags:
-  - Generative models
-  - Computer Vision
+  - Generative Models
 ---
 
 A diffusion or flow model trained perfectly on a finite dataset can only reproduce the training set: the optimal velocity field for an empirical distribution transports every noise sample onto one of the training points. Trained models do generate new samples, so their ability to generalize has to come from the ways they differ from the optimal field.
