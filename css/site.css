@@ -370,17 +370,4 @@ table.courses td.group { font-weight: 700; background: var(--paper-2); }
 .site-embed iframe { height: 440px; min-height: 0; }
 @media (max-width: 640px) { .doc-embed iframe { height: 60vh; min-height: 360px; } }
 
-.x-posts { margin-top: 1rem; max-width: 520px; }
-.x-post { position: relative; margin-bottom: 1rem; }
-.x-post > * { margin: 0 !important; opacity: 0; }
-.x-post blockquote.twitter-tweet { visibility: hidden; }
-.x-post { --x-crop-top: 66px; --x-crop-bottom: 116px; }
-.x-post > .twitter-tweet-rendered { max-width: none !important; }
-.x-post iframe { width: calc(100% + 2px) !important; max-width: none !important; margin: 0 -1px !important; color-scheme: normal; }
-.x-post.is-ready { overflow: hidden; }
-.x-post.is-ready > .twitter-tweet-rendered { overflow: hidden; }
-.x-post.is-ready iframe { pointer-events: none; }
-.x-post.is-ready { cursor: pointer; }
-.x-post.is-ready iframe { margin-top: calc(-1 * var(--x-crop-top)) !important; }
-.x-post.is-ready > * { opacity: 1; }
-.x-post.is-failed blockquote.twitter-tweet { visibility: visible; opacity: 1; }
+.x-posts { margin-top: 1rem; max-width: 550px; }
