@@ -71,11 +71,11 @@ button { font: inherit; }
 .progress span { display: block; height: 100%; width: 0; background: var(--accent); }
 
 .site-header { background: var(--paper); border-bottom: 1px solid var(--rule); }
-.brand-row { padding-top: 26px; padding-bottom: 14px; }
+.brand-row { padding-top: 24px; padding-bottom: 12px; }
 .brand { display: inline-flex; align-items: baseline; gap: 12px; flex-wrap: wrap; color: var(--ink); }
 .brand:hover { color: var(--ink); text-decoration: none; }
 .brand-zh { font-family: var(--serif); font-size: 28px; font-weight: 700; letter-spacing: .06em; }
-.brand-en { font-size: 17px; color: var(--ink-2); }
+.brand-en { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
 .brand-sub { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; background: linear-gradient(var(--rule), var(--rule)) 16px 0 / calc(100% - 32px) 1px no-repeat; }
 .site-nav { column-gap: 26px; }
