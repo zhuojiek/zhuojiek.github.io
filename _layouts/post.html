@@ -1,6 +1,7 @@
 ---
 layout: base
 nav: Blog
+sidebar: true
 ---
 {% assign words = content | strip_html | number_of_words %}
 {% assign minutes = words | divided_by: 220 | plus: 1 %}
@@ -8,15 +9,8 @@ nav: Blog
 {% if page.section == "writing" or page.section == "cs180" %}{% assign technical = true %}{% endif %}
 <article class="article{% if technical %} technical{% endif %}">
   <header class="article-header">
-    <p class="crumbs">
-      {% if page.section == "course" %}<a href="{{ '/coursework/' | relative_url }}">Course reviews</a>
-      {% elsif page.section == "notes" %}<a href="{{ '/blog/#notes' | relative_url }}">Notes</a>
-      {% elsif page.section == "cs180" %}<a href="{{ '/blog/#cs180' | relative_url }}">CS 180 projects</a>
-      {% elsif page.section == "stream" %}<a href="{{ '/streams/' | relative_url }}">Study streams</a>
-      {% else %}<a href="{{ '/blog/' | relative_url }}">Technical posts</a>{% endif %}
-    </p>
     <h1>{{ page.title }}</h1>
-    <p class="byline">By Zhuojie Kuang · <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>{% if page.section != "stream" %} · {{ minutes }} min read{% endif %}{% if page.tags %} · {% for t in page.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">{{ t }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}{% endif %}</p>
+    <p class="meta byline"><span class="meta-item">Date: <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time></span><span class="meta-item">Category: {% if page.section == "course" %}<a href="{{ '/coursework/' | relative_url }}">Course reviews</a>{% elsif page.section == "notes" %}<a href="{{ '/blog/#notes' | relative_url }}">Notes</a>{% elsif page.section == "cs180" %}<a href="{{ '/blog/#cs180' | relative_url }}">CS 180 projects</a>{% elsif page.section == "stream" %}<a href="{{ '/streams/' | relative_url }}">Study streams</a>{% else %}<a href="{{ '/blog/' | relative_url }}">Technical posts</a>{% endif %}</span>{% if page.section != "stream" %}<span class="meta-item">{{ words }} words, about {{ minutes }} min</span>{% endif %}</p>
     {% if page.description and page.description != page.title %}<p class="dek">{{ page.description }}</p>{% endif %}
   </header>
 
@@ -28,10 +22,13 @@ nav: Blog
   </div>
 
   <footer class="article-footer">
-    {% if page.section == "course" %}
-      <a href="{{ '/coursework/' | relative_url }}">← All course reviews</a>
-    {% else %}
-      <a href="{{ '/blog/' | relative_url }}">← All posts</a>
-    {% endif %}
+    {% if page.tags.size > 0 %}<p class="tags">Tags: {% for t in page.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">{{ t }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}</p>{% endif %}
+    {% assign same = site.posts | where: "section", page.section %}
+    {% for p in same %}{% if p.url == page.url %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
+    {% assign newer_i = i | minus: 1 %}{% assign older_i = i | plus: 1 %}
+    <ul class="post-near">
+      <li>Previous: {% if older_i < same.size %}<a href="{{ same[older_i].url | relative_url }}">{{ same[older_i].title }}</a>{% else %}none{% endif %}</li>
+      <li>Next: {% if i > 0 %}<a href="{{ same[newer_i].url | relative_url }}">{{ same[newer_i].title }}</a>{% else %}none{% endif %}</li>
+    </ul>
   </footer>
 </article>

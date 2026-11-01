@@ -1,0 +1,38 @@
+---
+title: Search
+permalink: /search/
+sitemap: false
+---
+
+<form class="search search-page" action="{{ '/search/' | relative_url }}" method="get" role="search">
+  <input type="search" name="q" aria-label="Search this site" placeholder="Search this site">
+  <button type="submit">Search</button>
+</form>
+<p class="search-status" aria-live="polite"></p>
+<ul class="post-list search-results"></ul>
+
+<script>
+  (function () {
+    var q = (new URLSearchParams(location.search).get('q') || '').trim();
+    var input = document.querySelector('.search-page input[name=q]');
+    var status = document.querySelector('.search-status');
+    var list = document.querySelector('.search-results');
+    input.value = q;
+    if (!q) { status.textContent = 'Type something to search posts, notes, course reviews and research.'; return; }
+    status.textContent = 'Searching…';
+    var esc = function (s) { return s.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+    fetch('{{ "/search.json" | relative_url }}').then(function (r) { return r.json(); }).then(function (docs) {
+      var terms = q.toLowerCase().split(/\s+/);
+      var hits = docs.map(function (d) {
+        var title = d.title.toLowerCase(), all = (d.title + ' ' + d.tags + ' ' + d.text).toLowerCase();
+        if (!terms.every(function (t) { return all.indexOf(t) !== -1; })) return null;
+        var score = terms.reduce(function (s, t) { return s + (title.indexOf(t) !== -1 ? 10 : 0) + (d.tags.toLowerCase().indexOf(t) !== -1 ? 3 : 0); }, 0);
+        return { d: d, score: score };
+      }).filter(Boolean).sort(function (a, b) { return b.score - a.score || (a.d.date < b.d.date ? 1 : -1); });
+      status.textContent = hits.length + ' result' + (hits.length === 1 ? '' : 's') + ' for “' + q + '”';
+      list.innerHTML = hits.map(function (h) {
+        return '<li><time>' + h.d.date + '</time><div>' + h.d.kind + ': <a class="title" href="' + h.d.url + '">' + esc(h.d.title) + '</a></div></li>';
+      }).join('');
+    }).catch(function () { status.textContent = 'Search could not load. Try the Archives page instead.'; });
+  })();
+</script>

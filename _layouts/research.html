@@ -1,13 +1,14 @@
 ---
 layout: base
 nav: Research
+sidebar: true
 ---
 <article class="article research-page technical">
   <header class="article-header">
-    <p class="crumbs"><a href="{{ '/research/' | relative_url }}">Research</a> · {{ page.kind | default: "Paper" }}</p>
-    <h1>{{ page.title }}</h1>
+        <h1>{{ page.title }}</h1>
     <p class="authors">{{ page.authors | replace: "Zhuojie Kuang", "<strong>Zhuojie Kuang</strong>" }}</p>
-    <p class="byline"><em>{{ page.venue }}</em> · {{ page.date | date: "%B %Y" }}{% for l in page.links %} · <a href="{{ l.url | relative_url }}">{{ l.name }}</a>{% endfor %}</p>
+    <p class="meta byline"><span class="meta-item">{{ page.kind | default: "Paper" }}</span><span class="meta-item">{{ page.venue }}</span><span class="meta-item">{{ page.date | date: "%B %Y" }}</span></p>
+    {% if page.links %}<p class="links">{% for l in page.links %}<a href="{{ l.url | relative_url }}">{{ l.name }}</a>{% endfor %}</p>{% endif %}
   </header>
   <div class="article-body">
     <nav class="toc" aria-label="Contents"><p class="toc-title">Contents</p><ol></ol></nav>

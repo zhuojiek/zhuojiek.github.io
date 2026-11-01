@@ -6,7 +6,7 @@
     {% assign shown = shown | plus: 1 %}{% if shown > include.limit %}{% break %}{% endif %}
     <article class="post-item">
       <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% if p.interactive %} <span class="badge">Interactive</span>{% endif %}</h3>
-      <div class="meta"><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>{% for l in labels %}{% assign parts = l | split: ":" %}{% if parts[0] == p.section %} · <a href="{{ parts[2] | relative_url }}">{{ parts[1] }}</a>{% endif %}{% endfor %}</div>
+      <div class="meta"><span class="meta-item">Date: <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time></span>{% for l in labels %}{% assign parts = l | split: ":" %}{% if parts[0] == p.section %}<span class="meta-item">Category: <a href="{{ parts[2] | relative_url }}">{{ parts[1] }}</a></span>{% endif %}{% endfor %}{% if p.tags.size > 0 %}<span class="meta-item">Tags: {% for t in p.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">{{ t }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}</span>{% endif %}</div>
       <p class="excerpt">{{ p.content | strip_html | normalize_whitespace | truncate: 220 }}</p>
       <a class="more" href="{{ p.url | relative_url }}">Read more »</a>
     </article>

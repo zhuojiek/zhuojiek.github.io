@@ -1,0 +1,7 @@
+---
+layout: null
+sitemap: false
+---
+{% assign docs = site.posts | concat: site.publications %}
+[{% for d in docs %}{"title": {{ d.title | jsonify }}, "url": {{ d.url | relative_url | jsonify }}, "date": {{ d.date | date: "%Y-%m-%d" | jsonify }}, "tags": {{ d.tags | join: " " | jsonify }}, "kind": {% if d.collection == "publications" %}"Research"{% elsif d.section == "course" %}"Course review"{% elsif d.section == "stream" %}"Study stream"{% else %}"Post"{% endif %}, "text": {{ d.content | strip_html | normalize_whitespace | truncatewords: 400 | jsonify }}}{% unless forloop.last %},{% endunless %}
+{% endfor %}]

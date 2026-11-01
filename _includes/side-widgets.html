@@ -1,5 +1,11 @@
+{% assign writing = site.posts | where_exp: "p", "p.section != 'course'" | where_exp: "p", "p.section != 'stream'" %}
+<form class="search" action="{{ '/search/' | relative_url }}" method="get" role="search">
+  <input type="search" name="q" placeholder="Search this site" aria-label="Search this site">
+  <button type="submit">Search</button>
+</form>
+
 <section class="box about">
-  <img src="{{ '/images/portrait.jpg' | relative_url }}" alt="Zhuojie Kuang" width="72" height="72">
+  <img src="{{ '/images/portrait.jpg' | relative_url }}" alt="Zhuojie Kuang" width="64" height="64">
   <div>
     <p><strong>Zhuojie Kuang</strong> <span lang="zh">邝卓杰</span><br>CS undergrad</p>
     <p class="contact"><a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="https://github.com/shimamooo">GitHub</a> · <a href="https://x.com/zhuojiek">Twitter</a></p>
@@ -9,11 +15,8 @@
 <section class="box">
   <h2>Recent posts</h2>
   <ul class="plain">
-  {% assign shown = 0 %}
-  {% for p in site.posts %}
-    {% if p.section == "course" or p.section == "stream" %}{% continue %}{% endif %}
+  {% for p in writing limit: 6 %}
     <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
-    {% assign shown = shown | plus: 1 %}{% if shown == 6 %}{% break %}{% endif %}
   {% endfor %}
   </ul>
 </section>
@@ -25,5 +28,16 @@
   {% for t in tags %}
     <li><a href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify }}">{{ t[0] }}</a> <span>{{ t[1].size }}</span></li>
   {% endfor %}
+  </ul>
+</section>
+
+<section class="box">
+  <h2>Archives</h2>
+  <ul class="plain counts">
+  {% assign months = site.posts | group_by_exp: "p", "p.date | date: '%Y-%m'" %}
+  {% for m in months limit: 12 %}
+    <li><a href="{{ '/archive/' | relative_url }}#{{ m.name }}">{{ m.items.first.date | date: "%B %Y" }}</a> <span>{{ m.size }}</span></li>
+  {% endfor %}
+  {% if months.size > 12 %}<li><a href="{{ '/archive/' | relative_url }}">Older…</a></li>{% endif %}
   </ul>
 </section>

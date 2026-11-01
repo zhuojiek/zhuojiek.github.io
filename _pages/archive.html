@@ -1,0 +1,18 @@
+---
+title: Archives
+permalink: /archive/
+description: Everything, newest first, by month.
+---
+
+{% assign months = site.posts | group_by_exp: "p", "p.date | date: '%Y-%m'" %}
+{% for m in months %}
+<h2 class="archive-title" id="{{ m.name }}">{{ m.items.first.date | date: "%B %Y" }} ({{ m.size }})</h2>
+<ul class="post-list">
+  {% for p in m.items %}
+  <li>
+    <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>
+    <div><a class="title" href="{{ p.url | relative_url }}">{{ p.title }}</a></div>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}

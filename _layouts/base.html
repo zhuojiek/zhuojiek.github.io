@@ -52,7 +52,6 @@
       {% for item in nav %}{% assign parts = item | split: ":" %}
       <a href="{{ parts[1] | relative_url }}"{% if page.url == parts[1] or page.nav == parts[0] or layout.nav == parts[0] %} aria-current="page"{% endif %}>{{ parts[0] }}</a>
       {% endfor %}
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark / Light</button>
     </nav>
   </header>
 
@@ -72,7 +71,7 @@
   {% endif %}
 
   <footer class="site-footer wrap">
-    <p>© {{ site.time | date: "%Y" }} Zhuojie Kuang · Built with Jekyll · <a href="mailto:anthonykuang@berkeley.edu">Email</a> · <a href="https://github.com/shimamooo">GitHub</a> · <a href="https://x.com/zhuojiek">Twitter</a></p>
+    <p>© {{ site.time | date: "%Y" }} Zhuojie Kuang · Last updated {{ site.time | date: "%Y-%m-%d" }} · Powered by Jekyll · <button class="theme-toggle" type="button" aria-label="Toggle dark mode">Dark / Light</button></p>
   </footer>
 </body>
 </html>

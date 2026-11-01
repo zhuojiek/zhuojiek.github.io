@@ -26,6 +26,20 @@ redirect_from:
 </section>
 
 <section>
+  <h2 class="sec">Recent activity <a href="/archive/">Archives »</a></h2>
+  {% assign writing = site.posts | where_exp: "p", "p.section != 'course'" | where_exp: "p", "p.section != 'stream'" %}
+  {% assign activity = writing | concat: site.publications | sort: "date" | reverse %}
+  <ul class="post-list">
+  {% for a in activity limit: 6 %}
+    <li>
+      <time datetime="{{ a.date | date_to_xmlschema }}">{{ a.date | date: "%Y-%m-%d" }}</time>
+      <div>{% if a.collection == "publications" %}Research:{% else %}Post:{% endif %} <a class="title" href="{{ a.url | relative_url }}">{{ a.title }}</a></div>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+
+<section>
   <h2 class="sec">Research <a href="/research/">All »</a></h2>
   <ol class="research">
   {% assign groups = "current,ongoing,workshop,course" | split: "," %}
