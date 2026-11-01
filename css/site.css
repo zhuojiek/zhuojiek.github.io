@@ -179,7 +179,7 @@ main.wrap { padding-top: 10px; padding-bottom: 20px; }
 .article-body { min-width: 0; }
 .toc { display: inline-block; margin: 0 0 1.4em; padding: 8px 16px 8px 12px; border: 1px solid var(--rule); background: var(--paper-2); font-size: 14px; }
 .toc-title { margin: 0 0 2px; font-weight: 700; }
-.toc ol { margin: 0; padding-left: 1.6em; }
+.toc ol { list-style: none; margin: 0; padding-left: .4em; }
 .toc li { margin: 1px 0; }
 .toc:not(:has(li)) { display: none; }
 
@@ -195,10 +195,6 @@ main.wrap { padding-top: 10px; padding-bottom: 20px; }
 .prose h2 { margin: 1.6em 0 .6em; font-size: 1.4em; }
 .prose h3 { margin: 1.4em 0 .5em; font-size: 1.2em; }
 .prose h4 { margin: 1.3em 0 .4em; font-size: 1.05em; }
-.technical .prose h2 { counter-increment: sec; }
-.technical .prose h2::before { content: counter(sec) ". "; }
-.approach-numbered .technical .prose h2::before { content: none; }
-.approach-numbered .toc ol { list-style: none; padding-left: .4em; }
 .prose ul, .prose ol { padding-left: 1.8em; }
 .prose li { margin: .25em 0; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }

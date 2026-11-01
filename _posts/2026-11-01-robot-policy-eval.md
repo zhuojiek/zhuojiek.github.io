@@ -4,7 +4,6 @@ description: "Notes from Karl Pertsch's lecture in CS 294-318."
 date: 2026-11-01
 permalink: /posts/robot-policy-eval
 interactive: true
-body_class: approach-numbered
 tags:
   - Robotics
   - Agents
