@@ -371,3 +371,5 @@ table.courses td.group { font-weight: 700; background: var(--paper-2); }
 @media (max-width: 640px) { .doc-embed iframe { height: 60vh; min-height: 360px; } }
 
 .x-posts { margin-top: 1rem; max-width: 550px; }
+/* the site sets color-scheme: dark; without this the browser paints a white backdrop behind the embed, visible at its corners */
+.x-posts iframe { color-scheme: normal; }
