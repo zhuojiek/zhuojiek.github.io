@@ -89,7 +89,7 @@ $$\text{MMRV} = \frac{1}{N}\sum_{i=1}^{N} \max_{j} \; |R_i - R_j| \cdot \mathbb{
 where $$R_i$$ and $$S_i$$ are policy $$i$$'s real and sim success rates. Swapping two nearly identical policies costs little; ranking a much worse policy above a much better one costs a lot. We want high correlation and low MMRV. The interactive figure below shows how the two can disagree.
 
 <div class="demo narrow" data-demo="ranking">
-  <div class="demo-head"><span class="demo-title">Correlation and ranking error measure different things</span><span class="demo-tag">Interactive</span></div>
+  <div class="demo-head"><span class="demo-title">Correlation and ranking error measure different things</span></div>
   <p class="legend"><span class="key"><i style="background:var(--s1)"></i>ranked correctly</span><span class="key"><i style="background:var(--s2)"></i>worst rank violation</span></p>
   <div class="chart-wrap"></div>
   <div class="demo-controls">
@@ -186,7 +186,7 @@ $$P(i \text{ beats } j) = \frac{e^{\theta_i}}{e^{\theta_i} + e^{\theta_j}}.$$
 Fitting the $$\theta$$'s to the observed outcomes gives the leaderboard (Elo ratings are an online approximation of the same model). Because matches can be chosen, you can preferentially pair policies of similar strength, which are the most informative comparisons. The simulation below shows a ranking emerging from noisy matches.
 
 <div class="demo narrow" data-demo="arena">
-  <div class="demo-head"><span class="demo-title">Recovering a ranking from noisy pairwise preferences</span><span class="demo-tag">Interactive</span></div>
+  <div class="demo-head"><span class="demo-title">Recovering a ranking from noisy pairwise preferences</span></div>
   <p class="legend"><span class="key"><i style="background:transparent;box-shadow:inset 0 0 0 2px var(--s2)"></i>true strength (hidden)</span><span class="key"><i style="background:var(--s1)"></i>Bradley–Terry estimate</span></p>
   <div class="chart-wrap"></div>
   <div class="demo-controls">

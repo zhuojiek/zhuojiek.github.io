@@ -61,7 +61,7 @@ redirect_from:
     {% if p.section == "course" or p.section == "stream" %}{% continue %}{% endif %}
     {% assign shown = shown | plus: 1 %}{% if shown > 10 %}{% break %}{% endif %}
     <article class="post-item">
-      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% if p.interactive %} <span class="badge">Interactive</span>{% endif %}</h3>
+      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
       <div class="meta"><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%Y-%m-%d" }}</time>{% for l in labels %}{% assign parts = l | split: ":" %}{% if parts[0] == p.section %} · <a href="{{ parts[2] | relative_url }}">{{ parts[1] }}</a>{% endif %}{% endfor %}</div>
       <p class="excerpt">{{ p.content | strip_html | normalize_whitespace | truncate: 220 }}</p>
       <a class="more" href="{{ p.url | relative_url }}">Read more »</a>
