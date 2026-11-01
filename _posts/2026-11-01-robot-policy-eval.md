@@ -4,12 +4,13 @@ description: "Notes from Karl Pertsch's lecture in CS 294-318."
 date: 2026-11-01
 permalink: /posts/robot-policy-eval
 interactive: true
+body_class: approach-numbered
 tags:
   - Robotics
   - Agents
 ---
 
-The last guest lecture in [Sergey Levine](https://people.eecs.berkeley.edu/~svlevine/)'s VLA seminar ([CS 294-318](/posts/2026/09/18/cs294-318)) was [Karl Pertsch](https://kpertsch.github.io) from [Physical Intelligence](https://www.physicalintelligence.company), on evaluation. Sergey's introduction summed up the problem: every paper we read this semester was the best at something, according to an eval. *But what makes an eval good?* This post walks through the lecture: why evaluating robot policies is hard, the 3 standard approaches and their limitations, and 2 newer approaches that are better suited to generalist policies. I end with my own thoughts on what this means for evaluating agentic robot systems like [RAX](/publication/2026-10-25-rax-xarm), which I've been working on.
+Last Friday, [Karl Pertsch](https://kpertsch.github.io) from [Physical Intelligence](https://www.physicalintelligence.company) gave a lecture on generalist policy eval for the VLA seminar. Sergey's introduction summed up the problem: every paper we read this semester was the best at something, according to an eval. *But what makes an eval good?* This post walks through the lecture: why evaluating robot policies is hard, the 3 standard approaches (**Approaches 1–3**) and their limitations, and 2 newer approaches (**Approaches 4–5**) that are better suited to generalist policies. I end with my own thoughts on what this means for evaluating agentic robot systems like [RAX](/publication/2026-10-25-rax-xarm), which I've been working on.
 
 ## Why robot evaluation is hard
 
@@ -19,7 +20,7 @@ Consider everything that can differ between two evaluation runs of the same poli
 
 What makes these factors dangerous is that they are *silent*. None of them throws an error. They just shift the score a little, which is the hardest kind of regression to catch. And the problem compounds as policies become more general: instead of one task in one scene, we now need to evaluate many tasks, in many environments, over longer horizons, in richer scenes, and each of those makes control harder.
 
-Broadly, the community has tried 4 approaches. Figure 1 places them on two axes: how reproducible and scalable an evaluation is, and how realistic and general it is.
+Broadly, the community has tried 5 approaches, numbered here in the order this post covers them. Figure 1 places them on two axes: how reproducible and scalable an evaluation is, and how realistic and general it is.
 
 <figure>
 <svg viewBox="0 0 640 360" role="img" aria-label="Schematic map of robot evaluation approaches by reproducibility and realism" style="width:100%;max-width:640px;height:auto">
@@ -28,49 +29,49 @@ Broadly, the community has tried 4 approaches. Figure 1 places them on two axes:
   <text x="340" y="350" text-anchor="middle" font-size="13" style="fill:var(--ink)">realism and generality of what is tested →</text>
   <text x="22" y="170" text-anchor="middle" font-size="13" transform="rotate(-90 22 170)" style="fill:var(--ink)">reproducibility and scale →</text>
   <circle cx="470" cy="270" r="9" style="fill:var(--muted)"/>
-  <text x="484" y="266" font-size="13" style="fill:var(--ink)">Bespoke lab evals</text>
+  <text x="484" y="266" font-size="13" style="fill:var(--ink)">1 · Bespoke lab evals</text>
   <text x="484" y="282" font-size="11" style="fill:var(--muted)">realistic, not reproducible</text>
   <circle cx="230" cy="200" r="9" style="fill:var(--muted)"/>
-  <text x="244" y="196" font-size="13" style="fill:var(--ink)">Standardized real benchmarks</text>
+  <text x="244" y="196" font-size="13" style="fill:var(--ink)">2 · Standardized real benchmarks</text>
   <text x="244" y="212" font-size="11" style="fill:var(--muted)">control by removing variety</text>
   <circle cx="120" cy="50" r="9" style="fill:var(--muted)"/>
-  <text x="134" y="46" font-size="13" style="fill:var(--ink)">Sim benchmarks (LIBERO, …)</text>
+  <text x="134" y="46" font-size="13" style="fill:var(--ink)">3 · Sim benchmarks (LIBERO, …)</text>
   <text x="134" y="62" font-size="11" style="fill:var(--muted)">perfectly reproducible, narrow, saturated</text>
   <circle cx="380" cy="80" r="10" style="fill:var(--s1)"/>
-  <text x="394" y="76" font-size="13" font-weight="700" style="fill:var(--ink)">Real-to-sim</text>
+  <text x="394" y="76" font-size="13" font-weight="700" style="fill:var(--ink)">4 · Real2Sim</text>
   <text x="394" y="92" font-size="11" style="fill:var(--muted)">train on real, test in sim</text>
   <circle cx="545" cy="170" r="10" style="fill:var(--s2)"/>
-  <text x="530" y="150" font-size="13" font-weight="700" text-anchor="end" style="fill:var(--ink)">Distributed real</text>
+  <text x="530" y="150" font-size="13" font-weight="700" text-anchor="end" style="fill:var(--ink)">5 · Distributed real</text>
   <text x="530" y="134" font-size="11" text-anchor="end" style="fill:var(--muted)">pairwise, across many labs</text>
 </svg>
-<figcaption>A map of the approaches discussed below. The 3 older approaches trade off reproducibility/scale and realism/generality; the 2 newer ones, in color, try to get both.</figcaption>
+<figcaption>A map of the approaches discussed below. The 3 older approaches (1–3) trade off reproducibility/scale and realism/generality; the 2 newer ones (4–5), in color, try to get both.</figcaption>
 </figure>
 
-## The two standard approaches
-
-### Real-world benchmarks
+## Approach 1: Bespoke lab evaluations
 
 The default, then and now, is that each lab evaluates on its own setup. You choose tasks that highlight the behavior your method is good at, re-implement a baseline, run both, and tweak it a little until your method wins most of the time. Karl was upfront that his own papers do this too. The issue isn't bad faith; it's that nobody else can recreate your exact scene and lighting, and often you can't either a month later.
 
-One response is to standardize the real world. Benchmarks of this kind come with a manual: 3D-printable objects or a shopping list of exact items, a prescribed robot and software stack, fixed camera positions, sometimes even lights mounted around the robot. Each hard-to-control factor gets standardized one by one.
+## Approach 2: Standardized real-world benchmarks
+
+One response to Approach 1 is to standardize the real world. Benchmarks of this kind come with a manual: 3D-printable objects or a shopping list of exact items, a prescribed robot and software stack, fixed camera positions, sometimes even lights mounted around the robot. Each hard-to-control factor gets standardized one by one.
 
 The cost is realism. To control the background, you put up a green screen or a cardboard box; to control objects, you use printed or manufactured ones; to control everything, you keep the number of tasks small. Doing well in such a clean, artificial setup says little about how a policy behaves next to a cluttered kitchen counter, even if you never trained on the benchmark's data.
 
-### Simulation benchmarks
+## Approach 3: Simulation benchmarks
 
-The other response is to give up on the real world and move to simulation: benchmarks like [LIBERO](https://libero-project.github.io) and [RoboCasa](https://robocasa.ai) ship a simulator, tasks, scoring criteria, and usually a training dataset. Simulation removes every problem above. You can reset the state exactly, freeze time while the policy computes its next action, and nothing about lighting or software ever drifts. The result is perfectly reproducible.
+The other response is to give up on the real world and move to simulation: benchmarks like [LIBERO](https://libero-project.github.io) and [RoboCasa](https://robocasa.ai) ship a simulator, tasks, scoring criteria, and usually a training dataset. Simulation removes every problem from Approaches 1 and 2. You can reset the state exactly, freeze time while the policy computes its next action, and nothing about lighting or software ever drifts. The result is perfectly reproducible.
 
 But 3 things go wrong:
 
 - **Fidelity and breadth.** Scenes tend to be visually crude and the task count is small, so these benchmarks barely test generalization.
 - **The shipped data is artificial.** Datasets are often generated by scripts rather than collected by people, and they look nothing like real teleoperation data. Training on the data that these sim benchmarks give can lead to different conclusions than training on real data; Seohong Park's [blog post](https://seohong.me/blog/behavioral-cloning-mystery/) digs into this.
-- **Saturation.** Every published LIBERO result from the past year all sit above 95%, most above 98%, i.e. easy to overfit these benchmarks.
+- **Saturation.** Every published LIBERO result from the past year sits above 95%, most above 98%, i.e. these benchmarks are easy to overfit.
 
 Newer simulators such as [RoboLab](https://arxiv.org/abs/2604.09860) and [MolmoSpaces](https://allenai.org/blog/molmospaces) look much better and not saturated yet, however.
 
-Bascially, these standard sim benchmarks are often a poor indicator of how good a model really is. A better recipe is to **train on real data**, as we want to anyway, and use a simulator only for **evaluation**, after checking that its signal is trustworthy, which brings us to Real2Sim evaluation.
+Basically, these standard sim benchmarks are often a poor indicator of how good a model really is. A better recipe is to **train on real data**, as we want to anyway, and use a simulator only for **evaluation**, after checking that its signal is trustworthy, which brings us to Approach 4.
 
-## Real2Sim evaluation
+## Approach 4: Real2Sim evaluation
 
 In Real2Sim evaluation, you train a generalist policy on a large real-robot dataset, exactly as you would for deployment, and only the evaluation runs in simulation. You keep the scalability and reproducibility of sim while still testing the policy you actually care about, rather than a proxy fine-tuned on a toy dataset. The question is whether the sim's verdict matches reality.
 
@@ -102,7 +103,7 @@ where $$R_i$$ and $$S_i$$ are policy $$i$$'s real and sim success rates. Swappin
 
 The first preset shows a sim whose numbers look nothing like reality but which ranks every policy correctly: MMRV is zero, and for research decisions that sim is fine. The second shows the failure that actually hurts. The best real policy looks mediocre in sim, so you'd abandon the idea that was working.
 
-### PolaRiS: a real-to-sim evaluation in practice
+### PolaRiS: Approach 4 in practice
 
 [PolaRiS](https://polaris-evals.github.io) paper from earlier this year tested this idea end to end. Figure 2 shows the pipeline.
 
@@ -166,15 +167,15 @@ A question from the audience: isn't it a problem that the model being evaluated 
 
 ### Where this is heading
 
-Two trends should make real-to-sim easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction. Second, policies trained on more data have more robust visual features. Karl expects these to meet: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
+Two trends should make Approach 4 easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction. Second, policies trained on more data have more robust visual features. Karl expects these to meet: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
 
-## Is simulation enough?
+### Is Real2Sim enough?
 
-Probably not, at least for now. The tasks we can simulate with acceptable accuracy today are mostly rigid-object and articulated-object tasks. Deformables, cloth, liquids, and contact-rich physics remain hard, and those are exactly the tasks where generalist policies are supposed to shine; laundry folding is the obvious example. Better generative models may close this gap, but today sim alone won't give us a general evaluation of the policies we want to train. Real-world evaluation is still necessary, so the question becomes how to make it reliable.
+Probably not, at least for now. The tasks we can simulate with acceptable accuracy today are mostly rigid-object and articulated-object tasks. Deformables, cloth, liquids, and contact-rich physics remain hard, and those are exactly the tasks where generalist policies are supposed to shine; laundry folding is the obvious example. Better generative models may close this gap, but today sim alone won't give us a general evaluation of the policies we want to train. Real-world evaluation is still necessary, so the question becomes how to make it reliable without falling back on Approaches 1 or 2.
 
-## Distributed real-world evaluation
+## Approach 5: Distributed real-world evaluation
 
-The idea behind Karl's [RoboArena](https://robo-arena.github.io) is to stop trying to make every environment identical over time, and instead make each comparison fair.
+The idea behind Karl's [RoboArena](https://robo-arena.github.io) is to stop trying to make every environment identical over time, as Approach 2 does, and instead make each comparison fair.
 
 **Standardize pairwise, not globally.** Two policies run back to back on the same task, in the same scene, and the evaluator doesn't know which is which. If both rollouts happen within roughly five minutes under nearly identical conditions, that single comparison is fair, even though conditions differ completely across days, labs, robots, and tasks. All the silent factors from the beginning of this post (lighting, camera bumps, latency) affect both policies equally within a pair.
 
@@ -210,7 +211,7 @@ A few more advantages Karl highlighted:
 
 Most of this lecture assumed the thing being evaluated is an end-to-end policy: images in, actions out. A growing share of robotics work, including RAX, looks different: code-as-policy and agentic systems where a model writes, runs, and revises programs that call perception and control tools. I've been thinking about what a rigorous, real-world, cross-embodiment evaluation for those systems would look like. My current view is that the most rigorous version eventually resembles an arena: a leaderboard built from pairwise human preferences, for the three reasons above. It sidesteps most reproducibility problems, it supports variety across scenes, embodiments, and tasks, and it captures qualitative information.
 
-In this picture, real-to-sim (PolaRiS-style) is the fast, scalable inner loop. Distributed real-world evaluations like RoboArena and [RoboDojo-RealEval](https://robodojo-benchmark.com) are the slow, hard "last mile" that the sim loop can't cover. Agentic systems are good candidates for real-to-sim because they can be pointed at any environment, but in my own tests, generating sims with RoboSimStudio didn't hold up on genuinely challenging tasks. Better inverse graphics from VLMs could change that.
+In this picture, Approach 4 (Real2Sim, PolaRiS-style) is the fast, scalable inner loop. Approach 5, distributed real-world evaluations like RoboArena and [RoboDojo-RealEval](https://robodojo-benchmark.com), is the slow, hard "last mile" that the sim loop can't cover. Agentic systems are good candidates for Approach 4 because they can be pointed at any environment, but in my own tests, generating sims with RoboSimStudio didn't hold up on genuinely challenging tasks. Better inverse graphics from VLMs could change that.
 
 The open problems I see for an agentic arena:
 
