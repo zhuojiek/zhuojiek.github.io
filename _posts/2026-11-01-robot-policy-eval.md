@@ -18,7 +18,7 @@ Every research field runs the same loop: have an idea, implement it, measure whe
 
 Consider everything that can differ between two evaluation runs of the same policy on the same task: the background, the camera angle (someone bumps the camera after a week of evals, forcing recalibration), the lighting, the initial placement of objects, the table height, the software running on the robot. Even network latency matters: if the policy is served from the cloud, a slower connection makes it less reactive and its success rate plummets.
 
-What makes these factors dangerous is that they are *silent*. None of them throws an error. They just shift the score a little, which is the hardest kind of regression to catch. And the problem compounds as policies become more general: instead of one task in one scene, we now need to evaluate many tasks, in many environments, over longer horizons, in richer scenes, and each of those makes control harder.
+What makes these factors dangerous is that they are *silent*. None of them throws an error. They just shift the score a little, which hard to catch. And the problem compounds as policies become more general: instead of one task in one scene, we now need to evaluate many tasks, in many environments, over longer horizons, in richer scenes, and each of those makes control harder.
 
 Broadly, the community has tried 5 approaches, numbered here in the order this post covers them. Figure 1 places them on 2 axes: how reproducible and scalable an evaluation is, and how realistic and general it is.
 
@@ -49,13 +49,13 @@ Broadly, the community has tried 5 approaches, numbered here in the order this p
 
 ## Approach 1: Bespoke lab evaluations
 
-The default, then and now, is that each lab evaluates on its own setup. You choose tasks that highlight the behavior your method is good at, re-implement a baseline, run both, and tweak it a little until your method wins most of the time. Karl was upfront that his own papers do this too. The issue isn't bad faith; it's that nobody else can recreate your exact scene and lighting, and often you can't either a month later.
+The default, then and now, is that each lab evaluates on its own setup. You choose tasks that highlight the behavior your method is good at, re-implement a baseline, run both, and tweak it a little until your method wins most of the time. Karl was upfront that his own papers do this too. The issue isn't usually bad faith; it's that nobody else can recreate your exact scene and lighting, and often you can't either a month later.
 
 ## Approach 2: Standardized real-world benchmarks
 
 One response to Approach 1 is to standardize the real world. Benchmarks of this kind come with a manual: 3D-printable objects or a shopping list of exact items, a prescribed robot and software stack, fixed camera positions, sometimes even lights mounted around the robot. Each hard-to-control factor gets standardized one by one.
 
-The cost is realism. To control the background, you put up a green screen or a cardboard box; to control objects, you use printed or manufactured ones; to control everything, you keep the number of tasks small. Doing well in such a clean, artificial setup says little about how a policy behaves next to a cluttered kitchen counter, even if you never trained on the benchmark's data.
+This comes at the cost of realism. To control the background, you put up a green screen or a cardboard box; to control objects, you use printed or manufactured ones; to control everything, you keep the number of tasks small. Doing well in such a clean, artificial setup says little about how a policy behaves next to a cluttered kitchen counter, even if you never trained on the benchmark's data.
 
 ## Approach 3: Simulation benchmarks
 
@@ -160,9 +160,9 @@ Fitting the $$\theta$$'s to the observed outcomes gives the leaderboard (Elo rat
 
 A few more advantages of the Arena approach:
 
-- **Richer signal than success/failure.** Evaluators can leave free-text notes ("slow", "struggles with deformables", "great recovery"), which build up into a qualitative profile of each policy that a success rate from binary labels can't give you.
-- **Evaluators steer toward the frontier.** When you ask people to tell two policies apart, they get creative and design tasks that tease out the differences. The evaluation distribution then drifts toward wherever the models actually differ, instead of staying on tasks every model already solves.
-- **Variety is embraced, not removed.** Different labs, scenes, embodiments, and tasks are all welcome; the pairwise design absorbs the variation instead of fighting it.
+- **Richer signal than success/failure.** Evaluators can leave natural prose notes ("slow", "struggles with deformables", "great recovery"), which leads to a qualitative profile of each policy that a success rate from binary labels can't give you.
+- **Evaluators steer toward the frontier.** When you ask people to tell 2 policies apart, they get creative and design tasks that tease out the differences. The evaluation distribution then drifts toward wherever the models actually differ, instead of staying on tasks every model already solves.
+- **Variety is embraced, not removed.** Different labs, scenes, embodiments, and tasks are all welcome; with enough comparisons, the pairwise method absorbs the stochasticity.
 
 **Incentives are the hard part.** Who runs all these evaluations? Maybe if you want your policy to be evaluated, you must evaluate 20 others. For a group building generalist policies this is actually the rational choice, because evaluating only in your own environment can't tell you whether your policy generalizes. On the LLM side, LMArena has the incentive of early access to frontier models, so maybe that's something that can also be replicated.
 
