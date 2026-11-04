@@ -126,7 +126,7 @@ where $$R_i$$ and $$S_i$$ are policy $$i$$'s real and sim success rates.
 
 ### Where this is heading
 
-2 trends should make Approach 4 easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction. Second, policies trained on more data have more robust visual features. Karl expects these to meet: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
+2 trends should make Approach 4 easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction, see RoboSimStudio or Moonlake. Second, policies trained on more data have more robust visual features. I expect both of these factors to contribute to better performance: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
 
 ### Is Real2Sim enough?
 
