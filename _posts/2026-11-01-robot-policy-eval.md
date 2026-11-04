@@ -9,7 +9,8 @@ tags:
   - Agents
 ---
 
-Last Friday, [Karl Pertsch](https://kpertsch.github.io) gave a lecture on generalist policy eval for the VLA seminar. Sergey's introduction summed up the problem: every paper we read this semester was the best at something, according to an eval. *But what makes an eval good?* Inspied by the lecture, this post walks through some questions: why evaluating robot policies is hard, the 3 standard approaches (**Approaches 1–3**) and their limitations, and 2 newer approaches (**Approaches 4–5**) that are better suited to generalist policies. I end with my own thoughts on what this means for evaluating agentic robot systems like [RAX](/publication/2026-10-25-rax-xarm), which I've been working on.
+Last Friday, [Karl Pertsch](https://kpertsch.github.io) gave a lecture on generalist policy eval for the VLA seminar. Sergey's introduction summed up the problem: every paper we read this semester was the best at something, according to an eval. *But what makes an eval good?* Inspired by the lecture, this post walks through some questions: why evaluating robot policies is hard, the 3 standard approaches (**Approaches 1–3**) and their limitations, and 2 newer approaches (**Approaches 4–5**) that are better suited to generalist policies. I end with my own thoughts on what this means for evaluating agentic robot systems like [RAX](/publication/2026-10-25-rax-xarm), which I've been working on.
+
 
 ## Why robot evaluation is hard
 
