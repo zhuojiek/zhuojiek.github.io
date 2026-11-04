@@ -166,7 +166,7 @@ A question from the audience: isn't it a problem that the model being evaluated 
 
 ### Where this is heading
 
-Two trends should make Approach 4 easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction. Second, policies trained on more data have more robust visual features. Karl expects these to meet: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
+2 trends should make Approach 4 easier. First, building sim environments is getting much cheaper: agents like Astra can now go from a photo or video of a real scene to a simulated version by generating assets and composing them, without neural reconstruction. Second, policies trained on more data have more robust visual features. Karl expects these to meet: simulators with fewer artifacts and models less bothered by them, until real-trained models can be evaluated off the shelf in sim with no co-training step.
 
 ### Is Real2Sim enough?
 
@@ -176,7 +176,7 @@ Probably not, at least for now. The tasks we can simulate with acceptable accura
 
 The idea behind [RoboArena](https://robo-arena.github.io) is to stop trying to make every environment identical over time, as Approach 2 does, and instead make each comparison fair.
 
-**Standardize pairwise, not globally.** Two policies run back to back on the same task, in the same scene, and the evaluator doesn't know which is which. If both rollouts happen within roughly five minutes under nearly identical conditions, that single comparison is fair, even though conditions differ completely across days, labs, robots, and tasks. All the silent factors from the beginning of this post (lighting, camera bumps, latency) affect both policies equally within a pair.
+**Standardize pairwise, not globally.** Arena style means 2 policies run back to back on the same task (roughly within, say 5 minutes), in the same scene, and the human evaluator doesn't know which is which. If both rollouts happen within roughly 5 minutes under nearly identical conditions, that single comparison is probably fair. All the silent regressions from the beginning of this post (lighting, camera bumps, latency) affect both policies relatively equally within a pair.
 
 **Aggregate pairs into a ranking.** Many local comparisons are combined into one global ranking, as [LMArena](https://lmarena.ai) does for language models. Under the Bradley–Terry model, each policy $$i$$ has a latent strength $$\theta_i$$, and
 
@@ -198,19 +198,17 @@ Fitting the $$\theta$$'s to the observed outcomes gives the leaderboard (Elo rat
   <p class="demo-note">Simulated, not RoboArena data. Each match samples a winner from the Bradley–Terry probability above, using the hidden strengths.</p>
 </div>
 
-A few more advantages Karl highlighted:
+A few more advantages of the Arena approach:
 
-- **Richer signal than success/failure.** Evaluators can leave free-text notes ("slow", "struggles with deformables", "great recovery"), which build up into a qualitative profile of each policy that a success rate can't give you.
+- **Richer signal than success/failure.** Evaluators can leave free-text notes ("slow", "struggles with deformables", "great recovery"), which build up into a qualitative profile of each policy that a success rate from binary labels can't give you.
 - **Evaluators steer toward the frontier.** When you ask people to tell two policies apart, they get creative and design tasks that tease out the differences. The evaluation distribution then drifts toward wherever the models actually differ, instead of staying on tasks every model already solves.
 - **Variety is embraced, not removed.** Different labs, scenes, embodiments, and tasks are all welcome; the pairwise design absorbs the variation instead of fighting it.
 
-**Incentives are the hard part.** Who runs all these evaluations? The answer is to make it a trade: you evaluate other people's policies in your lab, and they evaluate yours in theirs. For a group building generalist policies this is actually the rational choice, because evaluating only in your own environment can't tell you whether your policy generalizes. LMArena has an easier incentive, since evaluators often get early access to frontier models.
+**Incentives are the hard part.** Who runs all these evaluations? Maybe if you want your policy to be evaluated, you must evaluate 20 others. For a group building generalist policies this is actually the rational choice, because evaluating only in your own environment can't tell you whether your policy generalizes. On the LLM side, LMArena has the incentive of early access to frontier models, so maybe that's something that can also be replicated.
 
 ## Thoughts: evaluation for agentic robotics
 
-Most of this lecture assumed the thing being evaluated is an end-to-end policy: images in, actions out. A growing share of robotics work, including RAX, looks different: code-as-policy and agentic systems where a model writes, runs, and revises programs that call perception and control tools. I've been thinking about what a rigorous, real-world, cross-embodiment evaluation for those systems would look like. My current view is that the most rigorous version eventually resembles an arena: a leaderboard built from pairwise human preferences, for the three reasons above. It sidesteps most reproducibility problems, it supports variety across scenes, embodiments, and tasks, and it captures qualitative information.
-
-In this picture, Approach 4 (Real2Sim, PolaRiS-style) is the fast, scalable inner loop. Approach 5, distributed real-world evaluations like RoboArena and [RoboDojo-RealEval](https://robodojo-benchmark.com), is the slow, hard "last mile" that the sim loop can't cover. Agentic systems are good candidates for Approach 4 because they can be pointed at any environment, but in my own tests, generating sims with RoboSimStudio didn't hold up on genuinely challenging tasks. Better inverse graphics from VLMs could change that.
+Most of this lecture assumed the thing being evaluated is an end-to-end policy, like VLAs and WAMs. A growing share of robotics work, including ENPIRE and RAX, looks different: code-as-policy and agentic systems where a model writes, runs, and revises programs that call perception and control tools. I've been thinking about what a rigorous, real-world, cross-embodiment evaluation for those systems would look like. My current view is that the most rigorous version eventually resembles the arena mentioned above: a leaderboard built from pairwise human preferences, for the three reasons above. As explained above, it sidesteps most reproducibility problems, supports variety across scenes, embodiments, and tasks, and captures qualitative information.
 
 The open problems I see for an agentic arena:
 
