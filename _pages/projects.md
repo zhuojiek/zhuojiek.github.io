@@ -9,9 +9,9 @@ description: "A list of some things I've built."
 ## Robot learning & RL
 
 <div class="project" markdown="1">
-### Offline RL with flow policies <span class="plinks">[write-up](/posts/offline-rl)</span>
-- SAC+BC, IQL, and flow Q-learning on OGBench and navigation task.
-<img src="/images/featured.gif" alt="OGBench cube task" width="200" loading="lazy">
+### Hybrid algorithms beat offline RLHF <span class="plinks">[summary](/publication/2026-06-05-hybridrlhf) · [paper](/files/CS_185_Final_Report.pdf)</span>
+- CS 185/285 final project. Benchmarked DPO, IPO, AOT, GRPO, DrGRPO and GSPO as online and offline baselines, then built a hybrid with a scheduled AOT-to-DPO loss, confidence-weighted pairs and reward-model reranking: 0.865 win rate vs. 0.763 for the best baseline.
+<img src="/images/research/rlhf-winrates.png" alt="Win rates of RLHF methods" width="340" loading="lazy">
 </div>
 
 <div class="project" markdown="1">
@@ -30,11 +30,6 @@ description: "A list of some things I've built."
 ### Policy gradients <span class="plinks">[write-up](/posts/policy-gradients)</span>
 - REINFORCE with reward-to-go, learned baseline, and GAE on CartPole, HalfCheetah, and LunarLander
 <img src="/images/featured3.gif" alt="HalfCheetah policy" width="340" loading="lazy">
-</div>
-
-<div class="project" markdown="1">
-### LLM RL with GRPO
-- GRPO and REINFORCE for LLM post-training on MATH with verifiable rewards; ablations over PPO epochs, KL coefficient, and clipping
 </div>
 
 

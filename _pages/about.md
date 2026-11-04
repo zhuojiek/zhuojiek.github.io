@@ -22,13 +22,13 @@ redirect_from:
 <section class="intro">
   <p>Hi, I'm Zhuojie, a 3rd year CS undergrad at UC Berkeley.</p>
   <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I am studying to be a full-stack roboticist and to get familiar with the <a href="/coursework/">entire stack</a>, from actuators and control to distributed training and RL.</p>
-  <p class="seeking"><strong>I'm looking for a research opportunity in robot learning.</strong> If you're a robotics researcher with an open project, please reach out at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
 </section>
 
 <section>
   <h2 class="sec">Recent activity <a href="/archive/">Archives »</a></h2>
   {% assign writing = site.posts | where_exp: "p", "p.section != 'course'" | where_exp: "p", "p.section != 'stream'" %}
-  {% assign activity = writing | concat: site.publications | sort: "date" | reverse %}
+  {% assign home_pubs = site.publications | where_exp: "p", "p.home != false" %}
+  {% assign activity = writing | concat: home_pubs | sort: "date" | reverse %}
   <ul class="post-list">
   {% for a in activity limit: 6 %}
     <li>
@@ -43,7 +43,7 @@ redirect_from:
   <h2 class="sec">Research <a href="/research/">All »</a></h2>
   <ol class="research">
   {% assign groups = "current,ongoing,workshop,course" | split: "," %}
-  {% for g in groups %}{% assign items = site.publications | where: "group", g | sort: "order" %}{% for p in items %}
+  {% for g in groups %}{% assign items = site.publications | where: "group", g | where_exp: "p", "p.home != false" | sort: "order" %}{% for p in items %}
     <li>
       <a class="r-title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
       <div class="r-authors">{{ p.authors | replace: "Zhuojie Kuang", "<strong>Zhuojie Kuang</strong>" }}</div>

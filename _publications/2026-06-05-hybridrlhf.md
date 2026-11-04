@@ -5,6 +5,7 @@ permalink: /publication/2026-06-05-hybridrlhf
 date: 2026-06-05
 group: course
 order: 1
+home: false
 kind: Research project
 authors: "Zhuojie Kuang, Richik Pal, Eddie Cui"
 venue: "CS 185/285 (Deep RL) final project"
