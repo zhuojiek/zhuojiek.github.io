@@ -20,7 +20,7 @@ redirect_from:
 </section>
 
 <section class="intro">
-  <p>Hi, I'm Zhuojie, a 3rd year CS undergrad at UC Berkeley. I'm currently a research intern at <a href="https://www.roboticscenbloter.ai">Robotics Center</a> and previously did research on <a href="https://darrellgroup.github.io">unified models</a>.</p>
+  <p>Hi, I'm Zhuojie, a 3rd year CS undergrad at UC Berkeley.</p>
   <p>I am interested in developing robots that continuously improve through real and simulated interactions, using both learned approaches (VLAs, WAMs, RL) and agentic reasoning (CaP, Agentic Robotics). I am studying to be a full-stack roboticist and to get familiar with the <a href="/coursework/">entire stack</a>, from actuators and control to distributed training and RL.</p>
   <p class="seeking"><strong>I'm looking for a research opportunity in robot learning.</strong> If you're a robotics researcher with an open project, please reach out at <a href="mailto:anthonykuang@berkeley.edu">anthonykuang@berkeley.edu</a>.</p>
 </section>
