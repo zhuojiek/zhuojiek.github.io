@@ -1,6 +1,6 @@
 ---
 title: "How should we evaluate generalist (and agentic) robot policies?"
-description: "Notes from Karl Pertsch's lecture in CS 294-318."
+description: ""
 date: 2026-11-01
 permalink: /posts/robot-policy-eval
 interactive: true
