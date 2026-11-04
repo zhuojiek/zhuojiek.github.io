@@ -130,7 +130,7 @@ where $$R_i$$ and $$S_i$$ are policy $$i$$'s real and sim success rates.
 
 ### Is Real2Sim enough?
 
-Probably not, at least for now. The tasks we can simulate with acceptable accuracy today are mostly rigid-object and articulated-object tasks. Deformables, cloth, liquids, and contact-rich physics remain hard, and those are exactly the tasks where generalist policies are supposed to shine; laundry folding is the obvious example. Better generative models may close this gap, but today sim alone won't give us a general evaluation of the policies we want to train. Real-world evaluation is still necessary, so the question becomes how to make it reliable without falling back on Approaches 1 or 2.
+Probably not, at least for now. The tasks we can simulate with acceptable accuracy today are mostly rigid-object and articulated-object tasks. Deformables, cloth, liquids, and contact-rich physics remain hard. Better generative models may close this gap, but today sim alone won't give us a general evaluation of the policies we want to train. Real-world evaluation is still obviously necessary.
 
 ## Approach 5: Distributed real-world evaluation
 
